@@ -2,7 +2,13 @@ namespace System_Rezerwacji_Biletow;
 
 public class TrasaManagement : ITrasaManagement
 {
-    private List<Trasa> _trasy;
+    private List<Trasa>? _trasy;
+
+    public TrasaManagement()
+    {
+        LoadData("trasy.txt");
+        _trasy = new List<Trasa>();
+    }
     public void DodajTrase(Trasa trasa)
     {
         _trasy.Add(trasa);
