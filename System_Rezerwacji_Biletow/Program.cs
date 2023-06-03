@@ -201,6 +201,7 @@ internal class Program
                     Console.WriteLine(
                         "Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     koniecProgramu = true;
+                    Console.ReadKey();
                     break;
                 }
             }
