@@ -57,7 +57,14 @@ public class TrasaManagement : ITrasaManagement
         }
     }
 
-    public void SaveData(string path) // zapis tras do zaimplementowania
+    public void SaveData(string path)
     {
+        using (StreamWriter sw = new StreamWriter(path))
+        {
+            foreach (Trasa t in _trasy)
+            {
+                sw.WriteLine($"{t.GetId()};{t.GetStart().GetMiasto()}{t.GetCel().GetMiasto()};{t.GetDystans()}");
+            }
+        }
     }
 }
