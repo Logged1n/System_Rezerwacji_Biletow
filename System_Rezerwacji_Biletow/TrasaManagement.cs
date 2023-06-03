@@ -6,7 +6,6 @@ public class TrasaManagement : ITrasaManagement
 
     public TrasaManagement()
     {
-        LoadData("trasy.txt");
         _trasy = new List<Trasa>();
     }
     public void DodajTrase(Trasa trasa)
@@ -33,9 +32,29 @@ public class TrasaManagement : ITrasaManagement
         }
         return null; // tu obsluga wyjatku jak nie znajdzie odpowiedniego id, ewentualnie wczesniej jakas walidacja
     }
+    
+    /*ZAKLADANY FORMAT PLIKU TXT Z TRASAMI:
+     id;startMiastoLotniska;celMiastoLotniska;dystans\n
+     trzeba pamietac ze najpierw musimy wczytac lotniska, nastepnie wziac je za pomoca GetLotnisko("miastoLotniska"). Mamy zalozenie, ze miasta lotnisk sie nie powtarzaja.*/
 
-    public void LoadData(string path) // odczyt tras do zaimplementowania
+    public void LoadData(string path, LotniskoManagement lotniskoManagement)
     {
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string[] line;
+            string id;
+            Lotnisko start, cel;
+            int dystans;
+            while ((line = reader.ReadLine().Split(";")) != null)
+            {
+                id = line[0];
+                start = lotniskoManagement.GetLotnisko(line[1]);
+                cel = lotniskoManagement.GetLotnisko(line[2]);
+                dystans = Convert.ToInt32(line[3]);
+                Trasa t = new Trasa(id, start, cel, dystans);
+                _trasy.Add(t);
+            }
+        }
     }
 
     public void SaveData(string path) // zapis tras do zaimplementowania

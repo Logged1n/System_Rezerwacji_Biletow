@@ -7,6 +7,13 @@ public class Trasa
     private Lotnisko _cel;
     private int _dystans;
 
+    public Trasa(string id, Lotnisko start, Lotnisko cel, int dystans) // ROZNICA WZGLEDEM UML, nie bylo tego konstruktora
+    {
+        _id = id;
+        _start = start;
+        _cel = cel;
+        _dystans = dystans;
+    }
     public string GetId()
     {
         return _id;
