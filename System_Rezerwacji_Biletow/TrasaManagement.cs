@@ -1,6 +1,6 @@
 namespace System_Rezerwacji_Biletow;
 
-public class TrasaManagement : ITrasaManagement
+public class TrasaManagement : IManagement<Trasa>, IDataProvider<Lotnisko>
 {
     private List<Trasa>? _trasy;
     private static TrasaManagement _instance; // ZMIANA WZGLEDEM UML
@@ -19,22 +19,22 @@ public class TrasaManagement : ITrasaManagement
 
         return _instance;
     }
-    public void DodajTrase(Trasa trasa)
+    public void Dodaj(Trasa trasa)
     {
         _trasy.Add(trasa);
     }
 
-    public void UsunTrase(Trasa trasa)
+    public void Usun(Trasa trasa)
     {
         _trasy.Remove(trasa);
     }
 
-    public List<Trasa> GetTrasy()
+    public List<Trasa> GetList()
     {
         return _trasy;
     }
 
-    public Trasa GetTrasa(string id)
+    public Trasa GetSingle(string id)
     {
         foreach (Trasa t in _trasy)
         {
@@ -47,8 +47,9 @@ public class TrasaManagement : ITrasaManagement
     /*ZAKLADANY FORMAT PLIKU TXT Z TRASAMI:
      id;startMiastoLotniska;celMiastoLotniska;dystans\n
      trzeba pamietac ze najpierw musimy wczytac lotniska, nastepnie wziac je za pomoca GetLotnisko("miastoLotniska"). Mamy zalozenie, ze miasta lotnisk sie nie powtarzaja.*/
+    
 
-    public void LoadData(string path, LotniskoManagement lotniskoManagement)
+    public void LoadData(string path, IManagement<Lotnisko> management = null)
     {
         using (StreamReader reader = new StreamReader(path))
         {
@@ -59,8 +60,8 @@ public class TrasaManagement : ITrasaManagement
             while ((line = reader.ReadLine().Split(";")) != null)
             {
                 id = line[0];
-                start = lotniskoManagement.GetLotnisko(line[1]);
-                cel = lotniskoManagement.GetLotnisko(line[2]);
+                start = management.GetSingle(line[1]);
+                cel = management.GetSingle(line[2]);
                 dystans = Convert.ToInt32(line[3]);
                 Trasa t = new Trasa(id, start, cel, dystans);
                 _trasy.Add(t);
