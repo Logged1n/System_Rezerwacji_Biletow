@@ -3,10 +3,21 @@ namespace System_Rezerwacji_Biletow;
 public class TrasaManagement : ITrasaManagement
 {
     private List<Trasa>? _trasy;
+    private static TrasaManagement _instance; // ZMIANA WZGLEDEM UML
 
-    public TrasaManagement()
+    private TrasaManagement()
     {
         _trasy = new List<Trasa>();
+    }
+
+    public static TrasaManagement GetInstance() // SINGLETON, kazego mangementu chcemy miec dokldnie jedna instancje
+    {
+        if (_instance == null)
+        {
+            _instance = new TrasaManagement();
+        }
+
+        return _instance;
     }
     public void DodajTrase(Trasa trasa)
     {
@@ -63,7 +74,7 @@ public class TrasaManagement : ITrasaManagement
         {
             foreach (Trasa t in _trasy)
             {
-                sw.WriteLine($"{t.GetId()};{t.GetStart().GetMiasto()}{t.GetCel().GetMiasto()};{t.GetDystans()}");
+                sw.WriteLine($"{t.GetId()};{t.GetStart().GetMiasto()}{t.GetCel().GetMiasto()};{t.GetDystans()}\n");
             }
         }
     }
