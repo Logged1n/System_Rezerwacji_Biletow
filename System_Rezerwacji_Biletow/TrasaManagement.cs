@@ -66,7 +66,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
                 cel = _lotniskoManagement.GetSingle(line[2]);
                 dystans = Convert.ToInt32(line[3]);
                 Trasa t = new Trasa(id, start, cel, dystans);
-                _trasy.Add(t);
+                this.Dodaj(t);
             }
         }
     }
@@ -77,7 +77,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
         {
             foreach (Trasa t in _trasy)
             {
-                sw.WriteLine($"{t.GetId()};{t.GetStart().GetNazwa()}{t.GetCel().GetNazwa()};{t.GetDystans()}\n");
+                sw.WriteLine($"{t.GetId()};{t.GetStart().GetNazwa()}{t.GetCel().GetNazwa()};{t.GetDystans()}");
             }
         }
     }

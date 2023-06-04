@@ -3,13 +3,15 @@ namespace System_Rezerwacji_Biletow;
 public class LotDirector
 {
     private ILotBuilder _lotBuilder;
-    
-    public void SetLotBuilder()
-    {}
+
+    public void SetLotBuilder(ILotBuilder lotBuilder)
+    {
+        _lotBuilder = lotBuilder;
+    }
 
     public LotDirector(ILotBuilder lotBuilder)
     {
-        _lotBuilder = lotBuilder;
+        this.SetLotBuilder(lotBuilder);
     }
 
     public Lot MakeLot()
