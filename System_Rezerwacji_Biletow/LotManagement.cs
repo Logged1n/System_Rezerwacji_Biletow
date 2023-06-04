@@ -4,10 +4,14 @@ public class LotManagement : ILotManagement
 {
     private List<Lot>? _loty;
     private static LotManagement _instance;
+    private SamolotManagement _samolotManagement;
+    private TrasaManagement _trasaManagement;
 
     private LotManagement()
     {
         _loty = new List<Lot>();
+        _samolotManagement = SamolotManagement.GetInstance();
+        _trasaManagement = TrasaManagement.GetInstance();
     }
 
     public static LotManagement GetInstance()
@@ -19,13 +23,8 @@ public class LotManagement : ILotManagement
 
         return _instance;
     }
-    
-    public void LoadData(string path, IManagement<Lot> management = null)
-    {
-        throw new NotImplementedException("Use other LoadData() implementation.");
-    }
 
-    public void LoadData(string path, SamolotManagement samolotManagement, TrasaManagement trasaManagement)
+    public void LoadData(string path)
     {
         throw new NotImplementedException();
     }

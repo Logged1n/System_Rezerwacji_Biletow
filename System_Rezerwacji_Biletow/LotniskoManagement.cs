@@ -1,9 +1,23 @@
 namespace System_Rezerwacji_Biletow;
 
-public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider<Lotnisko>
+public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
 {
     private List<Lotnisko>? _lotniska;
+    private static LotniskoManagement? _instance;
 
+    private LotniskoManagement()
+    {
+        _lotniska = new List<Lotnisko>();
+    }
+
+    public static LotniskoManagement GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new LotniskoManagement();
+        }
+        return _instance;
+    }
     public void Dodaj(Lotnisko item)
     {
         throw new NotImplementedException();
@@ -14,11 +28,11 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider<Lotnisko>
         throw new NotImplementedException();
     }
 
-    public Lotnisko GetSingle(string miasto)
+    public Lotnisko GetSingle(string nazwa)
     {
         foreach (Lotnisko l in _lotniska)
         {
-            if (l.GetMiasto() == miasto)
+            if (l.GetNazwa() == nazwa)
                 return l;
         }
 
@@ -30,7 +44,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider<Lotnisko>
         throw new NotImplementedException();
     }
 
-    public void LoadData(string path, IManagement<Lotnisko> management = null)
+    public void LoadData(string path)
     {
         throw new NotImplementedException();
     }

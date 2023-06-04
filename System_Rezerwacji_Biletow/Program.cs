@@ -198,8 +198,7 @@ internal class Program
                 case 7:
                 {
                     //TODO
-                    Console.WriteLine(
-                        "Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
+                    Console.WriteLine("Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     koniecProgramu = true;
                     Console.ReadKey();
                     break;

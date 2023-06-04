@@ -1,13 +1,15 @@
 namespace System_Rezerwacji_Biletow;
 
-public class TrasaManagement : IManagement<Trasa>, IDataProvider<Lotnisko>
+public class TrasaManagement : IManagement<Trasa>, IDataProvider
 {
     private List<Trasa>? _trasy;
     private static TrasaManagement _instance; // ZMIANA WZGLEDEM UML
+    private LotniskoManagement _lotniskoManagement;
 
     private TrasaManagement()
     {
         _trasy = new List<Trasa>();
+        _lotniskoManagement = LotniskoManagement.GetInstance();
     }
 
     public static TrasaManagement GetInstance() // SINGLETON, kazego mangementu chcemy miec dokldnie jedna instancje
@@ -49,7 +51,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider<Lotnisko>
      trzeba pamietac ze najpierw musimy wczytac lotniska, nastepnie wziac je za pomoca GetLotnisko("miastoLotniska"). Mamy zalozenie, ze miasta lotnisk sie nie powtarzaja.*/
     
 
-    public void LoadData(string path, IManagement<Lotnisko> management = null)
+    public void LoadData(string path)
     {
         using (StreamReader reader = new StreamReader(path))
         {
@@ -60,8 +62,8 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider<Lotnisko>
             while ((line = reader.ReadLine().Split(";")) != null)
             {
                 id = line[0];
-                start = management.GetSingle(line[1]);
-                cel = management.GetSingle(line[2]);
+                start = _lotniskoManagement.GetSingle(line[1]);
+                cel = _lotniskoManagement.GetSingle(line[2]);
                 dystans = Convert.ToInt32(line[3]);
                 Trasa t = new Trasa(id, start, cel, dystans);
                 _trasy.Add(t);
@@ -75,7 +77,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider<Lotnisko>
         {
             foreach (Trasa t in _trasy)
             {
-                sw.WriteLine($"{t.GetId()};{t.GetStart().GetMiasto()}{t.GetCel().GetMiasto()};{t.GetDystans()}\n");
+                sw.WriteLine($"{t.GetId()};{t.GetStart().GetNazwa()}{t.GetCel().GetNazwa()};{t.GetDystans()}\n");
             }
         }
     }

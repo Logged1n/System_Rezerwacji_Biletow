@@ -3,6 +3,20 @@ namespace System_Rezerwacji_Biletow;
 public class SamolotManagement : ISamolotManagement
 {
     private List<Samolot> _samoloty;
+    private static SamolotManagement _instance;
+
+    private SamolotManagement()
+    {
+        _samoloty = new List<Samolot>();
+    }
+    public static SamolotManagement GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new SamolotManagement();
+        }
+        return _instance;
+    }
     public void Dodaj(Samolot item)
     {
         throw new NotImplementedException();
@@ -23,7 +37,7 @@ public class SamolotManagement : ISamolotManagement
         throw new NotImplementedException();
     }
 
-    public void LoadData(string path, IManagement<Samolot> management = null)
+    public void LoadData(string path)
     {
         throw new NotImplementedException();
     }
