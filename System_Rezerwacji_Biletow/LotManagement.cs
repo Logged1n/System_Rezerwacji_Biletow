@@ -1,11 +1,11 @@
 namespace System_Rezerwacji_Biletow;
 
-public class LotManagement : ILotManagement
+public class LotManagement : ILotManagement, IDataProvider
 {
-    private List<Lot>? _loty;
+    private readonly List<Lot> _loty;
     private static LotManagement _instance;
-    private SamolotManagement _samolotManagement;
-    private TrasaManagement _trasaManagement;
+    private readonly SamolotManagement _samolotManagement;
+    private readonly TrasaManagement _trasaManagement;
 
     private LotManagement()
     {
@@ -51,7 +51,7 @@ public class LotManagement : ILotManagement
         {
             foreach (Lot l in _loty)
             {
-                sw.WriteLine($"{l.GetNumerLotu()};{l.GetTrasa().GetId()}{l.GetSamolot().GetId()};{l.GetDataOdlotu()};{l.GetDataPowrotu()}");
+                sw.WriteLine($"{l.NumerLotu};{l.Trasa.Id}{l.Samolot.GetId()};{l.DataOdlotu};{l.DataPowrotu}");
             }
         }
     }
@@ -75,12 +75,11 @@ public class LotManagement : ILotManagement
     {
         foreach (Lot l in _loty)
         {
-            if (l.GetNumerLotu() == numerLotu)
+            if (l.NumerLotu == numerLotu)
             {
                 return l;
             }
         }
-
         return null;
     }
 
