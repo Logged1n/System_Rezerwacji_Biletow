@@ -1,30 +1,42 @@
 namespace System_Rezerwacji_Biletow;
 
-public class TrasaManagement : ITrasaManagement
+public class TrasaManagement : IManagement<Trasa>, IDataProvider
 {
     private List<Trasa>? _trasy;
+    private static TrasaManagement _instance; // ZMIANA WZGLEDEM UML
+    private LotniskoManagement _lotniskoManagement;
 
-    public TrasaManagement()
+    private TrasaManagement()
     {
-        LoadData("trasy.txt");
         _trasy = new List<Trasa>();
+        _lotniskoManagement = LotniskoManagement.GetInstance();
     }
-    public void DodajTrase(Trasa trasa)
+
+    public static TrasaManagement GetInstance() // SINGLETON, kazego mangementu chcemy miec dokldnie jedna instancje
+    {
+        if (_instance == null)
+        {
+            _instance = new TrasaManagement();
+        }
+
+        return _instance;
+    }
+    public void Dodaj(Trasa trasa)
     {
         _trasy.Add(trasa);
     }
 
-    public void UsunTrase(Trasa trasa)
+    public void Usun(Trasa trasa)
     {
         _trasy.Remove(trasa);
     }
 
-    public List<Trasa> GetTrasy()
+    public List<Trasa> GetList()
     {
         return _trasy;
     }
 
-    public Trasa GetTrasa(string id)
+    public Trasa GetSingle(string id)
     {
         foreach (Trasa t in _trasy)
         {
@@ -33,12 +45,40 @@ public class TrasaManagement : ITrasaManagement
         }
         return null; // tu obsluga wyjatku jak nie znajdzie odpowiedniego id, ewentualnie wczesniej jakas walidacja
     }
+    
+    /*ZAKLADANY FORMAT PLIKU TXT Z TRASAMI:
+     id;startMiastoLotniska;celMiastoLotniska;dystans\n
+     trzeba pamietac ze najpierw musimy wczytac lotniska, nastepnie wziac je za pomoca GetLotnisko("miastoLotniska"). Mamy zalozenie, ze miasta lotnisk sie nie powtarzaja.*/
+    
 
-    public void LoadData(string path) // odczyt tras do zaimplementowania
+    public void LoadData(string path)
     {
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string[] line;
+            string id;
+            Lotnisko start, cel;
+            int dystans;
+            while ((line = reader.ReadLine().Split(";")) != null)
+            {
+                id = line[0];
+                start = _lotniskoManagement.GetSingle(line[1]);
+                cel = _lotniskoManagement.GetSingle(line[2]);
+                dystans = Convert.ToInt32(line[3]);
+                Trasa t = new Trasa(id, start, cel, dystans);
+                _trasy.Add(t);
+            }
+        }
     }
 
-    public void SaveData(string path) // zapis tras do zaimplementowania
+    public void SaveData(string path)
     {
+        using (StreamWriter sw = new StreamWriter(path))
+        {
+            foreach (Trasa t in _trasy)
+            {
+                sw.WriteLine($"{t.GetId()};{t.GetStart().GetNazwa()}{t.GetCel().GetNazwa()};{t.GetDystans()}\n");
+            }
+        }
     }
 }
