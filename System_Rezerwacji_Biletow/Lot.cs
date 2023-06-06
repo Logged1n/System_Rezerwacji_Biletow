@@ -5,7 +5,6 @@ public class Lot
     public string NumerLotu { get; }
     public Trasa Trasa { get; }
     public Samolot Samolot { get; }
-
     public DateTime DataOdlotu{ get;}
     public DateTime DataPowrotu { get; }
 

@@ -20,7 +20,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
     }
     public void Dodaj(Lotnisko item)
     {
-        throw new NotImplementedException();
+        _lotniska.Add(item);
     }
 
     public void Usun(Lotnisko item)

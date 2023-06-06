@@ -14,4 +14,9 @@ public class Trasa
         Cel = cel;
         Dystans = dystans;
     }
+
+    public override string ToString()
+    {
+        return $"ID: {Id}; Lotnisko startowe: {Start}; Lotnisko docelowe: {Cel}; Dystans: {Dystans} km;";
+    }
 }
