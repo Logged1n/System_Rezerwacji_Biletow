@@ -17,6 +17,6 @@ public class Trasa
 
     public override string ToString()
     {
-        return $"ID: {Id}; Lotnisko startowe: {Start}; Lotnisko docelowe: {Cel}; Dystans: {Dystans} km;";
+        return $"| {Id} | {Start} | {Cel} | {Dystans} km |";
     }
 }

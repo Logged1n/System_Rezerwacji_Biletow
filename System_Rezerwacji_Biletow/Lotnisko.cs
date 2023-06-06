@@ -15,6 +15,6 @@ public class Lotnisko
 
     public override string ToString()
     {
-        return $"(Kraj: {Kraj} Miasto: {Miasto} Nazwa: {Nazwa})";
+        return $"| {Kraj} | {Miasto} | {Nazwa} |";
     }
 }

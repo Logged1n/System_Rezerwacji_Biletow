@@ -6,6 +6,9 @@ internal class Program
     {
         LotniskoManagement lotniskoManagement = LotniskoManagement.GetInstance();
         TrasaManagement trasaManagement = TrasaManagement.GetInstance();
+        
+        lotniskoManagement.LoadData("lotniska.txt");
+        trasaManagement.LoadData("trasy.txt");
         var koniecProgramu = false;
         do
         {
@@ -117,13 +120,14 @@ internal class Program
                         {
                             case 1:
                             {
+                                int id = trasaManagement.GetList().Count;
                                 Console.WriteLine("Podaj nazwe lotniska poczatkowego nowej trasy: ");
                                 string nazwaPoczatek = Console.ReadLine();
                                 Console.WriteLine("Podaj nazwe lotniska docelowego nowej trasy: ");
                                 string nazwaCel = Console.ReadLine();
                                 Console.WriteLine("Podaj jakiego dystansu jest to trasa (w km): ");
                                 int dystans = Convert.ToInt32(Console.ReadLine());
-                                Trasa dodawanaTrasa = new Trasa("0",lotniskoManagement.GetSingle(nazwaPoczatek), lotniskoManagement.GetSingle(nazwaCel), dystans);
+                                Trasa dodawanaTrasa = new Trasa(id.ToString(),lotniskoManagement.GetSingle(nazwaPoczatek), lotniskoManagement.GetSingle(nazwaCel), dystans);
                                 trasaManagement.Dodaj(dodawanaTrasa);
                                 validChoice = true;
                                 break;
@@ -138,6 +142,7 @@ internal class Program
                             }
                             case 3:
                             {
+                                Console.WriteLine("|   ID   |  Start  |  Cel  |   Dystans [km]  |");
                                 foreach (var t in trasaManagement.GetList())
                                 {
                                     Console.WriteLine(t);

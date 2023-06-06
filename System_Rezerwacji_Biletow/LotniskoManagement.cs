@@ -20,6 +20,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
     }
     public void Dodaj(Lotnisko item)
     {
+        //Dodac sprawdzenie czy nazwa lotniska sie juz przypadkiem nie powtorzyla
         _lotniska.Add(item);
     }
 
@@ -46,7 +47,21 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
 
     public void LoadData(string path)
     {
-        throw new NotImplementedException();
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string line;
+            string[] splitedLine;
+            string kraj, miasto, nazwa;
+            while ((line = reader.ReadLine()) != null)
+            {
+                splitedLine = line.Split(";");
+                kraj = splitedLine[0];
+                miasto = splitedLine[1];
+                nazwa = splitedLine[2];
+                Lotnisko l = new Lotnisko(kraj, miasto, nazwa);
+                Dodaj(l);
+            }
+        }
     }
     
     public void SaveData(string path)
