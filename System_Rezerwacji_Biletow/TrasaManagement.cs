@@ -2,9 +2,9 @@ namespace System_Rezerwacji_Biletow;
 
 public class TrasaManagement : IManagement<Trasa>, IDataProvider
 {
-    private List<Trasa>? _trasy;
+    private readonly List<Trasa>? _trasy;
     private static TrasaManagement _instance; // ZMIANA WZGLEDEM UML
-    private LotniskoManagement _lotniskoManagement;
+    private readonly LotniskoManagement _lotniskoManagement;
 
     private TrasaManagement()
     {
@@ -40,16 +40,11 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
     {
         foreach (Trasa t in _trasy)
         {
-            if (t.GetId() == id)
+            if (t.Id == id)
                 return t;
         }
         return null; // tu obsluga wyjatku jak nie znajdzie odpowiedniego id, ewentualnie wczesniej jakas walidacja
     }
-    
-    /*ZAKLADANY FORMAT PLIKU TXT Z TRASAMI:
-     id;startMiastoLotniska;celMiastoLotniska;dystans\n
-     trzeba pamietac ze najpierw musimy wczytac lotniska, nastepnie wziac je za pomoca GetLotnisko("miastoLotniska"). Mamy zalozenie, ze miasta lotnisk sie nie powtarzaja.*/
-    
 
     public void LoadData(string path)
     {
@@ -66,7 +61,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
                 cel = _lotniskoManagement.GetSingle(line[2]);
                 dystans = Convert.ToInt32(line[3]);
                 Trasa t = new Trasa(id, start, cel, dystans);
-                _trasy.Add(t);
+                this.Dodaj(t);
             }
         }
     }
@@ -77,7 +72,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
         {
             foreach (Trasa t in _trasy)
             {
-                sw.WriteLine($"{t.GetId()};{t.GetStart().GetNazwa()}{t.GetCel().GetNazwa()};{t.GetDystans()}\n");
+                sw.WriteLine($"{t.Id};{t.Start.Nazwa}{t.Cel.Nazwa};{t.Dystans}");
             }
         }
     }

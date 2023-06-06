@@ -2,10 +2,10 @@ namespace System_Rezerwacji_Biletow;
 
 public interface ILotBuilder
 {
-    public void SetNumerLotu();
-    public void SetTrasa(Trasa trasa);
-    public void SetSamolot(Samolot samolot);
-    public void SetDataOdlotu(DateTime dataOdlotu);
-    public void SetDataPowrotu(DateTime dataPowrotu);
-    public Lot GetLot();
+    ILotBuilder SetNumerLotu(string numerLotu);
+    ILotBuilder SetTrasa(Trasa trasa);
+    ILotBuilder SetSamolot(Samolot samolot);
+    ILotBuilder SetDataOdlotu(DateTime dataOdlotu);
+    ILotBuilder SetDataPowrotu(DateTime dataPowrotu);
+    Lot Build();
 }

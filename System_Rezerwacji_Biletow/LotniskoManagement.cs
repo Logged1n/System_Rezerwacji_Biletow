@@ -32,7 +32,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
     {
         foreach (Lotnisko l in _lotniska)
         {
-            if (l.GetNazwa() == nazwa)
+            if (l.Nazwa == nazwa)
                 return l;
         }
 

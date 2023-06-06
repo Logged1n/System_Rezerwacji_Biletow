@@ -2,6 +2,6 @@ namespace System_Rezerwacji_Biletow;
 
 public interface IDataProvider
 {
-    public void LoadData(string path); //ZMIANA WZGLEDEM UML, POTRZEBNE NAM SA LOTNISKA W SAMOLOTACH I TRASACH, STAD DRUGI (OPCJONALNY) ARGUMENT.
+    public void LoadData(string path);
     public void SaveData(string path);
 }

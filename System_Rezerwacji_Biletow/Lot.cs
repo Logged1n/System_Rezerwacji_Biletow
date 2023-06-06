@@ -2,34 +2,23 @@ namespace System_Rezerwacji_Biletow;
 
 public class Lot
 {
-    private string _numerLotu;
-    private Trasa _trasa;
-    private Samolot _samolot;
-    private DateTime _dataOdlotu;
-    private DateTime _dataPowrotu;
+    public string NumerLotu { get; }
+    public Trasa Trasa { get; }
+    public Samolot Samolot { get; }
 
-    public string GetNumerLotu()
+    public DateTime DataOdlotu{ get;}
+    public DateTime DataPowrotu { get; }
+
+    public Lot()
     {
-        return _numerLotu;
     }
-
-    public Trasa GetTrasa()
+    
+    public Lot(string numerLotu, Trasa trasa, Samolot samolot, DateTime dataOdlotu, DateTime dataPowrotu)
     {
-        return _trasa;
-    }
-
-    public Samolot GetSamolot()
-    {
-        return _samolot;
-    }
-
-    public DateTime GetDataOdlotu()
-    {
-        return _dataOdlotu;
-    }
-
-    public DateTime GetDataPowrotu()
-    {
-        return _dataPowrotu;
+        NumerLotu = numerLotu;
+        Trasa = trasa;
+        Samolot = samolot;
+        DataOdlotu = dataOdlotu;
+        DataPowrotu = dataPowrotu;
     }
 }

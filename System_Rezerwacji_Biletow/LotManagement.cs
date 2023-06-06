@@ -1,11 +1,11 @@
 namespace System_Rezerwacji_Biletow;
 
-public class LotManagement : ILotManagement
+public class LotManagement : ILotManagement, IDataProvider
 {
-    private List<Lot>? _loty;
+    private readonly List<Lot> _loty;
     private static LotManagement _instance;
-    private SamolotManagement _samolotManagement;
-    private TrasaManagement _trasaManagement;
+    private readonly SamolotManagement _samolotManagement;
+    private readonly TrasaManagement _trasaManagement;
 
     private LotManagement()
     {
@@ -26,32 +26,61 @@ public class LotManagement : ILotManagement
 
     public void LoadData(string path)
     {
-        throw new NotImplementedException();
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string[] line;
+            string numerLotu;
+            Trasa trasa;
+            Samolot samolot;
+            DateTime dataOdlotu, dataPowrotu;
+            while ((line = reader.ReadLine().Split(";")) != null)
+            {
+                numerLotu = line[0];
+                trasa = _trasaManagement.GetSingle(line[1]);
+                samolot = _samolotManagement.GetSingle(line[2]);
+                dataOdlotu = DateTime.Parse(line[3]);
+                dataPowrotu = DateTime.Parse(line[4]);
+                this.Dodaj(new Lot(numerLotu, trasa, samolot, dataOdlotu, dataPowrotu));
+            }
+        }
     }
 
     public void SaveData(string path)
     {
-        throw new NotImplementedException();
+        using (StreamWriter sw = new StreamWriter(path))
+        {
+            foreach (Lot l in _loty)
+            {
+                sw.WriteLine($"{l.NumerLotu};{l.Trasa.Id}{l.Samolot.GetId()};{l.DataOdlotu};{l.DataPowrotu}");
+            }
+        }
     }
 
     public void Dodaj(Lot lot)
     {
-        throw new NotImplementedException();
+        _loty.Add(lot);
     }
 
     public void Usun(Lot lot)
     {
-        throw new NotImplementedException();
+        _loty.Remove(lot);
     }
 
     public List<Lot> GetList()
     {
-        throw new NotImplementedException();
+        return _loty;
     }
 
     public Lot GetSingle(string numerLotu)
     {
-        throw new NotImplementedException();
+        foreach (Lot l in _loty)
+        {
+            if (l.NumerLotu == numerLotu)
+            {
+                return l;
+            }
+        }
+        return null;
     }
 
     public bool CzySamolotWolny(Samolot samolot, DateTime dataOdlotu, DateTime dataPowrotu)

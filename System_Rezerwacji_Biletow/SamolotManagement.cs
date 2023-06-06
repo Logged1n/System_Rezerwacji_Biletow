@@ -11,7 +11,7 @@ public class SamolotManagement : ISamolotManagement
     }
     public static SamolotManagement GetInstance()
     {
-        if (_instance == null)
+        if(_instance == null)
         {
             _instance = new SamolotManagement();
         }
