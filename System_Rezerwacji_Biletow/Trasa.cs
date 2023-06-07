@@ -14,4 +14,9 @@ public class Trasa
         Cel = cel;
         Dystans = dystans;
     }
+
+    public override string ToString()
+    {
+        return $"| {Id} | {Start} | {Cel} | {Dystans} km |";
+    }
 }

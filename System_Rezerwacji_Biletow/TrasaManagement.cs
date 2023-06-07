@@ -23,6 +23,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
     }
     public void Dodaj(Trasa trasa)
     {
+        //sprawdzenie czy nie ma juz tej trasy na liscie
         _trasy.Add(trasa);
     }
 
@@ -50,16 +51,18 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
     {
         using (StreamReader reader = new StreamReader(path))
         {
-            string[] line;
+            string line;
+            string[] splitedLine;
             string id;
             Lotnisko start, cel;
             int dystans;
-            while ((line = reader.ReadLine().Split(";")) != null)
+            while ((line = reader.ReadLine()) != null)
             {
-                id = line[0];
-                start = _lotniskoManagement.GetSingle(line[1]);
-                cel = _lotniskoManagement.GetSingle(line[2]);
-                dystans = Convert.ToInt32(line[3]);
+                splitedLine = line.Split(";");
+                id = splitedLine[0];
+                start = _lotniskoManagement.GetSingle(splitedLine[1]);
+                cel = _lotniskoManagement.GetSingle(splitedLine[2]);
+                dystans = Convert.ToInt32(splitedLine[3]);
                 Trasa t = new Trasa(id, start, cel, dystans);
                 this.Dodaj(t);
             }

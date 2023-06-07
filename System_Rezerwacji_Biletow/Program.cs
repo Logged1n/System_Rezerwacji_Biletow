@@ -4,6 +4,11 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        LotniskoManagement lotniskoManagement = LotniskoManagement.GetInstance();
+        TrasaManagement trasaManagement = TrasaManagement.GetInstance();
+        
+        lotniskoManagement.LoadData("lotniska.txt");
+        trasaManagement.LoadData("trasy.txt");
         var koniecProgramu = false;
         do
         {
@@ -115,19 +120,35 @@ internal class Program
                         {
                             case 1:
                             {
-                                //TODO
+                                int id = trasaManagement.GetList().Count;
+                                Console.WriteLine("Podaj nazwe lotniska poczatkowego nowej trasy: ");
+                                string nazwaPoczatek = Console.ReadLine();
+                                Console.WriteLine("Podaj nazwe lotniska docelowego nowej trasy: ");
+                                string nazwaCel = Console.ReadLine();
+                                Console.WriteLine("Podaj jakiego dystansu jest to trasa (w km): ");
+                                int dystans = Convert.ToInt32(Console.ReadLine());
+                                Trasa dodawanaTrasa = new Trasa(id.ToString(),lotniskoManagement.GetSingle(nazwaPoczatek), lotniskoManagement.GetSingle(nazwaCel), dystans);
+                                trasaManagement.Dodaj(dodawanaTrasa);
                                 validChoice = true;
                                 break;
                             }
                             case 2:
                             {
-                                //TODO
+                                Console.WriteLine("Podaj ID trasy, ktora chcesz usunac: ");
+                                string id = Console.ReadLine();
+                                trasaManagement.Usun(trasaManagement.GetSingle(id));
                                 validChoice = true;
                                 break;
                             }
                             case 3:
                             {
-                                //TODO
+                                Console.WriteLine("|   ID   |  Start  |  Cel  |   Dystans [km]  |");
+                                foreach (var t in trasaManagement.GetList())
+                                {
+                                    Console.WriteLine(t);
+                                }
+
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
@@ -156,7 +177,14 @@ internal class Program
                         {
                             case 1:
                             {
-                                //TODO
+                                Console.WriteLine("Podaj kraj, w ktorym znajduje sie lotnisko: ");
+                                string kraj = Console.ReadLine();
+                                Console.WriteLine("Podaj miasto, w ktorym znajduje sie lotnisko: ");
+                                string miasto = Console.ReadLine();
+                                Console.WriteLine("Podaj nazwe lotniska: ");
+                                string nazwa = Console.ReadLine();
+                                lotniskoManagement.Dodaj(new Lotnisko(kraj, miasto, nazwa));
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
