@@ -46,7 +46,10 @@ internal class Program
                         {
                             case 1:
                             {
-                                //TODO
+                                SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
+                                Samolot xd = srf.CreateSamolot("12", 60, 500,
+                                    LotniskoManagement.GetInstance().GetSingle("Krywlany"));
+                                SamolotManagement.GetInstance().Dodaj(xd);
                                 validChoice = true;
                                 break;
                             }
@@ -59,6 +62,8 @@ internal class Program
                             case 3:
                             {
                                 //TODO
+                                Console.WriteLine(SamolotManagement.GetInstance().GetSingle("12"));
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
@@ -169,6 +174,7 @@ internal class Program
                             default:
                             {
                                 Console.WriteLine("Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -247,6 +253,12 @@ internal class Program
                     lotManagement.SaveData("loty.txt");
                     Console.WriteLine("Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     koniecProgramu = true;
+                    Console.ReadKey();
+                    break;
+                }
+                default:
+                {
+                    Console.WriteLine("Nieprawidlowy wybor. Sprobuj ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
                     Console.ReadKey();
                     break;
                 }
