@@ -1,6 +1,6 @@
 namespace System_Rezerwacji_Biletow;
 
-public class SamolotManagement : ISamolotManagement
+public class SamolotManagement : ISamolotManagement, IDataProvider
 {
     private readonly List<Samolot> _samoloty;
     private static SamolotManagement _instance;
