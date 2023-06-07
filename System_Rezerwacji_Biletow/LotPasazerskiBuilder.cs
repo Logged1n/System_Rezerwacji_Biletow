@@ -3,12 +3,10 @@ namespace System_Rezerwacji_Biletow;
 public class LotPasazerskiBuilder : ILotBuilder
 {
     private Lot _lot;
-    private readonly ILotManagement _lotManagement;
 
-    public LotPasazerskiBuilder(ILotManagement lotManagement)
+    public LotPasazerskiBuilder()
     {
         _lot = new Lot();
-        _lotManagement = lotManagement;
     }
 
     public void SetNumerLotu(string numerLotu)
@@ -39,7 +37,7 @@ public class LotPasazerskiBuilder : ILotBuilder
     public Lot Build()
     {
         // TODO sprawdzic czy nie ma juz dokladnie takiego lotu na liscie
-        _lotManagement.Dodaj(_lot);
+        LotManagement.GetInstance().Dodaj(_lot);
         return _lot;
     }
 }

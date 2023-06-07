@@ -21,7 +21,7 @@ public class SamolotManagement : ISamolotManagement
     public void Dodaj(Samolot item)
     {
         //TODO, sprawdzicz czy przypadkiem dodajesz samolotu, ktory jest juz na liscie
-        throw new NotImplementedException();
+      _samoloty.Add(item);
     }
 
     public void Usun(Samolot item)
@@ -33,12 +33,18 @@ public class SamolotManagement : ISamolotManagement
     public Samolot GetSingle(string id)
     {
         //TODO obsluga bledu jezeli nie znajdziesz samolotu o takim id
-        throw new NotImplementedException();
+        foreach (var s in _samoloty)
+        {
+            if (s.Id == id)
+                return s;
+        }
+
+        return null;
     }
 
     public List<Samolot> GetList()
     {
-        throw new NotImplementedException();
+        return _samoloty;
     }
 
     public void LoadData(string path)

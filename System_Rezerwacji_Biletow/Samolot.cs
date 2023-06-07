@@ -7,4 +7,17 @@ public abstract class Samolot
     public int IloscMiejsc { get; protected set; }
     public int Zasieg { get; protected set; }
     public Lotnisko PoczatkoweLotnisko { get; protected set; }
+
+    protected Samolot(string id, int iloscMiejsc, int zasieg, Lotnisko lotnisko)
+    {
+        Id = id;
+        IloscMiejsc = iloscMiejsc;
+        Zasieg = zasieg;
+        PoczatkoweLotnisko = lotnisko;
+    }
+
+    public override string ToString()
+    {
+        return $"{this.GetType()}{Id};{IloscMiejsc};{Zasieg};{PoczatkoweLotnisko}";
+    }
 }
