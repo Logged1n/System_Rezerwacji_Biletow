@@ -28,18 +28,20 @@ public class LotManagement : ILotManagement, IDataProvider
     {
         using (StreamReader reader = new StreamReader(path))
         {
-            string[] line;
+            string line;
+            string[] splitedLine;
             string numerLotu;
             Trasa trasa;
             Samolot samolot;
             DateTime dataOdlotu, dataPowrotu;
-            while ((line = reader.ReadLine().Split(";")) != null)
+            while ((line = reader.ReadLine()) != null)
             {
-                numerLotu = line[0];
-                trasa = _trasaManagement.GetSingle(line[1]);
-                samolot = _samolotManagement.GetSingle(line[2]);
-                dataOdlotu = DateTime.Parse(line[3]);
-                dataPowrotu = DateTime.Parse(line[4]);
+                splitedLine = line.Split(";");
+                numerLotu = splitedLine[0];
+                trasa = _trasaManagement.GetSingle(splitedLine[1]);
+                samolot = _samolotManagement.GetSingle(splitedLine[2]);
+                dataOdlotu = DateTime.Parse(splitedLine[3]);
+                dataPowrotu = DateTime.Parse(splitedLine[4]);
                 this.Dodaj(new Lot(numerLotu, trasa, samolot, dataOdlotu, dataPowrotu));
             }
         }
@@ -51,7 +53,7 @@ public class LotManagement : ILotManagement, IDataProvider
         {
             foreach (Lot l in _loty)
             {
-                sw.WriteLine($"{l.NumerLotu};{l.Trasa.Id}{l.Samolot.GetId()};{l.DataOdlotu};{l.DataPowrotu}");
+                sw.WriteLine($"{l.NumerLotu};{l.Trasa.Id}{l.Samolot.Id};{l.DataOdlotu};{l.DataPowrotu}");
             }
         }
     }

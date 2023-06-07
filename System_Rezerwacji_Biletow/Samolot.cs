@@ -2,13 +2,8 @@ namespace System_Rezerwacji_Biletow;
 
 public abstract class Samolot
 {
-    protected string _id;
-    protected int _iloscMiejsc;
-    protected int _zasieg;
-    protected Lotnisko _poczatkoweLotnisko;
-
-    public string GetId()
-    {
-        return _id;
-    }
+    public string Id { get; protected set; }
+    public int IloscMiejsc { get; protected set; }
+    public int Zasieg { get; protected set; }
+    public Lotnisko PoczatkoweLotnisko { get; protected set; }
 }
