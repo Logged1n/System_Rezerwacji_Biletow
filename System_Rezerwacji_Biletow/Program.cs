@@ -169,6 +169,7 @@ internal class Program
                             default:
                             {
                                 Console.WriteLine("Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -247,6 +248,12 @@ internal class Program
                     lotManagement.SaveData("loty.txt");
                     Console.WriteLine("Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     koniecProgramu = true;
+                    Console.ReadKey();
+                    break;
+                }
+                default:
+                {
+                    Console.WriteLine("Nieprawidlowy wybor. Sprobuj ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
                     Console.ReadKey();
                     break;
                 }

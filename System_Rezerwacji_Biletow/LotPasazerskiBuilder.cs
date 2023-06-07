@@ -3,7 +3,6 @@ namespace System_Rezerwacji_Biletow;
 public class LotPasazerskiBuilder : ILotBuilder
 {
     private Lot _lot;
-    //private readonly ISamolotManagement _samolotManagement;
     private readonly ILotManagement _lotManagement;
 
     public LotPasazerskiBuilder(ILotManagement lotManagement)
