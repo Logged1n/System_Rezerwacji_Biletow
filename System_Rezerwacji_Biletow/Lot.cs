@@ -2,11 +2,12 @@ namespace System_Rezerwacji_Biletow;
 
 public class Lot
 {
-    public string NumerLotu { get; }
-    public Trasa Trasa { get; }
-    public Samolot Samolot { get; }
-    public DateTime DataOdlotu{ get;}
-    public DateTime DataPowrotu { get; }
+    //TODO generalny ogar z builderem
+    public string NumerLotu { get; set; }
+    public Trasa Trasa { get; set; }
+    public Samolot Samolot { get; set; }
+    public DateTime DataOdlotu{ get; set; }
+    public DateTime DataPowrotu { get; set; }
 
     public Lot()
     {

@@ -2,6 +2,7 @@
 
 internal class Program
 {
+    //TODO wypelnienie wszystkich opcji; generalnie jakies testy jednostkowe, obslugi bledow
     private static void Main(string[] args)
     {
         //DATA SETUP
@@ -243,7 +244,6 @@ internal class Program
                     samolotManagement.SaveData("samoloty.txt");
                     lotniskoManagement.SaveData("lotniska.txt");
                     trasaManagement.SaveData("trasy.txt");
-                    
                     lotManagement.SaveData("loty.txt");
                     Console.WriteLine("Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     koniecProgramu = true;

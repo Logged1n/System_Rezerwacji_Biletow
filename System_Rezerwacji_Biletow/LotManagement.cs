@@ -4,14 +4,11 @@ public class LotManagement : ILotManagement, IDataProvider
 {
     private readonly List<Lot> _loty;
     private static LotManagement _instance;
-    private readonly SamolotManagement _samolotManagement;
-    private readonly TrasaManagement _trasaManagement;
+   
 
     private LotManagement()
     {
         _loty = new List<Lot>();
-        _samolotManagement = SamolotManagement.GetInstance();
-        _trasaManagement = TrasaManagement.GetInstance();
     }
 
     public static LotManagement GetInstance()
@@ -26,6 +23,7 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public void LoadData(string path)
     {
+        //TODO obsluga bledow, nie udalo odczytac sie pliku; trasamangment nie wczytany; samolotmanagement nie wczytany;
         using (StreamReader reader = new StreamReader(path))
         {
             string line;
@@ -38,11 +36,11 @@ public class LotManagement : ILotManagement, IDataProvider
             {
                 splitedLine = line.Split(";");
                 numerLotu = splitedLine[0];
-                trasa = _trasaManagement.GetSingle(splitedLine[1]);
-                samolot = _samolotManagement.GetSingle(splitedLine[2]);
+                trasa = TrasaManagement.GetInstance().GetSingle(splitedLine[1]);
+                samolot = SamolotManagement.GetInstance().GetSingle(splitedLine[2]);
                 dataOdlotu = DateTime.Parse(splitedLine[3]);
                 dataPowrotu = DateTime.Parse(splitedLine[4]);
-                this.Dodaj(new Lot(numerLotu, trasa, samolot, dataOdlotu, dataPowrotu));
+                Dodaj(new Lot(numerLotu, trasa, samolot, dataOdlotu, dataPowrotu));
             }
         }
     }
@@ -60,11 +58,13 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public void Dodaj(Lot lot)
     {
+        //TODO sprawdzic czy przypadkiem nie ma juz lotu ktory chcemy dodac
         _loty.Add(lot);
     }
 
     public void Usun(Lot lot)
     {
+        //TODO obsluga bledu, jezeli nie znaleziono tego lotu na liscie
         _loty.Remove(lot);
     }
 
@@ -75,6 +75,7 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public Lot GetSingle(string numerLotu)
     {
+        //TODO obsluga bledu, jezeli nie znaleziono lotu o takim numerze
         foreach (Lot l in _loty)
         {
             if (l.NumerLotu == numerLotu)
@@ -87,6 +88,7 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public bool CzySamolotWolny(Samolot samolot, DateTime dataOdlotu, DateTime dataPowrotu)
     {
+        //TODO
         throw new NotImplementedException();
     }
 }

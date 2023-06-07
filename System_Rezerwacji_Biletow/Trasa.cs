@@ -17,6 +17,7 @@ public class Trasa
 
     public override string ToString()
     {
+        //TODO jakies lepsze wypisywanie, pewnie zewnetrzna biblioteka
         return $"| {Id} | {Start} | {Cel} | {Dystans} km |";
     }
 }
