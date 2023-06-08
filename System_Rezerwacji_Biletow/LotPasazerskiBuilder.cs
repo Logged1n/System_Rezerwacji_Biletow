@@ -2,52 +2,42 @@ namespace System_Rezerwacji_Biletow;
 
 public class LotPasazerskiBuilder : ILotBuilder
 {
-    private string _numerLotu;
-    private Trasa _trasa;
-    private Samolot _samolot;
-    private DateTime _dataOdlotu;
-    private DateTime _dataPowrotu;
-    private ISamolotManagement _samolotManagement;
-    private ILotManagement _lotManagement;
+    private Lot _lot;
 
     public LotPasazerskiBuilder()
     {
+        _lot = new Lot();
     }
 
-    public ILotBuilder SetNumerLotu(string numerLotu)
+    public void SetNumerLotu(string numerLotu)
     {
-        _numerLotu = numerLotu;
-        return this;
+        _lot.NumerLotu = numerLotu;
     }
 
-    public ILotBuilder SetTrasa(Trasa trasa)
+    public void SetTrasa(Trasa trasa)
     {
-        _trasa = trasa;
-        return this;
+        _lot.Trasa = trasa;
     }
 
-    public ILotBuilder SetSamolot(Samolot samolot)
+    public void SetSamolot(Samolot samolot)
     {
-        _samolot = samolot;
-        return this;
+        _lot.Samolot = samolot;
     }
 
-    public ILotBuilder SetDataOdlotu(DateTime dataOdlotu)
+    public void SetDataOdlotu(DateTime dataOdlotu)
     {
-        _dataOdlotu = dataOdlotu;
-        return this;
+        _lot.DataOdlotu = dataOdlotu;
     }
 
-    public ILotBuilder SetDataPowrotu(DateTime dataPowrotu)
+    public void SetDataPowrotu(DateTime dataPowrotu)
     {
-        _dataPowrotu = dataPowrotu;
-        return this;
+       _lot.DataPowrotu = dataPowrotu;
     }
 
     public Lot Build()
     {
-        Lot _lot = new Lot(_numerLotu, _trasa, _samolot, _dataOdlotu, _dataPowrotu);
-        _lotManagement.Dodaj(_lot);
+        // TODO sprawdzic czy nie ma juz dokladnie takiego lotu na liscie
+        LotManagement.GetInstance().Dodaj(_lot);
         return _lot;
     }
 }

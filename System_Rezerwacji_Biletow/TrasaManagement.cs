@@ -2,14 +2,12 @@ namespace System_Rezerwacji_Biletow;
 
 public class TrasaManagement : IManagement<Trasa>, IDataProvider
 {
-    private readonly List<Trasa>? _trasy;
+    private readonly List<Trasa> _trasy;
     private static TrasaManagement _instance; // ZMIANA WZGLEDEM UML
-    private readonly LotniskoManagement _lotniskoManagement;
 
     private TrasaManagement()
     {
         _trasy = new List<Trasa>();
-        _lotniskoManagement = LotniskoManagement.GetInstance();
     }
 
     public static TrasaManagement GetInstance() // SINGLETON, kazego mangementu chcemy miec dokldnie jedna instancje
@@ -60,8 +58,8 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
             {
                 splitedLine = line.Split(";");
                 id = splitedLine[0];
-                start = _lotniskoManagement.GetSingle(splitedLine[1]);
-                cel = _lotniskoManagement.GetSingle(splitedLine[2]);
+                start = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
+                cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
                 dystans = Convert.ToInt32(splitedLine[3]);
                 Trasa t = new Trasa(id, start, cel, dystans);
                 this.Dodaj(t);

@@ -4,14 +4,11 @@ public class LotManagement : ILotManagement, IDataProvider
 {
     private readonly List<Lot> _loty;
     private static LotManagement _instance;
-    private readonly SamolotManagement _samolotManagement;
-    private readonly TrasaManagement _trasaManagement;
+   
 
     private LotManagement()
     {
         _loty = new List<Lot>();
-        _samolotManagement = SamolotManagement.GetInstance();
-        _trasaManagement = TrasaManagement.GetInstance();
     }
 
     public static LotManagement GetInstance()
@@ -26,21 +23,24 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public void LoadData(string path)
     {
+        //TODO obsluga bledow, nie udalo odczytac sie pliku; trasamangment nie wczytany; samolotmanagement nie wczytany;
         using (StreamReader reader = new StreamReader(path))
         {
-            string[] line;
+            string line;
+            string[] splitedLine;
             string numerLotu;
             Trasa trasa;
             Samolot samolot;
             DateTime dataOdlotu, dataPowrotu;
-            while ((line = reader.ReadLine().Split(";")) != null)
+            while ((line = reader.ReadLine()) != null)
             {
-                numerLotu = line[0];
-                trasa = _trasaManagement.GetSingle(line[1]);
-                samolot = _samolotManagement.GetSingle(line[2]);
-                dataOdlotu = DateTime.Parse(line[3]);
-                dataPowrotu = DateTime.Parse(line[4]);
-                this.Dodaj(new Lot(numerLotu, trasa, samolot, dataOdlotu, dataPowrotu));
+                splitedLine = line.Split(";");
+                numerLotu = splitedLine[0];
+                trasa = TrasaManagement.GetInstance().GetSingle(splitedLine[1]);
+                samolot = SamolotManagement.GetInstance().GetSingle(splitedLine[2]);
+                dataOdlotu = DateTime.Parse(splitedLine[3]);
+                dataPowrotu = DateTime.Parse(splitedLine[4]);
+                Dodaj(new Lot(numerLotu, trasa, samolot, dataOdlotu, dataPowrotu));
             }
         }
     }
@@ -51,18 +51,20 @@ public class LotManagement : ILotManagement, IDataProvider
         {
             foreach (Lot l in _loty)
             {
-                sw.WriteLine($"{l.NumerLotu};{l.Trasa.Id}{l.Samolot.GetId()};{l.DataOdlotu};{l.DataPowrotu}");
+                sw.WriteLine($"{l.NumerLotu};{l.Trasa.Id}{l.Samolot.Id};{l.DataOdlotu};{l.DataPowrotu}");
             }
         }
     }
 
     public void Dodaj(Lot lot)
     {
+        //TODO sprawdzic czy przypadkiem nie ma juz lotu ktory chcemy dodac
         _loty.Add(lot);
     }
 
     public void Usun(Lot lot)
     {
+        //TODO obsluga bledu, jezeli nie znaleziono tego lotu na liscie
         _loty.Remove(lot);
     }
 
@@ -73,6 +75,7 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public Lot GetSingle(string numerLotu)
     {
+        //TODO obsluga bledu, jezeli nie znaleziono lotu o takim numerze
         foreach (Lot l in _loty)
         {
             if (l.NumerLotu == numerLotu)
@@ -85,6 +88,7 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public bool CzySamolotWolny(Samolot samolot, DateTime dataOdlotu, DateTime dataPowrotu)
     {
+        //TODO
         throw new NotImplementedException();
     }
 }

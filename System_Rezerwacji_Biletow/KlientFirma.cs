@@ -1,13 +1,6 @@
-using System.Dynamic;
-
 namespace System_Rezerwacji_Biletow;
 
-public class  KlientFirma : Klient
+public class KlientFirma
 {
     public string NazwaFirmy { get; }
-
-    public string GetNazwaFirmy()
-    {
-        return NazwaFirmy;
-    }
 }

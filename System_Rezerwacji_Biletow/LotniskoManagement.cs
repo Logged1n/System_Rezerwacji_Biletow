@@ -2,8 +2,8 @@ namespace System_Rezerwacji_Biletow;
 
 public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
 {
-    private List<Lotnisko>? _lotniska;
-    private static LotniskoManagement? _instance;
+    private List<Lotnisko> _lotniska;
+    private static LotniskoManagement _instance;
 
     private LotniskoManagement()
     {
@@ -20,7 +20,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
     }
     public void Dodaj(Lotnisko item)
     {
-        //Dodac sprawdzenie czy nazwa lotniska sie juz przypadkiem nie powtorzyla
+        //TODO Dodac sprawdzenie czy nazwa lotniska sie juz przypadkiem nie powtorzyla
         _lotniska.Add(item);
     }
 
@@ -37,16 +37,18 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
                 return l;
         }
 
-        return null; // obsluga bledu jak nie znajdzie lotniska o takim miescie
+        return null; //TODO obsluga bledu jak nie znajdzie lotniska o takim miescie
     }
 
     public List<Lotnisko> GetList()
     {
+        //TODO
         throw new NotImplementedException();
     }
 
     public void LoadData(string path)
     {
+        //TODO obsluga bledow, nie udalo odczytac sie pliku; <-- jak sie odpali to poinformowac jakos uzytkownika ze stan systemu nie mogl zostac wczytany
         using (StreamReader reader = new StreamReader(path))
         {
             string line;
@@ -66,6 +68,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
     
     public void SaveData(string path)
     {
+        //TODO
         throw new NotImplementedException();
     }
 }

@@ -2,14 +2,22 @@
 
 internal class Program
 {
+    //TODO wypelnienie wszystkich opcji; generalnie jakies testy jednostkowe, obslugi bledow
     private static void Main(string[] args)
     {
+        //DATA SETUP
+        SamolotManagement samolotManagement = SamolotManagement.GetInstance();
+        //KlientManagement klientManagement = KlientManagement.GetInstance();
         LotniskoManagement lotniskoManagement = LotniskoManagement.GetInstance();
         TrasaManagement trasaManagement = TrasaManagement.GetInstance();
+        LotManagement lotManagement = LotManagement.GetInstance();
+        //RezerwacjaManagement rezerwacjaManagement = RezerwacjaManagement.GetInstance();
         
         lotniskoManagement.LoadData("lotniska.txt");
         trasaManagement.LoadData("trasy.txt");
+        lotManagement.LoadData("loty.txt");
         var koniecProgramu = false;
+        
         do
         {
             Console.Clear();
@@ -38,7 +46,10 @@ internal class Program
                         {
                             case 1:
                             {
-                                //TODO
+                                SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
+                                Samolot xd = srf.CreateSamolot("12", 60, 500,
+                                    LotniskoManagement.GetInstance().GetSingle("Krywlany"));
+                                SamolotManagement.GetInstance().Dodaj(xd);
                                 validChoice = true;
                                 break;
                             }
@@ -51,12 +62,15 @@ internal class Program
                             case 3:
                             {
                                 //TODO
+                                Console.WriteLine(SamolotManagement.GetInstance().GetSingle("12"));
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
                             default:
                             {
-                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie.");
+                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -97,7 +111,8 @@ internal class Program
                             }
                             default:
                             {
-                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie.");
+                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -129,6 +144,8 @@ internal class Program
                                 int dystans = Convert.ToInt32(Console.ReadLine());
                                 Trasa dodawanaTrasa = new Trasa(id.ToString(),lotniskoManagement.GetSingle(nazwaPoczatek), lotniskoManagement.GetSingle(nazwaCel), dystans);
                                 trasaManagement.Dodaj(dodawanaTrasa);
+                                Console.WriteLine("Pomyslnie dodano trase do bazy danych tras. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
@@ -137,24 +154,27 @@ internal class Program
                                 Console.WriteLine("Podaj ID trasy, ktora chcesz usunac: ");
                                 string id = Console.ReadLine();
                                 trasaManagement.Usun(trasaManagement.GetSingle(id));
+                                Console.WriteLine($"Pomyslnie usunieto trase o id {id}. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
                             case 3:
                             {
-                                Console.WriteLine("|   ID   |  Start  |  Cel  |   Dystans [km]  |");
+                                Console.WriteLine("|    ID    |   Start   |   Cel   |    Dystans [km]   |");
                                 foreach (var t in trasaManagement.GetList())
                                 {
                                     Console.WriteLine(t);
                                 }
-
+                                Console.WriteLine("\nNacisnij dowolny przycisk, aby kontynuowac...");
                                 Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
                             default:
                             {
-                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie.");
+                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -184,6 +204,7 @@ internal class Program
                                 Console.WriteLine("Podaj nazwe lotniska: ");
                                 string nazwa = Console.ReadLine();
                                 lotniskoManagement.Dodaj(new Lotnisko(kraj, miasto, nazwa));
+                                Console.WriteLine("Pomyslnie dodano lotnisko do bazy danych lotnisk. Nacisnij dowolny przycisk aby kontynuowac...");
                                 Console.ReadKey();
                                 validChoice = true;
                                 break;
@@ -202,7 +223,8 @@ internal class Program
                             }
                             default:
                             {
-                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie.");
+                                Console.WriteLine("Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -225,9 +247,18 @@ internal class Program
 
                 case 7:
                 {
-                    //TODO
+                    samolotManagement.SaveData("samoloty.txt");
+                    lotniskoManagement.SaveData("lotniska.txt");
+                    trasaManagement.SaveData("trasy.txt");
+                    lotManagement.SaveData("loty.txt");
                     Console.WriteLine("Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     koniecProgramu = true;
+                    Console.ReadKey();
+                    break;
+                }
+                default:
+                {
+                    Console.WriteLine("Nieprawidlowy wybor. Sprobuj ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
                     Console.ReadKey();
                     break;
                 }

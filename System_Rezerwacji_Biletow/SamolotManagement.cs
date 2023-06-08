@@ -1,12 +1,13 @@
 namespace System_Rezerwacji_Biletow;
 
-public class SamolotManagement : ISamolotManagement
+public class SamolotManagement : ISamolotManagement, IDataProvider
 {
-    private List<Samolot> _samoloty;
+    private readonly List<Samolot> _samoloty;
     private static SamolotManagement _instance;
 
     private SamolotManagement()
     {
+        
         _samoloty = new List<Samolot>();
     }
     public static SamolotManagement GetInstance()
@@ -19,41 +20,54 @@ public class SamolotManagement : ISamolotManagement
     }
     public void Dodaj(Samolot item)
     {
-        throw new NotImplementedException();
+        //TODO, sprawdzicz czy przypadkiem dodajesz samolotu, ktory jest juz na liscie
+      _samoloty.Add(item);
     }
 
     public void Usun(Samolot item)
     {
+        //TODO obsluga bledu jak nie znajdziesz tego samolotu do usuniecia
         throw new NotImplementedException();
     }
 
     public Samolot GetSingle(string id)
     {
-        throw new NotImplementedException();
+        //TODO obsluga bledu jezeli nie znajdziesz samolotu o takim id
+        foreach (var s in _samoloty)
+        {
+            if (s.Id == id)
+                return s;
+        }
+
+        return null;
     }
 
     public List<Samolot> GetList()
     {
-        throw new NotImplementedException();
+        return _samoloty;
     }
 
     public void LoadData(string path)
     {
+        //TODO
         throw new NotImplementedException();
     }
 
     public void SaveData(string path)
     {
+        //TODO
         throw new NotImplementedException();
     }
 
     public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
     {
+        //TODO; obsluga bledu jezeli nie ma takiego lotniska
         throw new NotImplementedException();
     }
 
     public List<Samolot> GetListZasieg(int zasieg)
     {
+        //TODO; obsluga bledu jezeli wprowadzono jakis zasieg na minusie czy cos
         throw new NotImplementedException();
     }
 }

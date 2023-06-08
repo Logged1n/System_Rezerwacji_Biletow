@@ -1,17 +1,8 @@
 namespace System_Rezerwacji_Biletow;
 
-public class KlientIndywidualny
+public class KlientIndywidualny : Klient
 {
-    private string Imie { get; }
-    private string Nazwisko { get; }
-
-    public string GetImie()
-    {
-        return Imie;
-    }
-
-    public string GetNazwisko()
-    {
-        return Nazwisko;
-    }
+    public string Imie { get;}
+    public string Nazwisko { get; }
+    
 }
