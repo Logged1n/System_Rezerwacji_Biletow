@@ -1,4 +1,4 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Lot;
 
 public interface ILotManagement : IManagement<Lot>
 {

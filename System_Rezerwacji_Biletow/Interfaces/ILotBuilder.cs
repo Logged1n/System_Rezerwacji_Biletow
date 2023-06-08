@@ -1,4 +1,5 @@
 namespace System_Rezerwacji_Biletow;
+using Lot;
 
 public interface ILotBuilder
 {
@@ -8,5 +9,6 @@ public interface ILotBuilder
     void SetSamolot(Samolot samolot);
     void SetDataOdlotu(DateTime dataOdlotu);
     void SetDataPowrotu(DateTime dataPowrotu);
-    Lot Build();
+    void SetCzestotliwoscLotu(Czestotliwosc czestotliwoscLotu);
+    Lot.Lot Build();
 }

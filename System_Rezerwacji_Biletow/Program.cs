@@ -1,6 +1,8 @@
 ﻿namespace System_Rezerwacji_Biletow;
+using Managements;
+using Exceptions;
 
-internal class Program
+class Program
 {
     //TODO wypelnienie wszystkich opcji; generalnie jakies testy jednostkowe, obslugi bledow
     private static void Main(string[] args)
@@ -36,8 +38,9 @@ internal class Program
                               "3. Zarzadzaj Trasami\n" +
                               "4. Zarzadzaj Lotniskami\n" +
                               "5. Wygeneruj Lot\n" +
-                              "6. Zarezerwuj Bilet\n" +
-                              "7. Zamknij Program");
+                              "6. Powiel Lot\n" +
+                              "7. Zarezerwuj Bilet\n" +
+                              "8. Zamknij Program");
             var wybor = Convert.ToInt32(Console.ReadLine());
             switch (wybor)
             {

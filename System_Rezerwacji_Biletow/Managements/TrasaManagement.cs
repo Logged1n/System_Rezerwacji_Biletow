@@ -1,4 +1,5 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Managements;
+using Exceptions;
 
 public class TrasaManagement : IManagement<Trasa>, IDataProvider
 {

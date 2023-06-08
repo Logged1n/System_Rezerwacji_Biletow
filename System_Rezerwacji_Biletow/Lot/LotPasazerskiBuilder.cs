@@ -1,5 +1,5 @@
-namespace System_Rezerwacji_Biletow;
-
+namespace System_Rezerwacji_Biletow.Lot;
+using Managements;
 public class LotPasazerskiBuilder : ILotBuilder
 {
     private Lot _lot;
@@ -36,6 +36,11 @@ public class LotPasazerskiBuilder : ILotBuilder
     public void SetDataPowrotu(DateTime dataPowrotu)
     {
        _lot.DataPowrotu = dataPowrotu;
+    }
+
+    public void SetCzestotliwoscLotu(Czestotliwosc czestotliwoscLotu)
+    {
+        _lot.CzestotliwoscLotu = czestotliwoscLotu;
     }
 
     public Lot Build()

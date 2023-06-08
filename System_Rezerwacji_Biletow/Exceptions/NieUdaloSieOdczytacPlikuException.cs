@@ -1,4 +1,4 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Exceptions;
 
 public class NieUdaloSieOdczytacPlikuException : Exception
 {
