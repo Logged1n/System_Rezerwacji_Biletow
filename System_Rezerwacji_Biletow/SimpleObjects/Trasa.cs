@@ -7,7 +7,7 @@ public class Trasa
     public Lotnisko Cel { get; }
     public int Dystans { get; }
 
-    public Trasa(string id, Lotnisko start, Lotnisko cel, int dystans) // ROZNICA WZGLEDEM UML, nie bylo tego konstruktora
+    public Trasa(string id, Lotnisko start, Lotnisko cel, int dystans)
     {
         Id = id;
         Start = start;
