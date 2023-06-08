@@ -48,24 +48,32 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
 
     public void LoadData(string path)
     {
-        //TODO obsluga bledow, nie udalo odczytac sie pliku; <-- jak sie odpali to poinformowac jakos uzytkownika ze stan systemu nie mogl zostac wczytany
-        using (StreamReader reader = new StreamReader(path))
+        try
         {
-            string line;
-            string[] splitedLine;
-            string kraj, miasto, nazwa;
-            while ((line = reader.ReadLine()) != null)
+            using (StreamReader reader = new StreamReader(path))
             {
-                splitedLine = line.Split(";");
-                kraj = splitedLine[0];
-                miasto = splitedLine[1];
-                nazwa = splitedLine[2];
-                Lotnisko l = new Lotnisko(kraj, miasto, nazwa);
-                Dodaj(l);
+                string line;
+                string[] splitedLine;
+                string kraj, miasto, nazwa;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    splitedLine = line.Split(";");
+                    kraj = splitedLine[0];
+                    miasto = splitedLine[1];
+                    nazwa = splitedLine[2];
+                    Lotnisko l = new Lotnisko(kraj, miasto, nazwa);
+                    Dodaj(l);
+                }
+
+
             }
         }
+        catch
+        {
+            throw new NieUdaloSieOdczytacPlikuException();
+        }
     }
-    
+
     public void SaveData(string path)
     {
         //TODO

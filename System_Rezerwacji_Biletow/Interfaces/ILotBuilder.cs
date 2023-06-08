@@ -2,6 +2,7 @@ namespace System_Rezerwacji_Biletow;
 
 public interface ILotBuilder
 {
+    void Reset();
     void SetNumerLotu(string numerLotu);
     void SetTrasa(Trasa trasa);
     void SetSamolot(Samolot samolot);
