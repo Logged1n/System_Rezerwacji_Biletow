@@ -6,9 +6,13 @@ public class LotPasazerskiBuilder : ILotBuilder
 
     public LotPasazerskiBuilder()
     {
-        _lot = new Lot();
+        Reset();
     }
 
+    public void Reset()
+    {
+        _lot = new Lot();
+    }
     public void SetNumerLotu(string numerLotu)
     {
         _lot.NumerLotu = numerLotu;
@@ -36,7 +40,6 @@ public class LotPasazerskiBuilder : ILotBuilder
 
     public Lot Build()
     {
-        // TODO sprawdzic czy nie ma juz dokladnie takiego lotu na liscie
         LotManagement.GetInstance().Dodaj(_lot);
         return _lot;
     }

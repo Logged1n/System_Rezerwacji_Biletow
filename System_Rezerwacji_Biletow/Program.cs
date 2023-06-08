@@ -6,16 +6,25 @@ internal class Program
     private static void Main(string[] args)
     {
         //DATA SETUP
+       
         SamolotManagement samolotManagement = SamolotManagement.GetInstance();
         //KlientManagement klientManagement = KlientManagement.GetInstance();
         LotniskoManagement lotniskoManagement = LotniskoManagement.GetInstance();
         TrasaManagement trasaManagement = TrasaManagement.GetInstance();
         LotManagement lotManagement = LotManagement.GetInstance();
         //RezerwacjaManagement rezerwacjaManagement = RezerwacjaManagement.GetInstance();
-        
-        lotniskoManagement.LoadData("lotniska.txt");
-        trasaManagement.LoadData("trasy.txt");
-        lotManagement.LoadData("loty.txt");
+        try
+        {
+            lotniskoManagement.LoadData("lotniska.txt");
+            trasaManagement.LoadData("trasy.txt");
+            lotManagement.LoadData("loty.txt");
+        }
+        catch (NieUdaloSieOdczytacPlikuException ex)
+        {
+            Console.WriteLine(ex.Message + "\nNie odczytano stanu systemu, ale mozesz korzystac z programu. Nacisnij dowolny przycisk aby kontynuowac...");
+            Console.ReadKey();
+        }
+       
         var koniecProgramu = false;
         
         do
@@ -247,11 +256,20 @@ internal class Program
 
                 case 7:
                 {
-                    samolotManagement.SaveData("samoloty.txt");
-                    lotniskoManagement.SaveData("lotniska.txt");
-                    trasaManagement.SaveData("trasy.txt");
-                    lotManagement.SaveData("loty.txt");
-                    Console.WriteLine("Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
+                    try
+                    {
+                        samolotManagement.SaveData("samoloty.txt");
+                        lotniskoManagement.SaveData("lotniska.txt");
+                        trasaManagement.SaveData("trasy.txt");
+                        lotManagement.SaveData("loty.txt");
+                        Console.WriteLine(
+                            "Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
+                    }
+                    catch (NieUdaloSieZapisacPlikuException ex)
+                    {
+                        Console.WriteLine(ex.Message + "\n W zwiazku z tym, program zostanie zamkniety bez zapisania zmian. Nacisnij dowolny przycisk aby kontynuowac...");
+                    }
+                    
                     koniecProgramu = true;
                     Console.ReadKey();
                     break;
