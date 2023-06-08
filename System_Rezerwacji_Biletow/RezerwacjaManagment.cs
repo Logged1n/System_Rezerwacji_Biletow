@@ -2,6 +2,7 @@ namespace System_Rezerwacji_Biletow;
 
 public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
 {
+    private List<Rezerwacja> _Rezerwacje;
     public void LoadData(string path)
     {
         throw new NotImplementedException();
@@ -12,23 +13,37 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
         throw new NotImplementedException();
     }
 
-    public void Dodaj(Rezerwacja item)
+    public void Dodaj(Rezerwacja rezerwacja)
     {
-        throw new NotImplementedException();
+        _Rezerwacje.Add(rezerwacja);
     }
 
-    public void Usun(Rezerwacja item)
+    public void Usun(Rezerwacja rezerwacja)
     {
-        throw new NotImplementedException();
+        foreach (Rezerwacja r in _Rezerwacje)
+        {
+            if (r.Id == rezerwacja.Id)
+            {
+                _Rezerwacje.Remove(r);
+            }
+        }
     }
 
     public Rezerwacja GetSingle(string id)
     {
-        throw new NotImplementedException();
+        foreach (Rezerwacja r in _Rezerwacje)
+        {
+            if (r.Id == id)
+            {
+                return r;
+            }
+        }
+
+        return null;
     }
 
     public List<Rezerwacja> GetList()
     {
-        throw new NotImplementedException();
+        return _Rezerwacje;
     }
 }

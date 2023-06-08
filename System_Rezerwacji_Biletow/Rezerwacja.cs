@@ -2,7 +2,7 @@ namespace System_Rezerwacji_Biletow;
 
 public class Rezerwacja
 {
-    private string Id { get; }
-    private Klient klient { get; }
-    private Lot Lot { get;  }
+    public string Id { get; }
+    public Klient klient { get; }
+    public Lot Lot { get;  }
 }

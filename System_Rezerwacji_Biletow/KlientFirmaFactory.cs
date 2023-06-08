@@ -6,10 +6,4 @@ public class KlientFirmaFactory: IKlientFactory
     {
         return new KlientFirma(id, nrtel, email, firma);
     }
-
-
-    public Klient CreateKlient(string id, string nrtel, string email)
-    {
-        throw new NotImplementedException();
-    }
 }
