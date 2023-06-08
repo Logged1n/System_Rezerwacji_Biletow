@@ -30,10 +30,9 @@ public class LotManagement : ILotManagement, IDataProvider
             LotPasazerskiBuilder _lotBuilder = new LotPasazerskiBuilder();
             using (StreamReader reader = new StreamReader(path))
             {
-                string line;
                 string[] splitedLine;
                 DateTime dataOdlotu, dataPowrotu;
-                while ((line = reader.ReadLine()) != null)
+                while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
                     _lotBuilder.Reset();
@@ -61,7 +60,7 @@ public class LotManagement : ILotManagement, IDataProvider
             {
                 foreach (Lot l in _loty)
                 {
-                    sw.WriteLine($"{l.NumerLotu};{l.Trasa.Id}{l.Samolot.Id};{l.DataOdlotu};{l.DataPowrotu};{l.CzestotliwoscLotu}");
+                    sw.WriteLine(l);
                 }
             }
         }

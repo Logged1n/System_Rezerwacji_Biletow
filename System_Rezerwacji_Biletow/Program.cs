@@ -59,8 +59,7 @@ class Program
                             case 1:
                             {
                                 SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
-                                Samolot xd = srf.CreateSamolot("12", 60, 500,
-                                    LotniskoManagement.GetInstance().GetSingle("Krywlany"));
+                                Samolot xd = srf.CreateSamolot("12", 60, 500, LotniskoManagement.GetInstance().GetSingle("Krywlany"));
                                 SamolotManagement.GetInstance().Dodaj(xd);
                                 validChoice = true;
                                 break;

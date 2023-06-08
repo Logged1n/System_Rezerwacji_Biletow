@@ -8,4 +8,9 @@ public class Lot
     public DateTime DataOdlotu{ get; internal set; }
     public DateTime DataPowrotu { get; internal set; }
     public Czestotliwosc CzestotliwoscLotu { get; internal set; }
+
+    public override string ToString()
+    {
+        return $"{NumerLotu};{Trasa};{Samolot};{DataOdlotu};{DataPowrotu};{CzestotliwoscLotu}";
+    }
 }

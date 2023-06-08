@@ -4,7 +4,7 @@ using Exceptions;
 
 public class LotPlaner
 {
-    private ILotBuilder _lotBuilder; // zmiana, sensowniej jest uznac, ze klasa LotPlaner bedzie Directorem dla klas ILotBuilder
+    private readonly ILotBuilder _lotBuilder; // zmiana, sensowniej jest uznac, ze klasa LotPlaner bedzie Directorem dla klas ILotBuilder
 
     public LotPlaner (ILotBuilder lotBuilder)
     {

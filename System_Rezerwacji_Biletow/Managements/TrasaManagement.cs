@@ -4,14 +4,14 @@ using Exceptions;
 public class TrasaManagement : IManagement<Trasa>, IDataProvider
 {
     private readonly List<Trasa> _trasy;
-    private static TrasaManagement _instance; // ZMIANA WZGLEDEM UML
+    private static TrasaManagement _instance;
 
     private TrasaManagement()
     {
         _trasy = new List<Trasa>();
     }
 
-    public static TrasaManagement GetInstance() // SINGLETON, kazego mangementu chcemy miec dokldnie jedna instancje
+    public static TrasaManagement GetInstance() 
     {
         if (_instance == null)
         {
@@ -22,13 +22,24 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
     }
     public void Dodaj(Trasa trasa)
     {
-        //sprawdzenie czy nie ma juz tej trasy na liscie
+        foreach (var t in _trasy)
+        {
+            if (t.Id == trasa.Id)
+                throw new TakaTrasaJuzIstniejeException();
+        }
         _trasy.Add(trasa);
     }
 
     public void Usun(Trasa trasa)
     {
-        _trasy.Remove(trasa);
+        try
+        {
+            _trasy.Remove(trasa);
+        }
+        catch (TakaTrasaJuzIstniejeException ex)
+        {
+            Console.WriteLine(ex.Message + "Nie usunieto podanej trasy.");
+        }
     }
 
     public List<Trasa> GetList()
@@ -43,7 +54,8 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
             if (t.Id == id)
                 return t;
         }
-        return null; // tu obsluga wyjatku jak nie znajdzie odpowiedniego id, ewentualnie wczesniej jakas walidacja
+
+        throw new BrakTrasyException();
     }
 
     public void LoadData(string path)
@@ -52,17 +64,14 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
         {
             using (StreamReader reader = new StreamReader(path))
             {
-                string line;
                 string[] splitedLine;
-                string id;
-                Lotnisko start, cel;
                 int dystans;
-                while ((line = reader.ReadLine()) != null)
+                while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
-                    id = splitedLine[0];
-                    start = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
-                    cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
+                    string id = splitedLine[0];
+                    var start = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
+                    var cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
                     dystans = Convert.ToInt32(splitedLine[3]);
                     Trasa t = new Trasa(id, start, cel, dystans);
                     this.Dodaj(t);
@@ -83,7 +92,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
             {
                 foreach (Trasa t in _trasy)
                 {
-                    sw.WriteLine($"{t.Id};{t.Start.Nazwa}{t.Cel.Nazwa};{t.Dystans}");
+                    sw.WriteLine(t);
                 }
             }
         }
