@@ -47,34 +47,48 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
 
     public void LoadData(string path)
     {
-        using (StreamReader reader = new StreamReader(path))
+        try
         {
-            string line;
-            string[] splitedLine;
-            string id;
-            Lotnisko start, cel;
-            int dystans;
-            while ((line = reader.ReadLine()) != null)
+            using (StreamReader reader = new StreamReader(path))
             {
-                splitedLine = line.Split(";");
-                id = splitedLine[0];
-                start = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
-                cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
-                dystans = Convert.ToInt32(splitedLine[3]);
-                Trasa t = new Trasa(id, start, cel, dystans);
-                this.Dodaj(t);
+                string line;
+                string[] splitedLine;
+                string id;
+                Lotnisko start, cel;
+                int dystans;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    splitedLine = line.Split(";");
+                    id = splitedLine[0];
+                    start = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
+                    cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
+                    dystans = Convert.ToInt32(splitedLine[3]);
+                    Trasa t = new Trasa(id, start, cel, dystans);
+                    this.Dodaj(t);
+                }
             }
+        }
+        catch
+        {
+            throw new NieUdaloSieOdczytacPlikuException();
         }
     }
 
     public void SaveData(string path)
     {
-        using (StreamWriter sw = new StreamWriter(path))
+        try
         {
-            foreach (Trasa t in _trasy)
+            using (StreamWriter sw = new StreamWriter(path))
             {
-                sw.WriteLine($"{t.Id};{t.Start.Nazwa}{t.Cel.Nazwa};{t.Dystans}");
+                foreach (Trasa t in _trasy)
+                {
+                    sw.WriteLine($"{t.Id};{t.Start.Nazwa}{t.Cel.Nazwa};{t.Dystans}");
+                }
             }
+        }
+        catch
+        {
+            throw new NieUdaloSieZapisacPlikuException();
         }
     }
 }
