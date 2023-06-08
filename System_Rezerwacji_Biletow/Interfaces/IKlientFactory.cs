@@ -1,6 +1,6 @@
 namespace System_Rezerwacji_Biletow;
 
-public interface IKlientFactory
+public interface IKlientFactory // interfejs fabryk klientow ~wzorzec projektowy
 {
-    public Klient CreateKlient();
+    public Klient CreateKlient(string id, string numerTelefonu, string email, string dodatkowePole1, string dodatkowePole2 = null);
 }

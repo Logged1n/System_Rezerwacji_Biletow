@@ -1,9 +1,12 @@
+using System_Rezerwacji_Biletow.Managements;
+
 namespace System_Rezerwacji_Biletow;
 
 public class SamolotRegionalnyFactory : ISamolotFactory
 {
-    public Samolot CreateSamolot(string id, int iloscMiejsc, int zasieg, Lotnisko poczatkoweLotnisko)
+    //przyklad dobrze zrobionej fabryki samolotu
+    public Samolot CreateSamolot(Lotnisko poczatkoweLotnisko)
     {
-        return new SamolotRegionalny(id, iloscMiejsc, zasieg, poczatkoweLotnisko);
+        return new SamolotRegionalny(poczatkoweLotnisko);
     }
 }

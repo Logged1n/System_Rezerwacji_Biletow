@@ -110,7 +110,7 @@ public class LotManagement : ILotManagement, IDataProvider
         throw new BrakLotuException();
     }
 
-    public bool CzySamolotWolny(Samolot samolot, DateTime dataOdlotu, DateTime dataPowrotu)
+    public bool CzySamolotWolny(Samolot samolot, DateTime dataOdlotu, DateTime dataPowrotu) // metoda sprawdzajaca, czy dany samolot jest wolny miedzy dwiema podanymi datami, z uwzglednieniem czestotliwosci lotow
     {
         foreach (var lot in _loty)
         {

@@ -1,7 +1,7 @@
 namespace System_Rezerwacji_Biletow;
 using Lot;
 
-public interface ILotBuilder
+public interface ILotBuilder // Interfejs budowniczego lotu
 {
     void Reset();
     void SetNumerLotu(string numerLotu);

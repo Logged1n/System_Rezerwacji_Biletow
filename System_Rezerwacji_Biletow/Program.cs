@@ -1,4 +1,5 @@
 ﻿namespace System_Rezerwacji_Biletow;
+using Lot;
 using Managements;
 using Exceptions;
 
@@ -23,7 +24,7 @@ class Program
         }
         catch (NieUdaloSieOdczytacPlikuException ex)
         {
-            Console.WriteLine(ex.Message + "\nNie odczytano stanu systemu, ale mozesz korzystac z programu. Nacisnij dowolny przycisk aby kontynuowac...");
+            Console.WriteLine(ex.Message + "Nie odczytano stanu systemu, ale mozesz korzystac z programu. Nacisnij dowolny przycisk aby kontynuowac...");
             Console.ReadKey();
         }
        
@@ -59,8 +60,6 @@ class Program
                             case 1:
                             {
                                 SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
-                                Samolot xd = srf.CreateSamolot("12", 60, 500, LotniskoManagement.GetInstance().GetSingle("Krywlany"));
-                                SamolotManagement.GetInstance().Dodaj(xd);
                                 validChoice = true;
                                 break;
                             }
@@ -172,7 +171,7 @@ class Program
                             }
                             case 3:
                             {
-                                Console.WriteLine("|    ID    |   Start   |   Cel   |    Dystans [km]   |");
+                                Console.WriteLine("Dane sa w fortmacie: id;LotniskoStartowe;LotniskoDocelowe;Dystans w km");
                                 foreach (var t in trasaManagement.GetList())
                                 {
                                     Console.WriteLine(t);
@@ -246,13 +245,27 @@ class Program
 
                 case 5:
                 {
-                    //TODO
+                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                    Console.WriteLine("Podaj id trasy, dla ktorej chcesz wygenerowac lot: ");
+                    string idTrasy = Console.ReadLine();
+                    Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac");
+                    DateTime dataOdlotu = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac: ");
+                    DateTime dataPowrotu = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("Jak czesto ma sie powtarzac lot? (Jednorazowy, Comiesieczny, Cotygodniowy, Codzienny): ");
+                    Czestotliwosc czestotliwosc = Enum.Parse<Czestotliwosc>(Console.ReadLine());
+                    lotPlaner.GenerujLot(TrasaManagement.GetInstance().GetSingle(idTrasy), dataOdlotu, dataPowrotu, czestotliwosc);
                     break;
                 }
 
                 case 6:
                 {
-                    //TODO
+                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                    Console.WriteLine("Podaj numer lotu, ktory chcesz powielic: ");
+                    string numerLotu = Console.ReadLine();
+                    lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
                     break;
                 }
                 case 7:

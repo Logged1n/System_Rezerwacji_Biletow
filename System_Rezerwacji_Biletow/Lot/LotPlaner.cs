@@ -4,13 +4,13 @@ using Exceptions;
 
 public class LotPlaner
 {
-    private readonly ILotBuilder _lotBuilder; // zmiana, sensowniej jest uznac, ze klasa LotPlaner bedzie Directorem dla klas ILotBuilder
+    private readonly ILotBuilder _lotBuilder; // aktualnie LotPlaner pelni tez role LotDirectora - wybiera sposob tworzenia lotow.
 
     public LotPlaner (ILotBuilder lotBuilder)
     {
         _lotBuilder = lotBuilder;
     }
-    public Lot GenerujLot(Trasa trasa, DateTime poczatek, DateTime koniec, Czestotliwosc czestotliwoscLotu = Czestotliwosc.Jednorazowy)
+    public Lot GenerujLot(Trasa trasa, DateTime poczatek, DateTime koniec, Czestotliwosc czestotliwoscLotu = Czestotliwosc.Jednorazowy) // wybieramy odpowiedni samolot, a nastepnie przy pomocy buildera tworzymy nowy lot
     {
         List<Samolot> samolotyDoWyboru = SamolotManagement.GetInstance().GetListLotnisko(trasa.Start);
         foreach (var samolot in samolotyDoWyboru)
@@ -19,6 +19,7 @@ public class LotPlaner
                 samolot.Zasieg >= trasa.Dystans)
             {
                 _lotBuilder.Reset();
+                _lotBuilder.SetNumerLotu(Convert.ToString(LotManagement.GetInstance().GetList().Count));
                 _lotBuilder.SetSamolot(samolot);
                 _lotBuilder.SetTrasa(trasa);
                 _lotBuilder.SetDataOdlotu(poczatek);
@@ -31,7 +32,7 @@ public class LotPlaner
         throw new BrakOdpowiedniegoSamolotuException();
     }
 
-    public void PowielLot(Lot lot)
+    public void PowielLot(Lot lot) // zwykle powielenie lotu na prosbe uzytkownika w zaleznosci od czestotliwosci powtarzania go (powielenie jest tylko jednokrotne ~uproszczenie)
     {
         switch (lot.CzestotliwoscLotu)
         {

@@ -64,10 +64,5 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         //TODO; obsluga bledu jezeli nie ma takiego lotniska
         throw new NotImplementedException();
     }
-
-    public List<Samolot> GetListZasieg(int zasieg)
-    {
-        //TODO; obsluga bledu jezeli wprowadzono jakis zasieg na minusie czy cos
-        throw new NotImplementedException();
-    }
+    
 }

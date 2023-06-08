@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using System_Rezerwacji_Biletow.Managements;
+
 namespace System_Rezerwacji_Biletow;
 
 public abstract class Samolot
@@ -7,7 +10,7 @@ public abstract class Samolot
     public int IloscMiejsc { get; protected set; }
     public int Zasieg { get; protected set; }
     public Lotnisko PoczatkoweLotnisko { get; protected set; }
-
+    
     protected Samolot(string id, int iloscMiejsc, int zasieg, Lotnisko lotnisko)
     {
         Id = id;
@@ -18,6 +21,6 @@ public abstract class Samolot
 
     public override string ToString()
     {
-        return $"{this.GetType()}{Id};{IloscMiejsc};{Zasieg};{PoczatkoweLotnisko}";
+        return $"{GetType()}{Id};{IloscMiejsc};{Zasieg};{PoczatkoweLotnisko}"; //TODO zmiana GetType na cos zgrabniejszego lub w kazdej podklasie samolotu oddzielnie nadpisywac metode ToString()
     }
 }

@@ -11,7 +11,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
         _trasy = new List<Trasa>();
     }
 
-    public static TrasaManagement GetInstance() 
+    public static TrasaManagement GetInstance()  // SINGLETON, tak jak w kazdym managemencie. Chcemy mieć dokładnie 1 obiekt klasy XManagement.
     {
         if (_instance == null)
         {
@@ -22,7 +22,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
     }
     public void Dodaj(Trasa trasa)
     {
-        foreach (var t in _trasy)
+        foreach (var t in _trasy) // sprawdzenie czy nie ma juz trasy, ktora chcemy dodac
         {
             if (t.Id == trasa.Id)
                 throw new TakaTrasaJuzIstniejeException();
@@ -36,7 +36,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
         {
             _trasy.Remove(trasa);
         }
-        catch (TakaTrasaJuzIstniejeException ex)
+        catch (BrakTrasyException ex)
         {
             Console.WriteLine(ex.Message + "Nie usunieto podanej trasy.");
         }

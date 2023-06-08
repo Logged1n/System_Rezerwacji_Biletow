@@ -1,6 +1,6 @@
 namespace System_Rezerwacji_Biletow.Lot;
 using Managements;
-public class LotPasazerskiBuilder : ILotBuilder
+public class LotPasazerskiBuilder : ILotBuilder // przykladowa implementacja interfejsu budowniczego lotu. w przyszlosci mozemy miec inne rodzaje lotu, budowane w inny sposob.
 {
     private Lot _lot;
 
@@ -45,7 +45,7 @@ public class LotPasazerskiBuilder : ILotBuilder
 
     public Lot Build()
     {
-        LotManagement.GetInstance().Dodaj(_lot);
+        LotManagement.GetInstance().Dodaj(_lot); // Po stworzeniu lotu od razu dodajemy go do listy lotow (co jest bardzo latwe dzieki SINGLETONOWI)
         return _lot;
     }
 }
