@@ -62,6 +62,19 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public void LoadData(string path)
     {
+        SamolotRegionalnyFactory regionalnyFactory = new SamolotRegionalnyFactory();
+        SamolotWaskokadlubowyFactory waskokadlubowyFactory = new SamolotWaskokadlubowyFactory();
+        SamolotSzerokokadlubowyFactory szerokokadlubowyFactory = new SamolotSzerokokadlubowyFactory();
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string[] splitedLine;
+            int zasieg, iloscMiejsc;
+            while (reader.ReadLine() is { } line)
+            {
+                splitedLine = line.Split(";");
+                
+            }
+        }
         //TODO
         throw new NotImplementedException();
     }

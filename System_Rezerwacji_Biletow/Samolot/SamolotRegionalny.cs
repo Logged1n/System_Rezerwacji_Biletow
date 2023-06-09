@@ -9,6 +9,6 @@ public class SamolotRegionalny : Samolot
     }
     public override string ToString()
     {
-        return $"{Id};{IloscMiejsc};{Zasieg};{PoczatkoweLotnisko.Miasto}";
+        return $"{Id};{IloscMiejsc};{Zasieg};{PoczatkoweLotnisko}";
     }
 }
