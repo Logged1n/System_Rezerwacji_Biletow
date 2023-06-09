@@ -109,7 +109,6 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
     public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
     {
         List<Samolot> _samolociki = new List<Samolot>();
-        //TODO; obsluga bledu jezeli nie ma takiego lotniska
         foreach (Samolot samolot in _samoloty)
         {
             if (samolot.PoczatkoweLotnisko == lotnisko)
