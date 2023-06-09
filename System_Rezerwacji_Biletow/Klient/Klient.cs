@@ -13,5 +13,9 @@ public abstract class Klient
         NumerTelefonu = numerTelefonu;
         Email = email;
     }
-    
+
+    public override string ToString()
+    {
+        return $"{Id}'{NumerTelefonu};{Email}";
+    }
 }

@@ -1,4 +1,5 @@
 namespace System_Rezerwacji_Biletow.Managements;
+using Exceptions;
 
 public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
 {
@@ -40,6 +41,8 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
                 _Rezerwacje.Remove(r);
             }
         }
+
+        throw new BrakRezerwacjiException();
     }
 
     public Rezerwacja GetSingle(string id)
@@ -52,7 +55,7 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
             }
         }
 
-        return null;
+        throw new BrakRezerwacjiException();
     }
 
     public List<Rezerwacja> GetList()

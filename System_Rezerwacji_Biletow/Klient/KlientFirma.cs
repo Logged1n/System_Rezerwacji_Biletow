@@ -8,4 +8,9 @@ public class KlientFirma : Klient
     {
         NazwaFirmy = nazwaFirmy;
     }
+
+    public override string ToString()
+    {
+        return $"{Id};{NumerTelefonu};{Email};{NazwaFirmy}";
+    }
 }

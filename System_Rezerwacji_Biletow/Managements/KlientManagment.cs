@@ -1,4 +1,5 @@
-using System_Rezerwacji_Biletow.;
+using System_Rezerwacji_Biletow;
+using System_Rezerwacji_Biletow.Exceptions;
 
 namespace System_Rezerwacji_Biletow;
 
@@ -28,7 +29,7 @@ public class KlientManagment: IManagement<Klient>, IDataProvider
         {
             if (k.Id == klient.Id)
             {
-                return;
+                throw new TakiKlientJuzIstniejeException();
             }
         }
         _klienci.Add(klient);
@@ -36,12 +37,13 @@ public class KlientManagment: IManagement<Klient>, IDataProvider
 
     public void Usun(Klient klient)
     {
-        foreach (Klient k in _klienci)
+        try
         {
-            if (k.Id == klient.Id)
-            {
-                _klienci.Remove(k);
-            }
+            _klienci.Remove(klient);
+        }
+        catch
+        {
+            throw new BrakKlientaException();
         }
     }
 
@@ -55,7 +57,8 @@ public class KlientManagment: IManagement<Klient>, IDataProvider
             }
         }
 
-        return null;
+        throw new BrakKlientaException();
+
     }
 
     public List<Klient> GetList()
@@ -65,7 +68,22 @@ public class KlientManagment: IManagement<Klient>, IDataProvider
 
     public void LoadData(string path)
     {
-        
+        try
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string[] splitedLine;
+                while (reader.ReadLine() is { } line)
+                {
+                    splitedLine = line.Split(";");
+                   
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieOdczytacPlikuException();
+        }
     }
 
     public void SaveData(string path)

@@ -10,5 +10,10 @@ public class KlientIndywidualny : Klient
     {
         
     }
+
+    public override string ToString()
+    {
+        return $"{Id};{NumerTelefonu};{Email};{Imie};{Nazwisko}";
+    }
     
 }
