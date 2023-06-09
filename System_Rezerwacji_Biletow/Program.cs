@@ -1,20 +1,33 @@
 ﻿namespace System_Rezerwacji_Biletow;
+using Lot;
+using Managements;
+using Exceptions;
 
-internal class Program
+class Program
 {
+    //TODO wypelnienie wszystkich opcji; generalnie jakies testy jednostkowe, obslugi bledow
     private static void Main(string[] args)
     {
         //DATA SETUP
+       
         SamolotManagement samolotManagement = SamolotManagement.GetInstance();
         //KlientManagement klientManagement = KlientManagement.GetInstance();
         LotniskoManagement lotniskoManagement = LotniskoManagement.GetInstance();
         TrasaManagement trasaManagement = TrasaManagement.GetInstance();
         LotManagement lotManagement = LotManagement.GetInstance();
         //RezerwacjaManagement rezerwacjaManagement = RezerwacjaManagement.GetInstance();
-        
-        lotniskoManagement.LoadData("lotniska.txt");
-        trasaManagement.LoadData("trasy.txt");
-        lotManagement.LoadData("loty.txt");
+        try
+        {
+            lotniskoManagement.LoadData("lotniska.txt");
+            trasaManagement.LoadData("trasy.txt");
+            lotManagement.LoadData("loty.txt");
+        }
+        catch (NieUdaloSieOdczytacPlikuException ex)
+        {
+            Console.WriteLine(ex.Message + "Nie odczytano stanu systemu, ale mozesz korzystac z programu. Nacisnij dowolny przycisk aby kontynuowac...");
+            Console.ReadKey();
+        }
+       
         var koniecProgramu = false;
         
         do
@@ -26,8 +39,9 @@ internal class Program
                               "3. Zarzadzaj Trasami\n" +
                               "4. Zarzadzaj Lotniskami\n" +
                               "5. Wygeneruj Lot\n" +
-                              "6. Zarezerwuj Bilet\n" +
-                              "7. Zamknij Program");
+                              "6. Powiel Lot\n" +
+                              "7. Zarezerwuj Bilet\n" +
+                              "8. Zamknij Program");
             var wybor = Convert.ToInt32(Console.ReadLine());
             switch (wybor)
             {
@@ -45,7 +59,7 @@ internal class Program
                         {
                             case 1:
                             {
-                                //TODO
+                                SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
                                 validChoice = true;
                                 break;
                             }
@@ -58,6 +72,8 @@ internal class Program
                             case 3:
                             {
                                 //TODO
+                                Console.WriteLine(SamolotManagement.GetInstance().GetSingle("12"));
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
@@ -155,7 +171,7 @@ internal class Program
                             }
                             case 3:
                             {
-                                Console.WriteLine("|    ID    |   Start   |   Cel   |    Dystans [km]   |");
+                                Console.WriteLine("Dane sa w fortmacie: id;LotniskoStartowe;LotniskoDocelowe;Dystans w km");
                                 foreach (var t in trasaManagement.GetList())
                                 {
                                     Console.WriteLine(t);
@@ -168,6 +184,7 @@ internal class Program
                             default:
                             {
                                 Console.WriteLine("Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -228,25 +245,58 @@ internal class Program
 
                 case 5:
                 {
-                    //TODO
+                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                    Console.WriteLine("Podaj id trasy, dla ktorej chcesz wygenerowac lot: ");
+                    string idTrasy = Console.ReadLine();
+                    Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac");
+                    DateTime dataOdlotu = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac: ");
+                    DateTime dataPowrotu = DateTime.Parse(Console.ReadLine());
+                    Console.WriteLine("Jak czesto ma sie powtarzac lot? (Jednorazowy, Comiesieczny, Cotygodniowy, Codzienny): ");
+                    Czestotliwosc czestotliwosc = Enum.Parse<Czestotliwosc>(Console.ReadLine());
+                    lotPlaner.GenerujLot(TrasaManagement.GetInstance().GetSingle(idTrasy), dataOdlotu, dataPowrotu, czestotliwosc);
                     break;
                 }
 
                 case 6:
                 {
+                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                    Console.WriteLine("Podaj numer lotu, ktory chcesz powielic: ");
+                    string numerLotu = Console.ReadLine();
+                    lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
+                    break;
+                }
+                case 7:
+                {
                     //TODO
                     break;
                 }
 
-                case 7:
+                case 8:
                 {
-                    samolotManagement.SaveData("samoloty.txt");
-                    lotniskoManagement.SaveData("lotniska.txt");
-                    trasaManagement.SaveData("trasy.txt");
+                    try
+                    {
+                        samolotManagement.SaveData("samoloty.txt");
+                        lotniskoManagement.SaveData("lotniska.txt");
+                        trasaManagement.SaveData("trasy.txt");
+                        lotManagement.SaveData("loty.txt");
+                        Console.WriteLine(
+                            "Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
+                    }
+                    catch (NieUdaloSieZapisacPlikuException ex)
+                    {
+                        Console.WriteLine(ex.Message + "\n W zwiazku z tym, program zostanie zamkniety bez zapisania zmian. Nacisnij dowolny przycisk aby kontynuowac...");
+                    }
                     
-                    lotManagement.SaveData("loty.txt");
-                    Console.WriteLine("Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     koniecProgramu = true;
+                    Console.ReadKey();
+                    break;
+                }
+                default:
+                {
+                    Console.WriteLine("Nieprawidlowy wybor. Sprobuj ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
                     Console.ReadKey();
                     break;
                 }

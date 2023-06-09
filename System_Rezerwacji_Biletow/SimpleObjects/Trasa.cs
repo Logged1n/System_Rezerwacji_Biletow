@@ -7,7 +7,7 @@ public class Trasa
     public Lotnisko Cel { get; }
     public int Dystans { get; }
 
-    public Trasa(string id, Lotnisko start, Lotnisko cel, int dystans) // ROZNICA WZGLEDEM UML, nie bylo tego konstruktora
+    public Trasa(string id, Lotnisko start, Lotnisko cel, int dystans) // konstruktor do wczytywania danych w TrasaManagement
     {
         Id = id;
         Start = start;
@@ -17,6 +17,6 @@ public class Trasa
 
     public override string ToString()
     {
-        return $"| {Id} | {Start} | {Cel} | {Dystans} km |";
+        return $"{Id};{Start};{Cel};{Dystans};";
     }
 }

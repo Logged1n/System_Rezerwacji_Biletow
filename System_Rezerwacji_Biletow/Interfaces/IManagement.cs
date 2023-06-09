@@ -1,6 +1,6 @@
 namespace System_Rezerwacji_Biletow;
 
-public interface IManagement<T>
+public interface IManagement<T> // generyczny interfejs zarzadzania obiektami T
 {
     public void Dodaj(T item);
     public void Usun(T item);
