@@ -1,6 +1,7 @@
 namespace System_Rezerwacji_Biletow.Rezerwacje;
 using Lot;
 using Klient;
+using Managements;
 
 public class Rezerwacja
 {
@@ -8,11 +9,16 @@ public class Rezerwacja
     public Klient Klient { get; }
     public Lot Lot { get; }
 
-    public Rezerwacja(string id, Klient klient, Lot lot)
+    public Rezerwacja(Klient klient, Lot lot)
     {
-        Id = id;
+        Id = Convert.ToString(KlientManagment.GetInstance().GetList().Count);
         Klient = klient;
         Lot = lot;
+    }
+
+    public override string ToString()
+    {
+        return $"{Id};{Klient};{Lot}";
     }
 }
    

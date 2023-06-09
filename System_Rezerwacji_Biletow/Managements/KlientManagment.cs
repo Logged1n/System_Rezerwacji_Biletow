@@ -69,13 +69,23 @@ public class KlientManagment: IManagement<Klient>, IDataProvider
     {
         try
         {
+            KlientIndywidualnyFactory indywidualnyFactory = new KlientIndywidualnyFactory();
+            KlientFirmaFactory firmaFactory = new KlientFirmaFactory();
             using (StreamReader reader = new StreamReader(path))
             {
                 string[] splitedLine;
+                
                 while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
-                   
+                    if (splitedLine[0][0] == 'F')
+                    {
+                        firmaFactory.CreateKlient(splitedLine[1], splitedLine[2], splitedLine[3], splitedLine[4]);
+                    }
+                    else if (splitedLine[0][0]=='I')
+                    {
+                        indywidualnyFactory.CreateKlient(splitedLine[1], splitedLine[2], splitedLine[3], splitedLine[4]);
+                    }
                 }
             }
         }

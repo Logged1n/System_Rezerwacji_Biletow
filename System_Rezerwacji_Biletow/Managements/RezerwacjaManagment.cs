@@ -24,7 +24,22 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
     }
     public void LoadData(string path)
     {
-        throw new NotImplementedException();
+        try
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string[] splitedLine;
+                while (reader.ReadLine() is { } line)
+                {
+                    splitedLine = line.Split(";");
+                    Rezerwacja r = new Rezerwacja(KlientManagment.GetInstance().GetSingle(splitedLine[0]), LotManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieOdczytacPlikuException();
+        }
     }
 
     public void SaveData(string path)
@@ -35,7 +50,7 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
             {
                 foreach (Rezerwacja r in _Rezerwacje)
                 {
-                    sw.WriteLine(r);
+                    sw.WriteLine($"{r.Klient.Id};{r.Lot.NumerLotu}");
                 }
             }
         }
