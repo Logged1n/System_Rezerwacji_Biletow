@@ -1,11 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using System_Rezerwacji_Biletow.Klient;
-
-namespace System_Rezerwacji_Biletow;
+﻿namespace System_Rezerwacji_Biletow;
 using Samolot;
 using Lot;
 using Managements;
 using Exceptions;
+using Klient;
 
 class Program
 {
@@ -208,6 +206,7 @@ class Program
                                         default:
                                         {
                                             Console.WriteLine("Niepoprawny wybor! Sprobuj ponownie.");
+                                            Console.ReadKey();
                                             break;
                                         }
                                     }
@@ -218,13 +217,26 @@ class Program
                             }
                             case "2":
                             {
-                                //TODO
+                                Console.WriteLine("Podaj ID klienta, ktorego chcesz usunac: ");
+                                string id = Console.ReadLine();
+                                try
+                                {
+                                    klientManagement.Usun(klientManagement.GetSingle(id));
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac...");
+                                    Console.ReadKey();
+                                }
                                 validChoice = true;
                                 break;
                             }
                             case "3":
                             {
-                                //TODO
+                                foreach (var klient in klientManagement.GetList())
+                                {
+                                    Console.WriteLine(klient);
+                                }
                                 validChoice = true;
                                 break;
                             }
@@ -330,13 +342,28 @@ class Program
                             }
                             case "2":
                             {
-                                //TODO
+                                Console.WriteLine("Podaj nazwe lotniska, ktore chcesz usunac: ");
+                                string nazwa = Console.ReadLine();
+                                try
+                                {
+                                    lotniskoManagement.Usun(lotniskoManagement.GetSingle(nazwa));
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac..");
+                                    Console.ReadKey();
+                                }
                                 validChoice = true;
                                 break;
                             }
                             case "3":
                             {
-                                //TODO
+                                foreach (var lotnisko in lotniskoManagement.GetList())
+                                {
+                                    Console.WriteLine(lotnisko);
+                                }
+
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
@@ -380,6 +407,20 @@ class Program
                 case "7":
                 {
                     //TODO
+                    Console.WriteLine("Podaj id klienta, na ktorego ma byc rezerwacja: ");
+                    string id = Console.ReadLine();
+                   Console.WriteLine("Podaj numer lotu, na ktory chcesz dokonac rezerwacji: ");
+                   string numer = Console.ReadLine();
+                   try
+                   {
+                       rezerwacjaManagement.Dodaj(new Rezerwacja.Rezerwacja(klientManagement.GetSingle(id),
+                           lotManagement.GetSingle(numer)));
+                   }
+                   catch (Exception ex)
+                   {
+                       Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac...");
+                       Console.ReadKey();
+                   }
                     break;
                 }
 
