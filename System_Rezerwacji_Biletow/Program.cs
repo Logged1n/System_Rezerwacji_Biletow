@@ -3,8 +3,6 @@ using Samolot;
 using Lot;
 using Managements;
 using Exceptions;
-using Klient;
-using Rezerwacja;
 
 class Program
 {
@@ -47,10 +45,10 @@ class Program
                               "6. Powiel Lot\n" +
                               "7. Zarezerwuj Bilet\n" +
                               "8. Zamknij Program");
-            var wybor = Convert.ToInt32(Console.ReadLine());
+            var wybor = Console.ReadLine();
             switch (wybor)
             {
-                case 1:
+                case "1":
                 {
                     var validChoice = false;
                     do
@@ -64,7 +62,41 @@ class Program
                         {
                             case 1:
                             {
-                                SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
+                               //SETUP FABRYK SAMOLOTOW
+                               SamolotRegionalnyFactory SRF = new SamolotRegionalnyFactory();
+                               SamolotWaskokadlubowyFactory SWF = new SamolotWaskokadlubowyFactory();
+                               SamolotSzerokokadlubowyFactory SSF = new SamolotSzerokokadlubowyFactory();
+                               Console.WriteLine("Podaj nazwe lotniska poczatkowego dodawanego samolotu: ");
+                               string lotnisko = Console.ReadLine();
+                               Lotnisko _lotnisko = lotniskoManagement.GetSingle(lotnisko);
+                               Console.WriteLine("Podaj typ samolotu, jaki chcesz dodac.\n" +
+                                                 "1. Regionalny\n" +
+                                                 "2. Waskokadlubowy\n" +
+                                                 "3. Szerokokadlubowy");
+                               string typ = Console.ReadLine();
+                               switch (typ)
+                               {
+                                   case "1":
+                                   {
+                                       samolotManagement.Dodaj(SRF.CreateSamolot(_lotnisko));
+                                       break;
+                                   }
+                                   case "2":
+                                   {
+                                       samolotManagement.Dodaj(SWF.CreateSamolot(_lotnisko));
+                                       break;
+                                   }
+                                   case "3":
+                                   {
+                                       samolotManagement.Dodaj(SSF.CreateSamolot(_lotnisko));
+                                       break;
+                                   }
+                                   default:
+                                   {
+                                       Console.WriteLine("Co ty zes wpisal matko jedyna");
+                                       break;
+                                   }
+                               }
                                 validChoice = true;
                                 break;
                             }
@@ -76,8 +108,11 @@ class Program
                             }
                             case 3:
                             {
-                                //TODO
-                                Console.WriteLine(SamolotManagement.GetInstance().GetSingle("12"));
+                                foreach (var samolot in samolotManagement.GetList())
+                                {
+                                    Console.WriteLine(samolot);
+                                }
+
                                 Console.ReadKey();
                                 validChoice = true;
                                 break;
