@@ -1,24 +1,16 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Lot; 
 
 public class Lot
 {
-    //TODO generalny ogar z builderem
-    public string NumerLotu { get; set; }
-    public Trasa Trasa { get; set; }
-    public Samolot Samolot { get; set; }
-    public DateTime DataOdlotu{ get; set; }
-    public DateTime DataPowrotu { get; set; }
+    public string NumerLotu { get;  internal set; } // niepowtarzalny identyfikator danego lotu
+    public Trasa Trasa { get; internal set; } // samolot leci z punktu A do punktu B (i wraca do punktu A ~uproszczenie)
+    public Samolot Samolot { get; internal set; } // konkretny samolot danego lotu
+    public DateTime DataOdlotu{ get; internal set; } // dokladna data (i godzina) odlotu samolotu z punktu A
+    public DateTime DataPowrotu { get; internal set; } // dokladna data (i godzina) powrotu samolotu do punktu A ~uproszczenie (A-->B-->A)
+    public Czestotliwosc CzestotliwoscLotu { get; internal set; } // Jak czesto ten lot sie powtarza (jest jednorazowy, cotygodniowy, codzienny..?)
 
-    public Lot()
+    public override string ToString()
     {
-    }
-    
-    public Lot(string numerLotu, Trasa trasa, Samolot samolot, DateTime dataOdlotu, DateTime dataPowrotu)
-    {
-        NumerLotu = numerLotu;
-        Trasa = trasa;
-        Samolot = samolot;
-        DataOdlotu = dataOdlotu;
-        DataPowrotu = dataPowrotu;
+        return $"{NumerLotu};{Trasa};{Samolot};{DataOdlotu};{DataPowrotu};{CzestotliwoscLotu}";
     }
 }

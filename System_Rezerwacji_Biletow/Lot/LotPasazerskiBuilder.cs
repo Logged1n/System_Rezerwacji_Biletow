@@ -1,6 +1,6 @@
-namespace System_Rezerwacji_Biletow;
-
-public class LotPasazerskiBuilder : ILotBuilder
+namespace System_Rezerwacji_Biletow.Lot;
+using Managements;
+public class LotPasazerskiBuilder : ILotBuilder // przykladowa implementacja interfejsu budowniczego lotu. w przyszlosci mozemy miec inne rodzaje lotu, budowane w inny sposob.
 {
     private Lot _lot;
 
@@ -38,9 +38,14 @@ public class LotPasazerskiBuilder : ILotBuilder
        _lot.DataPowrotu = dataPowrotu;
     }
 
+    public void SetCzestotliwoscLotu(Czestotliwosc czestotliwoscLotu)
+    {
+        _lot.CzestotliwoscLotu = czestotliwoscLotu;
+    }
+
     public Lot Build()
     {
-        LotManagement.GetInstance().Dodaj(_lot);
+        LotManagement.GetInstance().Dodaj(_lot); // Po stworzeniu lotu od razu dodajemy go do listy lotow (co jest bardzo latwe dzieki SINGLETONOWI)
         return _lot;
     }
 }

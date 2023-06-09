@@ -1,9 +1,10 @@
 namespace System_Rezerwacji_Biletow;
-
+using Managements;
 public class SamolotRegionalny : Samolot
 {
-    public SamolotRegionalny(string id, int iloscMiejsc, int zasieg, Lotnisko lotniskoPoczatkowe) :base( id, iloscMiejsc, zasieg, lotniskoPoczatkowe)
+    //przyklad poprawnie zrobionej podklasy w fabryce abstrakcyjnej
+    // zrob reszte, przy okazji zrozumiesz schemat
+    public SamolotRegionalny(Lotnisko poczatkoweLotnisko) : base(Convert.ToString(SamolotManagement.GetInstance().GetList().Count), 60, 300, poczatkoweLotnisko)
     {
-        
     }
 }
