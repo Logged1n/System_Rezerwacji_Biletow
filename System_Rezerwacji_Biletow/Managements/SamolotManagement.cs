@@ -21,7 +21,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
     }
     public void Dodaj(Samolot samolot)
     {
-        foreach (var s in _samoloty)
+        foreach (Samolot s in _samoloty)
         {
             if (s.Zasieg == samolot.Zasieg && s.IloscMiejsc == samolot.IloscMiejsc)
                 throw new NotImplementedException();
@@ -40,7 +40,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         }
         catch
         {
-            throw new NotImplementedException(); 
+            throw new BrakOdpowiedniegoSamolotuException(); 
         }
 
     }
@@ -48,13 +48,12 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
     public Samolot GetSingle(string id)
     {
         //TODO obsluga bledu jezeli nie znajdziesz samolotu o takim id
-        foreach (var s in _samoloty)
+        foreach (Samolot s in _samoloty)
         {
             if (s.Id == id)
                 return s;
         }
-
-        return null;
+        throw new BrakOdpowiedniegoSamolotuException();
     }
 
     public List<Samolot> GetList()
@@ -70,8 +69,20 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public void SaveData(string path)
     {
-        //TODO
-        throw new NotImplementedException();
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (Samolot samolot in _samoloty)
+                {
+                    sw.WriteLine(samolot);
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieZapisacPlikuException();
+        }
     }
 
     public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
