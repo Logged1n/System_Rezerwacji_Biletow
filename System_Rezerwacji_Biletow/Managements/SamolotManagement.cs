@@ -1,6 +1,6 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Managements;
 
-public class SamolotManagement : ISamolotManagement
+public class SamolotManagement : ISamolotManagement, IDataProvider
 {
     private readonly List<Samolot> _samoloty;
     private static SamolotManagement _instance;
@@ -64,10 +64,5 @@ public class SamolotManagement : ISamolotManagement
         //TODO; obsluga bledu jezeli nie ma takiego lotniska
         throw new NotImplementedException();
     }
-
-    public List<Samolot> GetListZasieg(int zasieg)
-    {
-        //TODO; obsluga bledu jezeli wprowadzono jakis zasieg na minusie czy cos
-        throw new NotImplementedException();
-    }
+    
 }
