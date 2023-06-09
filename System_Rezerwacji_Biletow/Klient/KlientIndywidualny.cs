@@ -5,8 +5,7 @@ public class KlientIndywidualny : Klient
     public string Imie { get;}
     public string Nazwisko { get; }
 
-    public KlientIndywidualny(string Id, string numerTelefonu, string Email, string Imie, string Nazwisko) : base(Id, numerTelefonu,
-        Email)
+    public KlientIndywidualny(string numerTelefonu, string Email, string Imie, string Nazwisko) : base(numerTelefonu, Email)
     {
         
     }

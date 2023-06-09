@@ -7,9 +7,9 @@ public abstract class Klient
     public string NumerTelefonu { get; protected set;}
     public string Email {get; protected set;}
 
-    protected Klient(string id, string numerTelefonu, string email)
+    protected Klient(string numerTelefonu, string email)
     {
-        Id = id;
+        Id = "K" + Convert.ToString(KlientManagment.GetInstance().GetList().Count);
         NumerTelefonu = numerTelefonu;
         Email = email;
     }
