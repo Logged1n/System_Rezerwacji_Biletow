@@ -1,4 +1,6 @@
 namespace System_Rezerwacji_Biletow.Managements;
+using Interfaces;
+using Samolot;
 using Lot;
 using Exceptions;
 

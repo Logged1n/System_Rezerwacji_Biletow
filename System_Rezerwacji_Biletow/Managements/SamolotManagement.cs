@@ -1,5 +1,7 @@
 namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
+using Interfaces;
+using Samolot;
 
 public class SamolotManagement : ISamolotManagement, IDataProvider
 {

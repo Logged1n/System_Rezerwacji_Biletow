@@ -1,5 +1,6 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Klient;
 
+using Interfaces;
 public class KlientFirmaFactory: IKlientFactory
 {
     public Klient CreateKlient(string id, string numerTelefonu, string email, string dodatkowePole1, string dodatkowePole2 = null)

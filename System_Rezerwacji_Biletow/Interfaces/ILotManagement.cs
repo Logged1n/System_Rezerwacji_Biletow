@@ -1,4 +1,7 @@
-namespace System_Rezerwacji_Biletow.Lot;
+namespace System_Rezerwacji_Biletow.Interfaces;
+
+using Samolot;
+using Lot;
 
 public interface ILotManagement : IManagement<Lot> // Interfejs zarzadzania Lotami
 {

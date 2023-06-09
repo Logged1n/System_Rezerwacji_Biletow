@@ -1,4 +1,4 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Klient;
 
 public class KlientIndywidualny : Klient
 {

@@ -1,5 +1,6 @@
 namespace System_Rezerwacji_Biletow.Managements;
 
+using Interfaces;
 public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
 {
     public void LoadData(string path)

@@ -1,4 +1,4 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Interfaces;
 
 public interface IManagement<T> // generyczny interfejs zarzadzania obiektami T
 {

@@ -1,5 +1,6 @@
 namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
+using Interfaces;
 
 public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
 {
