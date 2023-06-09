@@ -10,7 +10,20 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
 
     public void SaveData(string path)
     {
-        throw new NotImplementedException();
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (Rezerwacja r in _Rezerwacje)
+                {
+                    sw.WriteLine(r);
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieZapisacPlikuException();
+        }
     }
 
     public void Dodaj(Rezerwacja rezerwacja)

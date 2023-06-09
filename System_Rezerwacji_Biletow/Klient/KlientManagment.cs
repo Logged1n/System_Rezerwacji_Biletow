@@ -1,8 +1,8 @@
-using System_Rezerwacji_Biletow.Interfaces;
+using System_Rezerwacji_Biletow.;
 
 namespace System_Rezerwacji_Biletow;
 
-public class KlientManagment: IKlientManagment, IDataProvider
+public class KlientManagment: IManagement<Klient>, IDataProvider
 {
     private readonly List<Klient> _klienci;
     private static KlientManagment _instance;
@@ -44,14 +44,45 @@ public class KlientManagment: IKlientManagment, IDataProvider
             }
         }
     }
-    
+
+    public Klient GetSingle(string id)
+    {
+        foreach (Klient k in _klienci)
+        {
+            if (k.Id == id)
+            {
+                return k;
+            }
+        }
+
+        return null;
+    }
+
+    public List<Klient> GetList()
+    {
+        return _klienci;
+    }
+
     public void LoadData(string path)
     {
-        throw new NotImplementedException();
+        
     }
 
     public void SaveData(string path)
     {
-        throw new NotImplementedException();
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (Klient k in _klienci)
+                {
+                    sw.WriteLine(k);
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieZapisacPlikuException();
+        }
     }
 }
