@@ -6,7 +6,7 @@ public class KlientFirma : Klient
 
     public KlientFirma(string numerTelefonu, string email, string nazwaFirmy) : base(numerTelefonu, email) // jak zrobisz KlientManagement to w base id zamien na cos podobnego co jest w samolotach
     {
-        Id = "F" + Convert.ToString(KlientManagment.GetInstance().GetList().Count);
+        Id = "F" + Convert.ToString(KlientManagement.GetInstance().GetList().Count);
         NazwaFirmy = nazwaFirmy;
     }
 

@@ -1,4 +1,4 @@
-namespace System_Rezerwacji_Biletow.Rezerwacje;
+namespace System_Rezerwacji_Biletow.Rezerwacja;
 using Lot;
 using Klient;
 using Managements;
@@ -11,7 +11,7 @@ public class Rezerwacja
 
     public Rezerwacja(Klient klient, Lot lot)
     {
-        Id = Convert.ToString(KlientManagment.GetInstance().GetList().Count);
+        Id = Convert.ToString(KlientManagement.GetInstance().GetList().Count);
         Klient = klient;
         Lot = lot;
     }

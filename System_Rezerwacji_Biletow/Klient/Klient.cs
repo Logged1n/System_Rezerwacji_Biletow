@@ -8,7 +8,7 @@ public abstract class Klient
 
     protected Klient(string numerTelefonu, string email)
     {
-        Id = "K" + Convert.ToString(KlientManagment.GetInstance().GetList().Count);
+        Id = "K" + Convert.ToString(KlientManagement.GetInstance().GetList().Count);
         NumerTelefonu = numerTelefonu;
         Email = email;
     }

@@ -1,23 +1,21 @@
-using System_Rezerwacji_Biletow.Rezerwacje;
-
 namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
 using Interfaces;
-using Rezerwacje;
-public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
+using Rezerwacja;
+public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
 {
     private readonly List<Rezerwacja> _Rezerwacje;
-    private static RezerwacjaManagment _instance;
-    private RezerwacjaManagment()
+    private static RezerwacjaManagement _instance;
+    private RezerwacjaManagement()
     {
         _Rezerwacje = new List<Rezerwacja>();
     }
 
-    public static RezerwacjaManagment GetIstance()
+    public static RezerwacjaManagement GetInstance()
     {
         if (_instance == null)
         {
-            _instance = new RezerwacjaManagment();
+            _instance = new RezerwacjaManagement();
         }
 
         return _instance;
@@ -32,7 +30,7 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
                 while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
-                    Rezerwacja r = new Rezerwacja(KlientManagment.GetInstance().GetSingle(splitedLine[0]), LotManagement.GetInstance().GetSingle(splitedLine[1]));
+                    Rezerwacja r = new Rezerwacja(KlientManagement.GetInstance().GetSingle(splitedLine[0]), LotManagement.GetInstance().GetSingle(splitedLine[1]));
                 }
             }
         }

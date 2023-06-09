@@ -1,9 +1,10 @@
 ﻿namespace System_Rezerwacji_Biletow;
 using Samolot;
-using Klient;
 using Lot;
 using Managements;
 using Exceptions;
+using Klient;
+using Rezerwacja;
 
 class Program
 {
@@ -11,18 +12,20 @@ class Program
     private static void Main(string[] args)
     {
         //DATA SETUP
-       
-        SamolotManagement samolotManagement = SamolotManagement.GetInstance();
-        //KlientManagement klientManagement = KlientManagement.GetInstance();
         LotniskoManagement lotniskoManagement = LotniskoManagement.GetInstance();
+        SamolotManagement samolotManagement = SamolotManagement.GetInstance();
+        KlientManagement klientManagement = KlientManagement.GetInstance();
         TrasaManagement trasaManagement = TrasaManagement.GetInstance();
         LotManagement lotManagement = LotManagement.GetInstance();
-        //RezerwacjaManagement rezerwacjaManagement = RezerwacjaManagement.GetInstance();
+        RezerwacjaManagement rezerwacjaManagement = RezerwacjaManagement.GetInstance();
         try
         {
             lotniskoManagement.LoadData("lotniska.txt");
+            klientManagement.LoadData("klienci.txt");
+            samolotManagement.LoadData("samoloty.txt");
             trasaManagement.LoadData("trasy.txt");
             lotManagement.LoadData("loty.txt");
+            rezerwacjaManagement.LoadData("rezerwacje.txt");
         }
         catch (NieUdaloSieOdczytacPlikuException ex)
         {
