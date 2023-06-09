@@ -23,12 +23,11 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
     {
         foreach (Samolot s in _samoloty)
         {
-            if (s.Zasieg == samolot.Zasieg && s.IloscMiejsc == samolot.IloscMiejsc)
-                throw new NotImplementedException();
+            if (s.Id == samolot.Id)
+                throw new TakiSamolotJuzIstniejeException();
         }
-        //TODO, sprawdzicz czy przypadkiem dodajesz samolotu, ktory jest juz na liscie
-        
-      _samoloty.Add(samolot);
+
+        _samoloty.Add(samolot);
     }
 
     public void Usun(Samolot samolot)
