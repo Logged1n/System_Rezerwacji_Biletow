@@ -38,12 +38,12 @@ public class LotManagement : ILotManagement, IDataProvider
                 {
                     splitedLine = line.Split(";");
                     _lotBuilder.Reset();
-                    _lotBuilder.SetNumerLotu(splitedLine[0]);
-                    _lotBuilder.SetTrasa(TrasaManagement.GetInstance().GetSingle(splitedLine[1]));
-                    _lotBuilder.SetSamolot(SamolotManagement.GetInstance().GetSingle(splitedLine[2]));
-                    _lotBuilder.SetDataOdlotu(DateTime.Parse(splitedLine[3]));
-                    _lotBuilder.SetDataPowrotu(DateTime.Parse(splitedLine[4]));
-                   _lotBuilder.SetCzestotliwoscLotu(Enum.Parse<Czestotliwosc>(splitedLine[5]));
+                    _lotBuilder.SetNumerLotu(Convert.ToString(LotManagement.GetInstance().GetList().Count));
+                    _lotBuilder.SetTrasa(TrasaManagement.GetInstance().GetSingle(splitedLine[0]));
+                    _lotBuilder.SetSamolot(SamolotManagement.GetInstance().GetSingle(splitedLine[1]));
+                    _lotBuilder.SetDataOdlotu(DateTime.Parse(splitedLine[2]));
+                    _lotBuilder.SetDataPowrotu(DateTime.Parse(splitedLine[3]));
+                   _lotBuilder.SetCzestotliwoscLotu(Enum.Parse<Czestotliwosc>(splitedLine[4]));
                    _lotBuilder.Build();
                 }
             }

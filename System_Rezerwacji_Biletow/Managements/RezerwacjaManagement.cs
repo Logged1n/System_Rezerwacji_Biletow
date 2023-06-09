@@ -1,30 +1,43 @@
-using System_Rezerwacji_Biletow.Rezerwacje;
-
 namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
 using Interfaces;
-using Rezerwacje;
-public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
+using Rezerwacja;
+public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
 {
     private readonly List<Rezerwacja> _Rezerwacje;
-    private static RezerwacjaManagment _instance;
-    private RezerwacjaManagment()
+    private static RezerwacjaManagement _instance;
+    private RezerwacjaManagement()
     {
         _Rezerwacje = new List<Rezerwacja>();
     }
 
-    public static RezerwacjaManagment GetIstance()
+    public static RezerwacjaManagement GetInstance()
     {
         if (_instance == null)
         {
-            _instance = new RezerwacjaManagment();
+            _instance = new RezerwacjaManagement();
         }
 
         return _instance;
     }
     public void LoadData(string path)
     {
-        throw new NotImplementedException();
+        try
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string[] splitedLine;
+                while (reader.ReadLine() is { } line)
+                {
+                    splitedLine = line.Split(";");
+                    Rezerwacja r = new Rezerwacja(KlientManagement.GetInstance().GetSingle(splitedLine[0]), LotManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieOdczytacPlikuException();
+        }
     }
 
     public void SaveData(string path)
@@ -35,7 +48,7 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
             {
                 foreach (Rezerwacja r in _Rezerwacje)
                 {
-                    sw.WriteLine(r);
+                    sw.WriteLine($"{r.Klient.Id};{r.Lot.NumerLotu}");
                 }
             }
         }

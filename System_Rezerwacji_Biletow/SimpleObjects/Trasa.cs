@@ -17,6 +17,6 @@ public class Trasa
 
     public override string ToString()
     {
-        return $"{Id};{Start};{Cel};{Dystans};";
+        return $"{Id};{Start.Nazwa};{Cel.Nazwa};{Dystans};";
     }
 }
