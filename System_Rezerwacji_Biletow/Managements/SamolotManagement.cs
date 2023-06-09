@@ -32,7 +32,6 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public void Usun(Samolot samolot)
     {
-        //TODO obsluga bledu jak nie znajdziesz tego samolotu do usuniecia
         try
         {
             _samoloty.Remove(samolot);
@@ -46,7 +45,6 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public Samolot GetSingle(string id)
     {
-        //TODO obsluga bledu jezeli nie znajdziesz samolotu o takim id
         foreach (Samolot s in _samoloty)
         {
             if (s.Id == id)
