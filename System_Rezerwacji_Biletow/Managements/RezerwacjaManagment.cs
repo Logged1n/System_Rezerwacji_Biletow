@@ -50,7 +50,7 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
             {
                 foreach (Rezerwacja r in _Rezerwacje)
                 {
-                    sw.WriteLine(r);
+                    sw.WriteLine($"{r.Klient.Id};{r.Lot.NumerLotu}");
                 }
             }
         }
