@@ -1,4 +1,7 @@
-﻿namespace System_Rezerwacji_Biletow;
+﻿using System.Runtime.InteropServices;
+using System_Rezerwacji_Biletow.Klient;
+
+namespace System_Rezerwacji_Biletow;
 using Samolot;
 using Lot;
 using Managements;
@@ -57,18 +60,29 @@ class Program
                         Console.WriteLine("1. Dodaj Samolot\n" +
                                           "2. Usun Samolot\n" +
                                           "3. Przegladaj Samoloty");
-                        var wybor2 = Convert.ToInt32(Console.ReadLine());
+                        string wybor2 = Console.ReadLine();
                         switch (wybor2)
                         {
-                            case 1:
+                            case "1":
                             {
                                //SETUP FABRYK SAMOLOTOW
                                SamolotRegionalnyFactory SRF = new SamolotRegionalnyFactory();
                                SamolotWaskokadlubowyFactory SWF = new SamolotWaskokadlubowyFactory();
                                SamolotSzerokokadlubowyFactory SSF = new SamolotSzerokokadlubowyFactory();
+                               Lotnisko _lotnisko;
                                Console.WriteLine("Podaj nazwe lotniska poczatkowego dodawanego samolotu: ");
                                string lotnisko = Console.ReadLine();
-                               Lotnisko _lotnisko = lotniskoManagement.GetSingle(lotnisko);
+                               try
+                               {
+                                   _lotnisko = lotniskoManagement.GetSingle(lotnisko);
+                               }
+                               catch (Exception ex)
+                               {
+                                   Console.WriteLine(ex.Message + "Sprobuj ponownie.");
+                                   Console.ReadKey();
+                                   break;
+                               }
+                               
                                Console.WriteLine("Podaj typ samolotu, jaki chcesz dodac.\n" +
                                                  "1. Regionalny\n" +
                                                  "2. Waskokadlubowy\n" +
@@ -79,40 +93,52 @@ class Program
                                    case "1":
                                    {
                                        samolotManagement.Dodaj(SRF.CreateSamolot(_lotnisko));
+                                       validChoice = true;
                                        break;
                                    }
                                    case "2":
                                    {
                                        samolotManagement.Dodaj(SWF.CreateSamolot(_lotnisko));
+                                       validChoice = true;
                                        break;
                                    }
                                    case "3":
                                    {
                                        samolotManagement.Dodaj(SSF.CreateSamolot(_lotnisko));
+                                       validChoice = true;
                                        break;
                                    }
                                    default:
                                    {
-                                       Console.WriteLine("Co ty zes wpisal matko jedyna");
+                                       Console.WriteLine("Niepoprawna wartosc. Sprobuj ponownie: ");
                                        break;
                                    }
                                }
-                                validChoice = true;
-                                break;
+                               break;
                             }
-                            case 2:
+                            case "2":
                             {
-                                //TODO
+                                Console.WriteLine("Podaj ID samolotu, ktory chcesz usunac: ");
+                                string usuwany = Console.ReadLine();
+                                try
+                                {
+                                    samolotManagement.Usun(samolotManagement.GetSingle(usuwany));
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message + "Nie udalo sie usunac wskazanego samolotu");
+                                }
+                                Console.WriteLine("Nacisnij dowolny przycisk, aby kontynuowac...");
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
-                            case 3:
+                            case "3":
                             {
                                 foreach (var samolot in samolotManagement.GetList())
                                 {
                                     Console.WriteLine(samolot);
                                 }
-
                                 Console.ReadKey();
                                 validChoice = true;
                                 break;
@@ -125,11 +151,10 @@ class Program
                             }
                         }
                     } while (!validChoice);
-
                     break;
                 }
 
-                case 2:
+                case "2":
                 {
                     var validChoice = false;
                     do
@@ -138,22 +163,66 @@ class Program
                         Console.WriteLine("1. Dodaj Klienta\n" +
                                           "2. Usun Klienta\n" +
                                           "3. Przegladaj Klientow");
-                        var wybor2 = Convert.ToInt32(Console.ReadLine());
+                        var wybor2 = Console.ReadLine();
                         switch (wybor2)
                         {
-                            case 1:
+                            case "1":
+                            {
+                                KlientIndywidualnyFactory KIF = new KlientIndywidualnyFactory();
+                                KlientFirmaFactory KFF = new KlientFirmaFactory();
+                                bool poprawny = false;
+                                do
+                                {
+                                    Console.WriteLine("Podaj typ klienta, ktorego chcesz dodac.\n" +
+                                                      "1. Indywidualny\n" +
+                                                      "2. Firma-Posrednik.");
+                                    string typ = Console.ReadLine();
+                                    switch (typ)
+                                    {
+                                        case "1":
+                                        {
+                                            Console.WriteLine("Podaj imie klienta: ");
+                                            string imie = Console.ReadLine();
+                                            Console.WriteLine("Podaj nazwisko klienta: ");
+                                            string nazwisko = Console.ReadLine();
+                                            Console.WriteLine("Podaj email klienta: ");
+                                            string email = Console.ReadLine();
+                                            Console.WriteLine("Podaj numer telefonu klienta: ");
+                                            string numer = Console.ReadLine();
+                                            klientManagement.Dodaj(KIF.CreateKlient(numer, email, imie, nazwisko));
+                                            poprawny = true;
+                                            break;
+                                        }
+                                        case "2":
+                                        {
+                                            Console.WriteLine("Podaj nazwe firmy: ");
+                                            string nazwa = Console.ReadLine();
+                                            Console.WriteLine("Podaj email firmy: ");
+                                            string email = Console.ReadLine();
+                                            Console.WriteLine("Podaj numer telefonu firmy: ");
+                                            string numer = Console.ReadLine();
+                                            klientManagement.Dodaj(KFF.CreateKlient(numer, email, nazwa));
+                                            poprawny = true;
+                                            break;
+                                        }
+                                        default:
+                                        {
+                                            Console.WriteLine("Niepoprawny wybor! Sprobuj ponownie.");
+                                            break;
+                                        }
+                                    }
+                                } while (!poprawny);
+                                
+                                validChoice = true;
+                                break;
+                            }
+                            case "2":
                             {
                                 //TODO
                                 validChoice = true;
                                 break;
                             }
-                            case 2:
-                            {
-                                //TODO
-                                validChoice = true;
-                                break;
-                            }
-                            case 3:
+                            case "3":
                             {
                                 //TODO
                                 validChoice = true;
@@ -171,7 +240,7 @@ class Program
                     break;
                 }
 
-                case 3:
+                case "3":
                 {
                     var validChoice = false;
                     do
@@ -180,10 +249,10 @@ class Program
                         Console.WriteLine("1. Dodaj Trase\n" +
                                           "2. Usun Trase\n" +
                                           "3. Przegladaj Trasy");
-                        var wybor2 = Convert.ToInt32(Console.ReadLine());
+                        var wybor2 = Console.ReadLine();
                         switch (wybor2)
                         {
-                            case 1:
+                            case "1":
                             {
                                 int id = trasaManagement.GetList().Count;
                                 Console.WriteLine("Podaj nazwe lotniska poczatkowego nowej trasy: ");
@@ -199,7 +268,7 @@ class Program
                                 validChoice = true;
                                 break;
                             }
-                            case 2:
+                            case "2":
                             {
                                 Console.WriteLine("Podaj ID trasy, ktora chcesz usunac: ");
                                 string id = Console.ReadLine();
@@ -209,7 +278,7 @@ class Program
                                 validChoice = true;
                                 break;
                             }
-                            case 3:
+                            case "3":
                             {
                                 Console.WriteLine("Dane sa w fortmacie: id;LotniskoStartowe;LotniskoDocelowe;Dystans w km");
                                 foreach (var t in trasaManagement.GetList())
@@ -233,7 +302,7 @@ class Program
                     break;
                 }
 
-                case 4:
+                case "4":
                 {
                     var validChoice = false;
                     do
@@ -242,10 +311,10 @@ class Program
                         Console.WriteLine("1. Dodaj Lotnisko\n" +
                                           "2. Usun Lotnisko\n" +
                                           "3. Przegladaj Lotniska");
-                        var wybor2 = Convert.ToInt32(Console.ReadLine());
+                        var wybor2 = Console.ReadLine();
                         switch (wybor2)
                         {
-                            case 1:
+                            case "1":
                             {
                                 Console.WriteLine("Podaj kraj, w ktorym znajduje sie lotnisko: ");
                                 string kraj = Console.ReadLine();
@@ -259,13 +328,13 @@ class Program
                                 validChoice = true;
                                 break;
                             }
-                            case 2:
+                            case "2":
                             {
                                 //TODO
                                 validChoice = true;
                                 break;
                             }
-                            case 3:
+                            case "3":
                             {
                                 //TODO
                                 validChoice = true;
@@ -283,7 +352,7 @@ class Program
                     break;
                 }
 
-                case 5:
+                case "5":
                 {
                     LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
                     LotPlaner lotPlaner = new LotPlaner(lotBuilder);
@@ -299,7 +368,7 @@ class Program
                     break;
                 }
 
-                case 6:
+                case "6":
                 {
                     LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
                     LotPlaner lotPlaner = new LotPlaner(lotBuilder);
@@ -308,13 +377,13 @@ class Program
                     lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
                     break;
                 }
-                case 7:
+                case "7":
                 {
                     //TODO
                     break;
                 }
 
-                case 8:
+                case "8":
                 {
                     try
                     {
