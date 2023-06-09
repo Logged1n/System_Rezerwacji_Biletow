@@ -1,4 +1,6 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Samolot;
+
+using Interfaces;
 
 public class SamolotSzerokokadlubowyFactory : ISamolotFactory
 {

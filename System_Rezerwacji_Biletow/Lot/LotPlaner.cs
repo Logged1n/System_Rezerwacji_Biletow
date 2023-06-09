@@ -1,6 +1,8 @@
 namespace System_Rezerwacji_Biletow.Lot;
 using Managements;
 using Exceptions;
+using Interfaces;
+using Samolot;
 
 public class LotPlaner
 {

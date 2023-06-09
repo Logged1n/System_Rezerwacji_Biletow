@@ -1,4 +1,4 @@
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Interfaces;
 
 public interface IDataProvider // interfejs odpowiedzialny za odczyt i zapis danych na dysku
 {

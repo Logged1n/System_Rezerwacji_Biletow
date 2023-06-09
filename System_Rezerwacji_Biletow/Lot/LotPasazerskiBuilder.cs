@@ -1,5 +1,7 @@
 namespace System_Rezerwacji_Biletow.Lot;
 using Managements;
+using Interfaces;
+using Samolot;
 public class LotPasazerskiBuilder : ILotBuilder // przykladowa implementacja interfejsu budowniczego lotu. w przyszlosci mozemy miec inne rodzaje lotu, budowane w inny sposob.
 {
     private Lot _lot;
