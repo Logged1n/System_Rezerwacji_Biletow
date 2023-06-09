@@ -1,7 +1,9 @@
+using System_Rezerwacji_Biletow.Rezerwacje;
+
 namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
-
 using Interfaces;
+using Rezerwacje;
 public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
 {
     private readonly List<Rezerwacja> _Rezerwacje;

@@ -1,8 +1,7 @@
-using System_Rezerwacji_Biletow;
-using System_Rezerwacji_Biletow.Exceptions;
-
-namespace System_Rezerwacji_Biletow;
-
+namespace System_Rezerwacji_Biletow.Managements;
+using Exceptions;
+using Interfaces;
+using Klient;
 public class KlientManagment: IManagement<Klient>, IDataProvider
 {
     private readonly List<Klient> _klienci;

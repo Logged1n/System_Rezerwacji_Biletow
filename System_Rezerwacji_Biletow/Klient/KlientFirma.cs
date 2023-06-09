@@ -1,5 +1,5 @@
 namespace System_Rezerwacji_Biletow.Klient;
-
+using Managements;
 public class KlientFirma : Klient
 {
     public string NazwaFirmy {get; }

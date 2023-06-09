@@ -1,5 +1,5 @@
 namespace System_Rezerwacji_Biletow.Klient;
-
+using Managements;
 public abstract class Klient 
 {
     //TODO, ta klasa, dziedziczace, fabryki, interface
