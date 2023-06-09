@@ -3,7 +3,22 @@ using Exceptions;
 
 public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
 {
-    private List<Rezerwacja> _Rezerwacje;
+    private readonly List<Rezerwacja> _Rezerwacje;
+    private static RezerwacjaManagment _instance;
+    private RezerwacjaManagment()
+    {
+        _Rezerwacje = new List<Rezerwacja>();
+    }
+
+    public static RezerwacjaManagment GetIstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new RezerwacjaManagment();
+        }
+
+        return _instance;
+    }
     public void LoadData(string path)
     {
         throw new NotImplementedException();
@@ -29,6 +44,13 @@ public class RezerwacjaManagment: IDataProvider, IManagement<Rezerwacja>
 
     public void Dodaj(Rezerwacja rezerwacja)
     {
+        foreach (Rezerwacja r in _Rezerwacje)
+        {
+            if (r.Id == rezerwacja.Id)
+            {
+                throw new TakaRezerwacjaJuzIstniejeException();
+            }
+        }
         _Rezerwacje.Add(rezerwacja);
     }
 
