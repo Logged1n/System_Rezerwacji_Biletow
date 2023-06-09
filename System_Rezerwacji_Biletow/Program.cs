@@ -129,7 +129,7 @@ class Program
                     break;
                 }
 
-                case 2:
+                case "2":
                 {
                     var validChoice = false;
                     do
@@ -171,7 +171,7 @@ class Program
                     break;
                 }
 
-                case 3:
+                case "3":
                 {
                     var validChoice = false;
                     do
@@ -233,7 +233,7 @@ class Program
                     break;
                 }
 
-                case 4:
+                case "4":
                 {
                     var validChoice = false;
                     do
@@ -283,7 +283,7 @@ class Program
                     break;
                 }
 
-                case 5:
+                case "5":
                 {
                     LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
                     LotPlaner lotPlaner = new LotPlaner(lotBuilder);
@@ -299,7 +299,7 @@ class Program
                     break;
                 }
 
-                case 6:
+                case "6":
                 {
                     LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
                     LotPlaner lotPlaner = new LotPlaner(lotBuilder);
@@ -308,13 +308,13 @@ class Program
                     lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
                     break;
                 }
-                case 7:
+                case "7":
                 {
                     //TODO
                     break;
                 }
 
-                case 8:
+                case "8":
                 {
                     try
                     {

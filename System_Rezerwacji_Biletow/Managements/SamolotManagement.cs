@@ -68,15 +68,24 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         using (StreamReader reader = new StreamReader(path))
         {
             string[] splitedLine;
-            int zasieg, iloscMiejsc;
             while (reader.ReadLine() is { } line)
             {
                 splitedLine = line.Split(";");
-                
+                if (splitedLine[0][0] == 'R')
+                {
+                    regionalnyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+                else if (splitedLine[0][0] == 'W')
+                {
+                    waskokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+                else if (splitedLine[0][0] == 'S')
+                {
+                    szerokokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
             }
         }
-        //TODO
-        throw new NotImplementedException();
+
     }
 
     public void SaveData(string path)
@@ -87,7 +96,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
             {
                 foreach (Samolot samolot in _samoloty)
                 {
-                    sw.WriteLine(samolot);
+                    sw.WriteLine($"{samolot.Id};{samolot.PoczatkoweLotnisko.Nazwa}");
                 }
             }
         }
@@ -99,8 +108,15 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
     {
+        List<Samolot> _samolociki = new List<Samolot>();
         //TODO; obsluga bledu jezeli nie ma takiego lotniska
-        throw new NotImplementedException();
+        foreach (Samolot samolot in _samoloty)
+        {
+            if (samolot.PoczatkoweLotnisko == lotnisko)
+            {
+                _samolociki.Add(samolot);
+            }
+        }
+        return _samolociki;
     }
-    
 }
