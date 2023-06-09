@@ -19,10 +19,15 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
         }
         return _instance;
     }
-    public void Dodaj(Lotnisko item)
+    public void Dodaj(Lotnisko lotnisko)
     {
         //TODO Dodac sprawdzenie czy nazwa lotniska sie juz przypadkiem nie powtorzyla
-        _lotniska.Add(item);
+        foreach (var l in _lotniska)
+        {
+            if (l.Nazwa == lotnisko.Nazwa)
+                throw new NotImplementedException();
+        }
+        _lotniska.Add(lotnisko);
     }
 
     public void Usun(Lotnisko item)
@@ -44,7 +49,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
     public List<Lotnisko> GetList()
     {
         //TODO
-        throw new NotImplementedException();
+        return _lotniska;
     }
 
     public void LoadData(string path)

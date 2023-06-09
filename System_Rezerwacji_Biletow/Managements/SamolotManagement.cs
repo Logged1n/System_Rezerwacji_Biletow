@@ -1,4 +1,5 @@
 namespace System_Rezerwacji_Biletow.Managements;
+using Exceptions;
 
 public class SamolotManagement : ISamolotManagement, IDataProvider
 {
@@ -18,16 +19,30 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         }
         return _instance;
     }
-    public void Dodaj(Samolot item)
+    public void Dodaj(Samolot samolot)
     {
+        foreach (var s in _samoloty)
+        {
+            if (s.Zasieg == samolot.Zasieg && s.IloscMiejsc == samolot.IloscMiejsc)
+                throw new NotImplementedException();
+        }
         //TODO, sprawdzicz czy przypadkiem dodajesz samolotu, ktory jest juz na liscie
-      _samoloty.Add(item);
+        
+      _samoloty.Add(samolot);
     }
 
-    public void Usun(Samolot item)
+    public void Usun(Samolot samolot)
     {
         //TODO obsluga bledu jak nie znajdziesz tego samolotu do usuniecia
-        throw new NotImplementedException();
+        try
+        {
+            _samoloty.Remove(samolot);
+        }
+        catch
+        {
+            throw new NotImplementedException(); 
+        }
+
     }
 
     public Samolot GetSingle(string id)
