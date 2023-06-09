@@ -7,8 +7,4 @@ public class SamolotRegionalny : Samolot
     public SamolotRegionalny(Lotnisko poczatkoweLotnisko) : base(Convert.ToString(SamolotManagement.GetInstance().GetList().Count), 60, 300, poczatkoweLotnisko)
     {
     }
-    public override string ToString()
-    {
-        return $"{Id};{IloscMiejsc};{Zasieg};{PoczatkoweLotnisko}";
-    }
 }

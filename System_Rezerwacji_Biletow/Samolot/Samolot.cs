@@ -23,4 +23,5 @@ public abstract class Samolot
     {
         return $"{GetType()}{Id};{IloscMiejsc};{Zasieg};{PoczatkoweLotnisko}"; //TODO zmiana GetType na cos zgrabniejszego lub w kazdej podklasie samolotu oddzielnie nadpisywac metode ToString()
     }
+    
 }
