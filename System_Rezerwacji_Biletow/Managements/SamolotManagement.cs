@@ -104,5 +104,5 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         //TODO; obsluga bledu jezeli nie ma takiego lotniska
         throw new NotImplementedException();
     }
-    
+    public void Reset() => _samoloty.Clear(); // do testow jednostkowych
 }

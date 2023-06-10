@@ -165,5 +165,6 @@ public class LotManagement : ILotManagement, IDataProvider
         }
         return true;
     }
+    public void Reset() => _loty.Clear(); // do testow jednostkowych
 
 }

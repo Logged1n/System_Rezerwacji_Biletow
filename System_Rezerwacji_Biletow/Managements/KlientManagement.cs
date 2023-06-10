@@ -112,4 +112,7 @@ public class KlientManagement: IManagement<Klient>, IDataProvider
             throw new NieUdaloSieZapisacPlikuException();
         }
     }
+
+    public void Reset() => _klienci.Clear(); // do testow jednostkowych
+    
 }

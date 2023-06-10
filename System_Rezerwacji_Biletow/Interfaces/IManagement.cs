@@ -6,4 +6,5 @@ public interface IManagement<T> // generyczny interfejs zarzadzania obiektami T
     public void Usun(T item);
     public T GetSingle(string id);
     public List<T> GetList();
+    public void Reset();
 }

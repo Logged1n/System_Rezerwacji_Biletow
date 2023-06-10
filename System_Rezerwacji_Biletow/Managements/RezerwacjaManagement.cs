@@ -100,4 +100,5 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
     {
         return _Rezerwacje;
     }
+    public void Reset() => _Rezerwacje.Clear(); // do testow jednostkowych
 }

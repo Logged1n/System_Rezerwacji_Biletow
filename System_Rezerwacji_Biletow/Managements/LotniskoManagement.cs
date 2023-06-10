@@ -86,4 +86,5 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
         //TODO
         throw new NotImplementedException();
     }
+    public void Reset() => _lotniska.Clear(); // do testow jednostkowych
 }

@@ -102,4 +102,5 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
             throw new NieUdaloSieZapisacPlikuException();
         }
     }
+    public void Reset() => _trasy.Clear(); // do testow jednostkowych
 }
