@@ -72,11 +72,13 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
 
     public void Usun(Rezerwacja rezerwacja)
     {
-        foreach (Rezerwacja r in _Rezerwacje)
+        var lista = new List<Rezerwacja>(_Rezerwacje);
+        foreach (Rezerwacja r in lista)
         {
             if (r.Id == rezerwacja.Id)
             {
                 _Rezerwacje.Remove(r);
+                return;
             }
         }
 

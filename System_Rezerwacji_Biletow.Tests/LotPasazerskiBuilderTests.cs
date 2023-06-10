@@ -14,6 +14,7 @@ public class LotPasazerskiBuilderTests
     public void SetUp()
     {
         LotManagement.GetInstance().Reset();
+        lotBuilder.Reset();
     }
 
     [Test]
