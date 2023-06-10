@@ -22,18 +22,24 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
     }
     public void Dodaj(Lotnisko lotnisko)
     {
-        //TODO Dodac sprawdzenie czy nazwa lotniska sie juz przypadkiem nie powtorzyla
         foreach (var l in _lotniska)
         {
             if (l.Nazwa == lotnisko.Nazwa)
-                throw new NotImplementedException();
+                throw new TakieLotniskoJuzIstniejeException();
         }
         _lotniska.Add(lotnisko);
     }
 
-    public void Usun(Lotnisko item)
+    public void Usun(Lotnisko lotnisko)
     {
-        throw new NotImplementedException();
+        try
+        {
+            _lotniska.Remove(lotnisko);
+        }
+        catch
+        {
+            throw new BrakLotniskaException();
+        }
     }
 
     public Lotnisko GetSingle(string nazwa)
@@ -44,12 +50,11 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
                 return l;
         }
 
-        return null; //TODO obsluga bledu jak nie znajdzie lotniska o takim miescie
+        throw new BrakLotniskaException();
     }
 
     public List<Lotnisko> GetList()
     {
-        //TODO
         return _lotniska;
     }
 
@@ -83,8 +88,20 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
 
     public void SaveData(string path)
     {
-        //TODO
-        throw new NotImplementedException();
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (Lotnisko lotnisko in _lotniska)
+                {
+                    sw.WriteLine(lotnisko);
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieZapisacPlikuException();
+        }
     }
     public void Reset() => _lotniska.Clear(); // do testow jednostkowych
 }

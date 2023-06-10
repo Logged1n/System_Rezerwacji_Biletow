@@ -34,7 +34,6 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public void Usun(Samolot samolot)
     {
-        //TODO obsluga bledu jak nie znajdziesz tego samolotu do usuniecia
         try
         {
             _samoloty.Remove(samolot);
@@ -48,7 +47,6 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public Samolot GetSingle(string id)
     {
-        //TODO obsluga bledu jezeli nie znajdziesz samolotu o takim id
         foreach (Samolot s in _samoloty)
         {
             if (s.Id == id)
@@ -70,15 +68,24 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         using (StreamReader reader = new StreamReader(path))
         {
             string[] splitedLine;
-            int zasieg, iloscMiejsc;
             while (reader.ReadLine() is { } line)
             {
                 splitedLine = line.Split(";");
-                
+                if (splitedLine[0][0] == 'R')
+                {
+                    regionalnyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+                else if (splitedLine[0][0] == 'W')
+                {
+                    waskokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+                else if (splitedLine[0][0] == 'S')
+                {
+                    szerokokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
             }
         }
-        //TODO
-        throw new NotImplementedException();
+
     }
 
     public void SaveData(string path)
@@ -89,7 +96,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
             {
                 foreach (Samolot samolot in _samoloty)
                 {
-                    sw.WriteLine(samolot);
+                    sw.WriteLine($"{samolot.Id};{samolot.PoczatkoweLotnisko.Nazwa}");
                 }
             }
         }
@@ -101,8 +108,16 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
     {
-        //TODO; obsluga bledu jezeli nie ma takiego lotniska
-        throw new NotImplementedException();
+        List<Samolot> _samolociki = new List<Samolot>();
+        foreach (Samolot samolot in _samoloty)
+        {
+            if (samolot.PoczatkoweLotnisko == lotnisko)
+            {
+                _samolociki.Add(samolot);
+            }
+        }
+        return _samolociki;
     }
+    
     public void Reset() => _samoloty.Clear(); // do testow jednostkowych
 }

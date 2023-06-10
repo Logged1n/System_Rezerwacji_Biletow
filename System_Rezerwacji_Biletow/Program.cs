@@ -44,7 +44,7 @@ class Program
                               "4. Zarzadzaj Lotniskami\n" +
                               "5. Wygeneruj Lot\n" +
                               "6. Powiel Lot\n" +
-                              "7. Zarezerwuj Bilet\n" +
+                              "7. Zarzadzaj Biletami\n" +
                               "8. Zamknij Program");
             var wybor = Console.ReadLine();
             switch (wybor)
@@ -237,6 +237,8 @@ class Program
                                 {
                                     Console.WriteLine(klient);
                                 }
+
+                                Console.ReadKey();
                                 validChoice = true;
                                 break;
                             }
@@ -282,11 +284,19 @@ class Program
                             }
                             case "2":
                             {
-                                Console.WriteLine("Podaj ID trasy, ktora chcesz usunac: ");
-                                string id = Console.ReadLine();
-                                trasaManagement.Usun(trasaManagement.GetSingle(id));
-                                Console.WriteLine($"Pomyslnie usunieto trase o id {id}. Nacisnij dowolny przycisk aby kontynuowac...");
-                                Console.ReadKey();
+                                try
+                                {
+                                    Console.WriteLine("Podaj ID trasy, ktora chcesz usunac: ");
+                                    string id = Console.ReadLine();
+                                    trasaManagement.Usun(trasaManagement.GetSingle(id));
+                                    Console.WriteLine($"Pomyslnie usunieto trase o id {id}. Nacisnij dowolny przycisk aby kontynuowac...");
+                                    Console.ReadKey();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac..");
+                                    Console.ReadKey();
+                                }
                                 validChoice = true;
                                 break;
                             }
@@ -381,46 +391,95 @@ class Program
 
                 case "5":
                 {
-                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
-                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
-                    Console.WriteLine("Podaj id trasy, dla ktorej chcesz wygenerowac lot: ");
-                    string idTrasy = Console.ReadLine();
-                    Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac");
-                    DateTime dataOdlotu = DateTime.Parse(Console.ReadLine());
-                    Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac: ");
-                    DateTime dataPowrotu = DateTime.Parse(Console.ReadLine());
-                    Console.WriteLine("Jak czesto ma sie powtarzac lot? (Jednorazowy, Comiesieczny, Cotygodniowy, Codzienny): ");
-                    Czestotliwosc czestotliwosc = Enum.Parse<Czestotliwosc>(Console.ReadLine());
-                    lotPlaner.GenerujLot(TrasaManagement.GetInstance().GetSingle(idTrasy), dataOdlotu, dataPowrotu, czestotliwosc);
+                    try
+                    {
+                        LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                        LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                        Console.WriteLine("Podaj id trasy, dla ktorej chcesz wygenerowac lot: ");
+                        string idTrasy = Console.ReadLine();
+                        Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac");
+                        DateTime dataOdlotu = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac: ");
+                        DateTime dataPowrotu = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Jak czesto ma sie powtarzac lot? (Jednorazowy, Comiesieczny, Cotygodniowy, Codzienny): ");
+                        Czestotliwosc czestotliwosc = Enum.Parse<Czestotliwosc>(Console.ReadLine());
+                        lotPlaner.GenerujLot(TrasaManagement.GetInstance().GetSingle(idTrasy), dataOdlotu, dataPowrotu, czestotliwosc);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac..");
+                        Console.ReadKey();
+                    }
                     break;
                 }
 
                 case "6":
                 {
-                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
-                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
-                    Console.WriteLine("Podaj numer lotu, ktory chcesz powielic: ");
-                    string numerLotu = Console.ReadLine();
-                    lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
+                    try
+                    {
+                        LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                        LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                        Console.WriteLine("Podaj numer lotu, ktory chcesz powielic: ");
+                        string numerLotu = Console.ReadLine();
+                        lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac..");
+                        Console.ReadKey();
+                    }
                     break;
                 }
                 case "7":
                 {
-                    //TODO
-                    Console.WriteLine("Podaj id klienta, na ktorego ma byc rezerwacja: ");
-                    string id = Console.ReadLine();
-                   Console.WriteLine("Podaj numer lotu, na ktory chcesz dokonac rezerwacji: ");
-                   string numer = Console.ReadLine();
-                   try
-                   {
-                       rezerwacjaManagement.Dodaj(new Rezerwacja.Rezerwacja(klientManagement.GetSingle(id),
-                           lotManagement.GetSingle(numer)));
-                   }
-                   catch (Exception ex)
-                   {
-                       Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac...");
-                       Console.ReadKey();
-                   }
+                    var validChoice = false;
+                    do
+                    {
+                        Console.Clear();
+                        Console.WriteLine("1. Zarezerwuj Bilet\n" +
+                                          "2. Przegladaj Rezerwacje\n");
+                        var wybor2 = Console.ReadLine();
+                        switch (wybor2)
+                        {
+                            case "1":
+                            {
+                                Console.WriteLine("Podaj id klienta, na ktorego ma byc rezerwacja: ");
+                                string id = Console.ReadLine();
+                                Console.WriteLine("Podaj numer lotu, na ktory chcesz dokonac rezerwacji: ");
+                                string numer = Console.ReadLine();
+                                try
+                                {
+                                    rezerwacjaManagement.Dodaj(new Rezerwacja.Rezerwacja(klientManagement.GetSingle(id),
+                                        lotManagement.GetSingle(numer)));
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac...");
+                                    Console.ReadKey();
+                                }
+                                validChoice = true;
+                                break;
+                            }
+                            case "2":
+                            {
+                                foreach (var rezerwacja in rezerwacjaManagement.GetList())
+                                {
+                                    Console.WriteLine(rezerwacja);
+                                }
+                                validChoice = true;
+                                Console.ReadKey();
+                                break;
+                            }
+                            default:
+                            {
+                                Console.WriteLine(
+                                    "Niepoprawny wybor! Wybierz ponownie. Nacisnij dowolny przycisk aby kontynuowac...");
+                                Console.ReadKey();
+                                break;
+                            }
+                        }
+
+                    } while (!validChoice);
                     break;
                 }
 
