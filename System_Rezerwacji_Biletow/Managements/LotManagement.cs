@@ -63,7 +63,7 @@ public class LotManagement : ILotManagement, IDataProvider
             {
                 foreach (Lot l in _loty)
                 {
-                    sw.WriteLine(l);
+                    sw.WriteLine($"{l.Trasa.Id};{l.Samolot.Id};{l.DataOdlotu};{l.DataPowrotu};{l.CzestotliwoscLotu}");
                 }
             }
         }

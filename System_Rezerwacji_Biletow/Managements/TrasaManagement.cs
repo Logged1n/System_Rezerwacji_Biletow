@@ -92,7 +92,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
             {
                 foreach (Trasa t in _trasy)
                 {
-                    sw.WriteLine(t);
+                    sw.WriteLine($"{t.Start.Nazwa};{t.Cel.Nazwa};{t.Dystans}");
                 }
             }
         }

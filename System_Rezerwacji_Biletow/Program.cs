@@ -487,10 +487,12 @@ class Program
                 {
                     try
                     {
-                        samolotManagement.SaveData("samoloty.txt");
-                        lotniskoManagement.SaveData("lotniska.txt");
-                        trasaManagement.SaveData("trasy.txt");
-                        lotManagement.SaveData("loty.txt");
+                        samolotManagement.SaveData("../../../SystemFiles/samoloty.txt");
+                        lotniskoManagement.SaveData("../../../SystemFiles/lotniska.txt");
+                        trasaManagement.SaveData("../../../SystemFiles/trasy.txt");
+                        lotManagement.SaveData("../../../SystemFiles/loty.txt");
+                        klientManagement.SaveData("../../../SystemFiles/klienci.txt");
+                        rezerwacjaManagement.SaveData("../../../SystemFiles/rezerwacje.txt");
                         Console.WriteLine(
                             "Zapisano stan systemu. Nastapi zamkniecie programu. Nacisnij dowolny przycisk aby kontynuowac...");
                     }

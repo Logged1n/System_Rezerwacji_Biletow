@@ -1,2 +1,3 @@
-F;123456789;lotcorp@gmail.com;LotCorp
-I;654321987;jankowalski@outlook.com;Jan;Kowalski
+F0;123456789;lotcorp@gmail.com;LotCorp
+I1;654321987;jankowalski@outlook.com;Jan;Kowalski
+I2;211521372;maciek123@gmail.com;Maicek;Mackowski

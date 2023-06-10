@@ -101,6 +101,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         }
     }
 
+
     public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
     {
         List<Samolot> _samolociki = new List<Samolot>();
