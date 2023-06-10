@@ -42,8 +42,8 @@ public class LotManagement : ILotManagement, IDataProvider
                     _lotBuilder.SetNumerLotu(Convert.ToString(LotManagement.GetInstance().GetList().Count));
                     _lotBuilder.SetTrasa(TrasaManagement.GetInstance().GetSingle(splitedLine[0]));
                     _lotBuilder.SetSamolot(SamolotManagement.GetInstance().GetSingle(splitedLine[1]));
-                    _lotBuilder.SetDataOdlotu(DateTime.ParseExact(splitedLine[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None));
-                    _lotBuilder.SetDataPowrotu(DateTime.ParseExact(splitedLine[3], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None));
+                    _lotBuilder.SetDataOdlotu(DateTime.Parse(splitedLine[2]));
+                    _lotBuilder.SetDataPowrotu(DateTime.Parse(splitedLine[3]));
                    _lotBuilder.SetCzestotliwoscLotu(Enum.Parse<Czestotliwosc>(splitedLine[4]));
                    _lotBuilder.Build();
                 }

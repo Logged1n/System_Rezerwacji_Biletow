@@ -78,11 +78,11 @@ public class KlientManagement: IManagement<Klient>, IDataProvider
                 while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
-                    if (splitedLine[0] == "F")
+                    if (splitedLine[0][0] == 'F')
                     {
                         Dodaj(firmaFactory.CreateKlient(splitedLine[1], splitedLine[2], splitedLine[3]));
                     }
-                    else if (splitedLine[0]=="I")
+                    else if (splitedLine[0][0]=='I')
                     {
                         Dodaj(indywidualnyFactory.CreateKlient(splitedLine[1], splitedLine[2], splitedLine[3], splitedLine[4]));
                     }

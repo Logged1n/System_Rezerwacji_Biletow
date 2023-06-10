@@ -7,7 +7,6 @@ using Klient;
 
 class Program
 {
-    //TODO wypelnienie wszystkich opcji; generalnie jakies testy jednostkowe, obslugi bledow
     private static void Main(string[] args)
     {
         //DATA SETUP
@@ -24,7 +23,7 @@ class Program
             samolotManagement.LoadData("../../../SystemFiles/samoloty.txt");
             trasaManagement.LoadData("../../../SystemFiles/trasy.txt");
             lotManagement.LoadData("../../../SystemFiles/loty.txt");
-            rezerwacjaManagement.LoadData("../../../SystemFiles/rezerwacje.txt"); //TODO
+            rezerwacjaManagement.LoadData("../../../SystemFiles/rezerwacje.txt");
         }
         catch (Exception ex)
         {
