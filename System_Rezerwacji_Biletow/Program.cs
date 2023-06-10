@@ -383,17 +383,25 @@ class Program
 
                 case "5":
                 {
-                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
-                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
-                    Console.WriteLine("Podaj id trasy, dla ktorej chcesz wygenerowac lot: ");
-                    string idTrasy = Console.ReadLine();
-                    Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac");
-                    DateTime dataOdlotu = DateTime.Parse(Console.ReadLine());
-                    Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac: ");
-                    DateTime dataPowrotu = DateTime.Parse(Console.ReadLine());
-                    Console.WriteLine("Jak czesto ma sie powtarzac lot? (Jednorazowy, Comiesieczny, Cotygodniowy, Codzienny): ");
-                    Czestotliwosc czestotliwosc = Enum.Parse<Czestotliwosc>(Console.ReadLine());
-                    lotPlaner.GenerujLot(TrasaManagement.GetInstance().GetSingle(idTrasy), dataOdlotu, dataPowrotu, czestotliwosc);
+                    try
+                    {
+                        LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                        LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                        Console.WriteLine("Podaj id trasy, dla ktorej chcesz wygenerowac lot: ");
+                        string idTrasy = Console.ReadLine();
+                        Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac");
+                        DateTime dataOdlotu = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac: ");
+                        DateTime dataPowrotu = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Jak czesto ma sie powtarzac lot? (Jednorazowy, Comiesieczny, Cotygodniowy, Codzienny): ");
+                        Czestotliwosc czestotliwosc = Enum.Parse<Czestotliwosc>(Console.ReadLine());
+                        lotPlaner.GenerujLot(TrasaManagement.GetInstance().GetSingle(idTrasy), dataOdlotu, dataPowrotu, czestotliwosc);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac..");
+                        Console.ReadKey();
+                    }
                     break;
                 }
 
