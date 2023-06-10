@@ -1,4 +1,5 @@
 ﻿namespace System_Rezerwacji_Biletow;
+using ConsoleTables;
 using Samolot;
 using Lot;
 using Managements;
@@ -41,10 +42,11 @@ class Program
                               "2. Zarzadzaj Klientami\n" +
                               "3. Zarzadzaj Trasami\n" +
                               "4. Zarzadzaj Lotniskami\n" +
-                              "5. Wygeneruj Lot\n" +
-                              "6. Powiel Lot\n" +
-                              "7. Zarzadzaj Biletami\n" +
-                              "8. Zamknij Program");
+                              "5. Wyswietl liste Lotow\n" +
+                              "6. Wygeneruj Lot\n" +
+                              "7. Powiel Lot, ktory juz istnieje\n" +
+                              "8. Zarzadzaj Biletami\n" +
+                              "9. Zamknij Program");
             var wybor = Console.ReadLine();
             switch (wybor)
             {
@@ -132,10 +134,15 @@ class Program
                             }
                             case "3":
                             {
+                                Console.Clear();
+                                var table = new ConsoleTable("ID", "Ilosc miejsc", "Zasieg (km)", "Lotnisko poczatkowe");
+                                
                                 foreach (var samolot in samolotManagement.GetList())
                                 {
-                                    Console.WriteLine(samolot);
+                                    string[] splitedProps = samolot.ToString().Split(";");
+                                    table.AddRow(splitedProps[0], splitedProps[1], splitedProps[2], splitedProps[3]);
                                 }
+                                table.Write();
                                 Console.ReadKey();
                                 validChoice = true;
                                 break;
@@ -232,11 +239,21 @@ class Program
                             }
                             case "3":
                             {
+                                var table = new ConsoleTable("ID", "Numer telefonu", "Email", "Imie", "Nazwisko", "Nazwa firmy");
                                 foreach (var klient in klientManagement.GetList())
                                 {
-                                    Console.WriteLine(klient);
+                                    if (klient is KlientIndywidualny)
+                                    {
+                                        string[] props = klient.ToString().Split(";");
+                                        table.AddRow(props[0], props[1], props[2], props[3], props[4], "Brak");
+                                    }
+                                    else if (klient is KlientFirma)
+                                    {
+                                        string[] props = klient.ToString().Split(";");
+                                        table.AddRow(props[0], props[1], props[2], "Brak", "Brak", props[3]);
+                                    }
                                 }
-
+                                table.Write();
                                 Console.ReadKey();
                                 validChoice = true;
                                 break;
@@ -390,15 +407,27 @@ class Program
 
                 case "5":
                 {
+                    Console.WriteLine("| Numer lotu | Trasa | Samolot | Data odlotu | Data powrotu | Czestotliwosc lotu |");
+                    foreach (var lot in lotManagement.GetList())
+                    {
+                        Console.WriteLine(lot);
+                    }
+
+                    Console.ReadKey();
+                    break;
+                }
+
+                case "6":
+                {
                     try
                     {
                         LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
                         LotPlaner lotPlaner = new LotPlaner(lotBuilder);
                         Console.WriteLine("Podaj id trasy, dla ktorej chcesz wygenerowac lot: ");
                         string idTrasy = Console.ReadLine();
-                        Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac");
+                        Console.WriteLine("Podaj date odlotu lotu, ktory chcesz wygenerowac(dd.MM.yyyy GG:mm:ss):");
                         DateTime dataOdlotu = DateTime.Parse(Console.ReadLine());
-                        Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac: ");
+                        Console.WriteLine("Podaj date powrotu lotu, ktory chcesz wygenerowac(dd.MM.yyyy GG:mm:ss): ");
                         DateTime dataPowrotu = DateTime.Parse(Console.ReadLine());
                         Console.WriteLine("Jak czesto ma sie powtarzac lot? (Jednorazowy, Comiesieczny, Cotygodniowy, Codzienny): ");
                         Czestotliwosc czestotliwosc = Enum.Parse<Czestotliwosc>(Console.ReadLine());
@@ -412,7 +441,7 @@ class Program
                     break;
                 }
 
-                case "6":
+                case "7":
                 {
                     try
                     {
@@ -429,7 +458,7 @@ class Program
                     }
                     break;
                 }
-                case "7":
+                case "8":
                 {
                     var validChoice = false;
                     do
@@ -482,7 +511,7 @@ class Program
                     break;
                 }
 
-                case "8":
+                case "9":
                 {
                     try
                     {
