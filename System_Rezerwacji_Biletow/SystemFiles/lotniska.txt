@@ -1,0 +1,4 @@
+Polska;Warszawa;Chopin
+USA;Nowy York;NY Lotnisko
+Czechy;Praga;Praga Lotnisko
+Polska;Bialystok;Krywlany

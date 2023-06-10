@@ -1,0 +1,2 @@
+F;123456789;lotcorp@gmail.com;LotCorp
+I;654321987;jankowalski@outlook.com;Jan;Kowalski

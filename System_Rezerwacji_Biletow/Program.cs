@@ -19,14 +19,14 @@ class Program
         RezerwacjaManagement rezerwacjaManagement = RezerwacjaManagement.GetInstance();
         try
         {
-            lotniskoManagement.LoadData("lotniska.txt");
-            klientManagement.LoadData("klienci.txt");
-            samolotManagement.LoadData("samoloty.txt");
-            trasaManagement.LoadData("trasy.txt");
-            lotManagement.LoadData("loty.txt");
-            rezerwacjaManagement.LoadData("rezerwacje.txt");
+            lotniskoManagement.LoadData("../../../SystemFiles/lotniska.txt");
+            klientManagement.LoadData("../../../SystemFiles/klienci.txt");
+            samolotManagement.LoadData("../../../SystemFiles/samoloty.txt");
+            trasaManagement.LoadData("../../../SystemFiles/trasy.txt");
+            lotManagement.LoadData("../../../SystemFiles/loty.txt");
+            rezerwacjaManagement.LoadData("../../../SystemFiles/rezerwacje.txt"); //TODO
         }
-        catch (NieUdaloSieOdczytacPlikuException ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message + "Nie odczytano stanu systemu, ale mozesz korzystac z programu. Nacisnij dowolny przycisk aby kontynuowac...");
             Console.ReadKey();

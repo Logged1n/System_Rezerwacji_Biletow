@@ -30,7 +30,7 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
                 while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
-                    Rezerwacja r = new Rezerwacja(KlientManagement.GetInstance().GetSingle(splitedLine[0]), LotManagement.GetInstance().GetSingle(splitedLine[1]));
+                    Rezerwacja r = new Rezerwacja(KlientManagement.GetInstance().GetSingle(splitedLine[0].Substring(1)), LotManagement.GetInstance().GetSingle(splitedLine[1]));
                 }
             }
         }

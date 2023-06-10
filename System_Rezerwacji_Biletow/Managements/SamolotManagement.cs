@@ -23,12 +23,6 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
     }
     public void Dodaj(Samolot samolot)
     {
-        foreach (Samolot s in _samoloty)
-        {
-            if (s.Id == samolot.Id)
-                throw new TakiSamolotJuzIstniejeException();
-        }
-
         _samoloty.Add(samolot);
     }
 
@@ -68,20 +62,21 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         using (StreamReader reader = new StreamReader(path))
         {
             string[] splitedLine;
+            
             while (reader.ReadLine() is { } line)
             {
                 splitedLine = line.Split(";");
                 if (splitedLine[0][0] == 'R')
                 {
-                    regionalnyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                    _instance.Dodaj(regionalnyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1])));
                 }
                 else if (splitedLine[0][0] == 'W')
                 {
-                    waskokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                    _instance.Dodaj(waskokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1])));
                 }
                 else if (splitedLine[0][0] == 'S')
                 {
-                    szerokokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                    _instance.Dodaj(szerokokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1])));
                 }
             }
         }
@@ -96,7 +91,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
             {
                 foreach (Samolot samolot in _samoloty)
                 {
-                    sw.WriteLine($"{samolot.Id};{samolot.PoczatkoweLotnisko.Nazwa}");
+                    sw.WriteLine($"{samolot.Id[0]};{samolot.PoczatkoweLotnisko.Nazwa}");
                 }
             }
         }

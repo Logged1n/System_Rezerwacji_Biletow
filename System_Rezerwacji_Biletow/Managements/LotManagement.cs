@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace System_Rezerwacji_Biletow.Managements;
 using Interfaces;
 using Samolot;
@@ -27,13 +29,12 @@ public class LotManagement : ILotManagement, IDataProvider
 
     public void LoadData(string path)
     {
+        LotPasazerskiBuilder _lotBuilder = new LotPasazerskiBuilder();
         try
         {
-            LotPasazerskiBuilder _lotBuilder = new LotPasazerskiBuilder();
             using (StreamReader reader = new StreamReader(path))
             {
                 string[] splitedLine;
-                DateTime dataOdlotu, dataPowrotu;
                 while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
@@ -41,14 +42,14 @@ public class LotManagement : ILotManagement, IDataProvider
                     _lotBuilder.SetNumerLotu(Convert.ToString(LotManagement.GetInstance().GetList().Count));
                     _lotBuilder.SetTrasa(TrasaManagement.GetInstance().GetSingle(splitedLine[0]));
                     _lotBuilder.SetSamolot(SamolotManagement.GetInstance().GetSingle(splitedLine[1]));
-                    _lotBuilder.SetDataOdlotu(DateTime.Parse(splitedLine[2]));
-                    _lotBuilder.SetDataPowrotu(DateTime.Parse(splitedLine[3]));
+                    _lotBuilder.SetDataOdlotu(DateTime.ParseExact(splitedLine[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None));
+                    _lotBuilder.SetDataPowrotu(DateTime.ParseExact(splitedLine[3], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None));
                    _lotBuilder.SetCzestotliwoscLotu(Enum.Parse<Czestotliwosc>(splitedLine[4]));
                    _lotBuilder.Build();
                 }
             }
         }
-        catch
+        catch(Exception ex)
         {
             throw new NieUdaloSieOdczytacPlikuException();
         }

@@ -70,10 +70,9 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
                 while (reader.ReadLine() is { } line)
                 {
                     splitedLine = line.Split(";");
-                    string id = splitedLine[0];
-                    var start = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
-                    var cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
-                    dystans = Convert.ToInt32(splitedLine[3]);
+                    var start = LotniskoManagement.GetInstance().GetSingle(splitedLine[0]);
+                    var cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
+                    dystans = Convert.ToInt32(splitedLine[2]);
                     Trasa t = new Trasa(start, cel, dystans);
                     Dodaj(t);
                 }
