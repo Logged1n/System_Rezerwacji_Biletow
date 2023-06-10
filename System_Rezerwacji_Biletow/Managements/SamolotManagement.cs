@@ -1,4 +1,7 @@
 namespace System_Rezerwacji_Biletow.Managements;
+using Exceptions;
+using Interfaces;
+using Samolot;
 
 public class SamolotManagement : ISamolotManagement, IDataProvider
 {
@@ -18,28 +21,38 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         }
         return _instance;
     }
-    public void Dodaj(Samolot item)
+    public void Dodaj(Samolot samolot)
     {
-        //TODO, sprawdzicz czy przypadkiem dodajesz samolotu, ktory jest juz na liscie
-      _samoloty.Add(item);
+        foreach (Samolot s in _samoloty)
+        {
+            if (s.Id == samolot.Id)
+                throw new TakiSamolotJuzIstniejeException();
+        }
+
+        _samoloty.Add(samolot);
     }
 
-    public void Usun(Samolot item)
+    public void Usun(Samolot samolot)
     {
-        //TODO obsluga bledu jak nie znajdziesz tego samolotu do usuniecia
-        throw new NotImplementedException();
+        try
+        {
+            _samoloty.Remove(samolot);
+        }
+        catch
+        {
+            throw new BrakOdpowiedniegoSamolotuException(); 
+        }
+
     }
 
     public Samolot GetSingle(string id)
     {
-        //TODO obsluga bledu jezeli nie znajdziesz samolotu o takim id
-        foreach (var s in _samoloty)
+        foreach (Samolot s in _samoloty)
         {
             if (s.Id == id)
                 return s;
         }
-
-        return null;
+        throw new BrakOdpowiedniegoSamolotuException();
     }
 
     public List<Samolot> GetList()
@@ -49,20 +62,62 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
 
     public void LoadData(string path)
     {
-        //TODO
-        throw new NotImplementedException();
+        SamolotRegionalnyFactory regionalnyFactory = new SamolotRegionalnyFactory();
+        SamolotWaskokadlubowyFactory waskokadlubowyFactory = new SamolotWaskokadlubowyFactory();
+        SamolotSzerokokadlubowyFactory szerokokadlubowyFactory = new SamolotSzerokokadlubowyFactory();
+        using (StreamReader reader = new StreamReader(path))
+        {
+            string[] splitedLine;
+            while (reader.ReadLine() is { } line)
+            {
+                splitedLine = line.Split(";");
+                if (splitedLine[0][0] == 'R')
+                {
+                    regionalnyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+                else if (splitedLine[0][0] == 'W')
+                {
+                    waskokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+                else if (splitedLine[0][0] == 'S')
+                {
+                    szerokokadlubowyFactory.CreateSamolot(LotniskoManagement.GetInstance().GetSingle(splitedLine[1]));
+                }
+            }
+        }
+
     }
 
     public void SaveData(string path)
     {
-        //TODO
-        throw new NotImplementedException();
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+                foreach (Samolot samolot in _samoloty)
+                {
+                    sw.WriteLine($"{samolot.Id};{samolot.PoczatkoweLotnisko.Nazwa}");
+                }
+            }
+        }
+        catch
+        {
+            throw new NieUdaloSieZapisacPlikuException();
+        }
     }
 
     public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
     {
-        //TODO; obsluga bledu jezeli nie ma takiego lotniska
-        throw new NotImplementedException();
+        List<Samolot> _samolociki = new List<Samolot>();
+        foreach (Samolot samolot in _samoloty)
+        {
+            if (samolot.PoczatkoweLotnisko == lotnisko)
+            {
+                _samolociki.Add(samolot);
+            }
+        }
+        return _samolociki;
     }
     
+    public void Reset() => _samoloty.Clear(); // do testow jednostkowych
 }

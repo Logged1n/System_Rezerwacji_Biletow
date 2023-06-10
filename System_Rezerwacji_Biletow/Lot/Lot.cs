@@ -1,5 +1,5 @@
 namespace System_Rezerwacji_Biletow.Lot; 
-
+using Samolot;
 public class Lot
 {
     public string NumerLotu { get;  internal set; } // niepowtarzalny identyfikator danego lotu

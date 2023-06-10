@@ -1,6 +1,5 @@
-using System_Rezerwacji_Biletow.Managements;
-
-namespace System_Rezerwacji_Biletow;
+namespace System_Rezerwacji_Biletow.Samolot;
+using Interfaces;
 
 public class SamolotRegionalnyFactory : ISamolotFactory
 {

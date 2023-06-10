@@ -1,5 +1,6 @@
 namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
+using Interfaces;
 
 public class TrasaManagement : IManagement<Trasa>, IDataProvider
 {
@@ -74,7 +75,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
                     var cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
                     dystans = Convert.ToInt32(splitedLine[3]);
                     Trasa t = new Trasa(id, start, cel, dystans);
-                    this.Dodaj(t);
+                    Dodaj(t);
                 }
             }
         }
@@ -101,4 +102,5 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
             throw new NieUdaloSieZapisacPlikuException();
         }
     }
+    public void Reset() => _trasy.Clear(); // do testow jednostkowych
 }
