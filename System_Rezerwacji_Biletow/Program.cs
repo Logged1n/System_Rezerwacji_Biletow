@@ -284,11 +284,19 @@ class Program
                             }
                             case "2":
                             {
-                                Console.WriteLine("Podaj ID trasy, ktora chcesz usunac: ");
-                                string id = Console.ReadLine();
-                                trasaManagement.Usun(trasaManagement.GetSingle(id));
-                                Console.WriteLine($"Pomyslnie usunieto trase o id {id}. Nacisnij dowolny przycisk aby kontynuowac...");
-                                Console.ReadKey();
+                                try
+                                {
+                                    Console.WriteLine("Podaj ID trasy, ktora chcesz usunac: ");
+                                    string id = Console.ReadLine();
+                                    trasaManagement.Usun(trasaManagement.GetSingle(id));
+                                    Console.WriteLine($"Pomyslnie usunieto trase o id {id}. Nacisnij dowolny przycisk aby kontynuowac...");
+                                    Console.ReadKey();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac..");
+                                    Console.ReadKey();
+                                }
                                 validChoice = true;
                                 break;
                             }
