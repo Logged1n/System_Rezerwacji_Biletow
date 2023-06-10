@@ -9,7 +9,7 @@ public class Trasa
     public Lotnisko Cel { get; }
     public int Dystans { get; }
 
-    public Trasa( Lotnisko start, Lotnisko cel, int dystans) // konstruktor do wczytywania danych w TrasaManagement
+    public Trasa(Lotnisko start, Lotnisko cel, int dystans) // konstruktor do wczytywania danych w TrasaManagement
     {
         Id = Convert.ToString(TrasaManagement.GetInstance().GetList().Count);
         Start = start;

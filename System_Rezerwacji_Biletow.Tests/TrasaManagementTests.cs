@@ -19,7 +19,7 @@ public class TrasaManagementTests
         //Arrange
         Lotnisko lot1 = new Lotnisko("TestKraj", "TestMiasto", "TestNazwa");
         Lotnisko lot2 = new Lotnisko("TestKraj", "TestMiasto", "TestNazwa");
-        Trasa obj = new Trasa("0000", lot1, lot2,100);
+        Trasa obj = new Trasa( lot1, lot2,100);
         
         //Act
         _management.Dodaj(obj);
@@ -34,7 +34,7 @@ public class TrasaManagementTests
         //Arrange
         Lotnisko lot1 = new Lotnisko("TestKraj", "TestMiasto", "TestNazwa");
         Lotnisko lot2 = new Lotnisko("TestKraj", "TestMiasto", "TestNazwa");
-        Trasa obj = new Trasa("0000", lot1, lot2,100);
+        Trasa obj = new Trasa(lot1, lot2,100);
         _management.Dodaj(obj);
         
         //Act
