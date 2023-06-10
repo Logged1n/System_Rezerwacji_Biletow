@@ -74,7 +74,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
                     var start = LotniskoManagement.GetInstance().GetSingle(splitedLine[1]);
                     var cel = LotniskoManagement.GetInstance().GetSingle(splitedLine[2]);
                     dystans = Convert.ToInt32(splitedLine[3]);
-                    Trasa t = new Trasa(id, start, cel, dystans);
+                    Trasa t = new Trasa(start, cel, dystans);
                     Dodaj(t);
                 }
             }

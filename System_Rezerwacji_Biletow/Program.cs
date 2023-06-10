@@ -275,7 +275,7 @@ class Program
                                 string nazwaCel = Console.ReadLine();
                                 Console.WriteLine("Podaj jakiego dystansu jest to trasa (w km): ");
                                 int dystans = Convert.ToInt32(Console.ReadLine());
-                                Trasa dodawanaTrasa = new Trasa(id.ToString(),lotniskoManagement.GetSingle(nazwaPoczatek), lotniskoManagement.GetSingle(nazwaCel), dystans);
+                                Trasa dodawanaTrasa = new Trasa(lotniskoManagement.GetSingle(nazwaPoczatek), lotniskoManagement.GetSingle(nazwaCel), dystans);
                                 trasaManagement.Dodaj(dodawanaTrasa);
                                 Console.WriteLine("Pomyslnie dodano trase do bazy danych tras. Nacisnij dowolny przycisk aby kontynuowac...");
                                 Console.ReadKey();
