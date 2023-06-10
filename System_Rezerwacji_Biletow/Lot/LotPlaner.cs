@@ -44,17 +44,17 @@ public class LotPlaner
             }
             case Czestotliwosc.Comiesieczny:
             {
-                GenerujLot(lot.Trasa, lot.DataOdlotu.AddMonths(1), lot.DataPowrotu.AddMonths(1));
+                GenerujLot(lot.Trasa, lot.DataOdlotu.AddMonths(1), lot.DataPowrotu.AddMonths(1), lot.CzestotliwoscLotu);
                 break;
             }
             case Czestotliwosc.Cotygodniowy:
             {
-                GenerujLot(lot.Trasa, lot.DataOdlotu.AddDays(7), lot.DataPowrotu.AddDays(7));
+                GenerujLot(lot.Trasa, lot.DataOdlotu.AddDays(7), lot.DataPowrotu.AddDays(7), lot.CzestotliwoscLotu);
                 break;
             }
             case Czestotliwosc.Codzienny:
             {
-                GenerujLot(lot.Trasa, lot.DataOdlotu.AddDays(1), lot.DataPowrotu.AddDays(1));
+                GenerujLot(lot.Trasa, lot.DataOdlotu.AddDays(1), lot.DataPowrotu.AddDays(1), lot.CzestotliwoscLotu);
                 break;
             }
         }

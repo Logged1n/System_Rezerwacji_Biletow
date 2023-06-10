@@ -1,3 +1,5 @@
+using System_Rezerwacji_Biletow.Klient;
+
 namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
 using Interfaces;
@@ -6,6 +8,8 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
 {
     private readonly List<Rezerwacja> _Rezerwacje;
     private static RezerwacjaManagement _instance;
+    public static int IloscRezerwacji { get; private set; }// usuniecie cyklicznego odwolania przy nadawaniu ID
+
     private RezerwacjaManagement()
     {
         _Rezerwacje = new List<Rezerwacja>();
@@ -60,14 +64,25 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
 
     public void Dodaj(Rezerwacja rezerwacja)
     {
-        foreach (Rezerwacja r in _Rezerwacje)
+        int i = 0;
+        foreach (var r in _Rezerwacje)
         {
-            if (r.Id == rezerwacja.Id)
+            if (r.Lot == rezerwacja.Lot)
+                i++;
+        }
+
+        if (rezerwacja.Lot.Samolot.IloscMiejsc > i)
+        {
+            IloscRezerwacji++;  
+            _Rezerwacje.Add(rezerwacja);
+        }
+        else
+        {
             {
-                throw new TakaRezerwacjaJuzIstniejeException();
+                throw new SamolotPelnyException();
             }
         }
-        _Rezerwacje.Add(rezerwacja);
+        
     }
 
     public void Usun(Rezerwacja rezerwacja)
@@ -78,6 +93,7 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
             if (r.Id == rezerwacja.Id)
             {
                 _Rezerwacje.Remove(r);
+                IloscRezerwacji--;
                 return;
             }
         }

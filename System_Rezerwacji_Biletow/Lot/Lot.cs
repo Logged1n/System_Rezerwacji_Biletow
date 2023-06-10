@@ -11,6 +11,6 @@ public class Lot
 
     public override string ToString()
     {
-        return $"{NumerLotu};{Trasa};{Samolot};{DataOdlotu};{DataPowrotu};{CzestotliwoscLotu}";
+        return $"{NumerLotu};{Trasa.Start.Nazwa};{Trasa.Cel.Nazwa};{Samolot.Id};{DataOdlotu};{DataPowrotu};{CzestotliwoscLotu}";
     }
 }

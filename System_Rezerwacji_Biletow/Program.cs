@@ -239,6 +239,7 @@ class Program
                             }
                             case "3":
                             {
+                                Console.Clear();
                                 var table = new ConsoleTable("ID", "Numer telefonu", "Email", "Imie", "Nazwisko", "Nazwa firmy");
                                 foreach (var klient in klientManagement.GetList())
                                 {
@@ -318,11 +319,14 @@ class Program
                             }
                             case "3":
                             {
-                                Console.WriteLine("Dane sa w fortmacie: id;LotniskoStartowe;LotniskoDocelowe;Dystans w km");
+                                Console.Clear();
+                                var table = new ConsoleTable("ID", "Poczatek", "Koniec", "Dystans (km)");
                                 foreach (var t in trasaManagement.GetList())
                                 {
-                                    Console.WriteLine(t);
+                                    string[] props = t.ToString().Split(";");
+                                    table.AddRow(props[0], props[1], props[2], props[3]);
                                 }
+                                table.Write();
                                 Console.WriteLine("\nNacisnij dowolny przycisk, aby kontynuowac...");
                                 Console.ReadKey();
                                 validChoice = true;
@@ -384,11 +388,14 @@ class Program
                             }
                             case "3":
                             {
+                                Console.Clear();
+                                var table = new ConsoleTable("Kraj", "Miasto", "Nazwa");
                                 foreach (var lotnisko in lotniskoManagement.GetList())
                                 {
-                                    Console.WriteLine(lotnisko);
+                                    string[] props = lotnisko.ToString().Split(";");
+                                    table.AddRow(props[0], props[1], props[2]);
                                 }
-
+                                table.Write();
                                 Console.ReadKey();
                                 validChoice = true;
                                 break;
@@ -407,11 +414,14 @@ class Program
 
                 case "5":
                 {
-                    Console.WriteLine("| Numer lotu | Trasa | Samolot | Data odlotu | Data powrotu | Czestotliwosc lotu |");
+                    Console.Clear();
+                    var table = new ConsoleTable("Numer lotu", "Lotnisko startowe", "Lotnisko docelowe","ID samolotu", "Data odlotu", "Data powrotu", "Czestotliwosc lotu");
                     foreach (var lot in lotManagement.GetList())
                     {
-                        Console.WriteLine(lot);
+                        string[] props = lot.ToString().Split(";");
+                        table.AddRow(props[0], props[1], props[2], props[3], props[4], props[5], props[6]);
                     }
+                    table.Write();
 
                     Console.ReadKey();
                     break;
@@ -490,10 +500,13 @@ class Program
                             }
                             case "2":
                             {
+                                var table = new ConsoleTable("ID Rezerwacji", "ID Klienta", "Numer lotu");
                                 foreach (var rezerwacja in rezerwacjaManagement.GetList())
                                 {
-                                    Console.WriteLine(rezerwacja);
+                                    string[] props = rezerwacja.ToString().Split(";");
+                                    table.AddRow(props[0], props[1], props[2]);
                                 }
+                                table.Write();
                                 validChoice = true;
                                 Console.ReadKey();
                                 break;

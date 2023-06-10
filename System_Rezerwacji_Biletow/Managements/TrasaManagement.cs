@@ -25,7 +25,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
     {
         foreach (var t in _trasy) // sprawdzenie czy nie ma juz trasy, ktora chcemy dodac
         {
-            if (t.Id == trasa.Id)
+            if (t.Start.Nazwa == trasa.Start.Nazwa && t.Cel.Nazwa == trasa.Cel.Nazwa)
                 throw new TakaTrasaJuzIstniejeException();
         }
         _trasy.Add(trasa);
