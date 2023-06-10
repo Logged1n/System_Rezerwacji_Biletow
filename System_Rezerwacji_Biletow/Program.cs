@@ -399,11 +399,19 @@ class Program
 
                 case "6":
                 {
-                    LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
-                    LotPlaner lotPlaner = new LotPlaner(lotBuilder);
-                    Console.WriteLine("Podaj numer lotu, ktory chcesz powielic: ");
-                    string numerLotu = Console.ReadLine();
-                    lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
+                    try
+                    {
+                        LotPasazerskiBuilder lotBuilder = new LotPasazerskiBuilder();
+                        LotPlaner lotPlaner = new LotPlaner(lotBuilder);
+                        Console.WriteLine("Podaj numer lotu, ktory chcesz powielic: ");
+                        string numerLotu = Console.ReadLine();
+                        lotPlaner.PowielLot(LotManagement.GetInstance().GetSingle(numerLotu));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message + "Nacisnij dowolny przycisk, aby kontynuowac..");
+                        Console.ReadKey();
+                    }
                     break;
                 }
                 case "7":
@@ -419,7 +427,6 @@ class Program
                         {
                             case "1":
                             {
-                                //TODO
                                 Console.WriteLine("Podaj id klienta, na ktorego ma byc rezerwacja: ");
                                 string id = Console.ReadLine();
                                 Console.WriteLine("Podaj numer lotu, na ktory chcesz dokonac rezerwacji: ");
