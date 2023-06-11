@@ -78,11 +78,8 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
         }
         else
         {
-            {
-                throw new SamolotPelnyException();
-            }
+            throw new SamolotPelnyException();
         }
-        
     }
 
     public void Usun(Rezerwacja rezerwacja)

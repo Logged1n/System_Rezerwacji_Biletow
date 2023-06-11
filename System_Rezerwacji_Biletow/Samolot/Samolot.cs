@@ -1,5 +1,4 @@
 namespace System_Rezerwacji_Biletow.Samolot;
-
 using Managements;
 public abstract class Samolot
 {

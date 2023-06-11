@@ -1,7 +1,7 @@
 namespace System_Rezerwacji_Biletow.Interfaces;
-
+using Samolot;
 
 public interface ISamolotFactory // Interfejs fabryk samolotow ~wzorzec projektowy Abstract Factory
 {
-    public Samolot.Samolot CreateSamolot(Lotnisko poczatkoweLotnisko); // ewentualnie dodac parametry jezeli beda potrzebne
+    public Samolot CreateSamolot(Lotnisko poczatkoweLotnisko);
 }

@@ -2,7 +2,6 @@ namespace System_Rezerwacji_Biletow;
 
 public class Lotnisko
 {
-    //TODO jakas lepsza obsluga wypisywania tego, moze zewnetrzna biblioteka (?)
     public string Kraj { get; }
     public string Miasto { get; }
     public string Nazwa { get; }

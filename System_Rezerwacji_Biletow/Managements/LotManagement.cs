@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace System_Rezerwacji_Biletow.Managements;
 using Interfaces;
 using Samolot;
@@ -39,7 +37,7 @@ public class LotManagement : ILotManagement, IDataProvider
                 {
                     splitedLine = line.Split(";");
                     _lotBuilder.Reset();
-                    _lotBuilder.SetNumerLotu(Convert.ToString(LotManagement.GetInstance().GetList().Count));
+                    _lotBuilder.SetNumerLotu(Convert.ToString(_loty.Count));
                     _lotBuilder.SetTrasa(TrasaManagement.GetInstance().GetSingle(splitedLine[0]));
                     _lotBuilder.SetSamolot(SamolotManagement.GetInstance().GetSingle(splitedLine[1]));
                     _lotBuilder.SetDataOdlotu(DateTime.Parse(splitedLine[2]));
