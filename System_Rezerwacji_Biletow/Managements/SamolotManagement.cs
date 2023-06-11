@@ -13,7 +13,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
         
         _samoloty = new List<Samolot>();
     }
-    public static SamolotManagement GetInstance()
+    public static SamolotManagement GetInstance() //SINGLETON
     {
         if(_instance == null)
         {
@@ -102,7 +102,7 @@ public class SamolotManagement : ISamolotManagement, IDataProvider
     }
 
 
-    public List<Samolot> GetListLotnisko(Lotnisko lotnisko)
+    public List<Samolot> GetListLotnisko(Lotnisko lotnisko) //Metoda zwracajaca liste wszystkich samolotow wylatujacych z danego lista ~uzywana w LotPlaner
     {
         List<Samolot> _samolociki = new List<Samolot>();
         foreach (Samolot samolot in _samoloty)

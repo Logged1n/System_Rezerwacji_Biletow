@@ -37,7 +37,7 @@ public class TrasaManagement : IManagement<Trasa>, IDataProvider
         {
             _trasy.Remove(trasa);
         }
-        catch (BrakTrasyException ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message + "Nie usunieto podanej trasy.");
         }

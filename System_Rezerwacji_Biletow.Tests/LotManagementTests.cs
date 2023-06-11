@@ -1,9 +1,8 @@
-using System_Rezerwacji_Biletow.Interfaces;
-
 namespace System_Rezerwacji_Biletow.Tests;
 using NUnit.Framework;
 using Lot;
 using Managements;
+using Interfaces;
 
 [TestFixture]
 public class LotManagementTests

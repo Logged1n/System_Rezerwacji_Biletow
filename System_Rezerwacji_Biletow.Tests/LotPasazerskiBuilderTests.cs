@@ -1,9 +1,8 @@
-using System_Rezerwacji_Biletow.Managements;
-
 namespace System_Rezerwacji_Biletow.Tests;
 using NUnit.Framework;
 using Lot;
 using Samolot;
+using Managements;
 
 [TestFixture]
 public class LotPasazerskiBuilderTests

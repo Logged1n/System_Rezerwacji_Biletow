@@ -65,7 +65,8 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
     public void Dodaj(Rezerwacja rezerwacja)
     {
         int i = 0;
-        foreach (var r in _Rezerwacje)
+        var lista = new List<Rezerwacja>(_Rezerwacje); //usuniecie konfliktu przy tescie jednostkowym
+        foreach (var r in lista)
         {
             if (r.Lot == rezerwacja.Lot)
                 i++;
@@ -84,7 +85,7 @@ public class RezerwacjaManagement: IDataProvider, IManagement<Rezerwacja>
 
     public void Usun(Rezerwacja rezerwacja)
     {
-        var lista = new List<Rezerwacja>(_Rezerwacje);
+        var lista = new List<Rezerwacja>(_Rezerwacje); //usuniecie konfliktu przy tescie jednostkowym
         foreach (Rezerwacja r in lista)
         {
             if (r.Id == rezerwacja.Id)

@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Rezerwacja;
 using Klient;
 using Lot;
+using Samolot;
 
 [TestFixture]
 public class RezerwacjaManagementTests
@@ -24,12 +25,17 @@ public class RezerwacjaManagementTests
     public void DodajTest()
     {
         //Arrange
+        Lotnisko A = new Lotnisko("X", "Y", "Z");
+        Lotnisko B = new Lotnisko("A", "B", "C");
+        SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
+        Samolot regionalny = srf.CreateSamolot(A);
         KlientIndywidualnyFactory kif = new KlientIndywidualnyFactory();
         KlientFirmaFactory kff = new KlientFirmaFactory();
         Klient TestKlient1 = kif.CreateKlient("TestNumer", "TestEmail", "TestImie", "TestNazwisko");
         Klient TestKlient2 = kff.CreateKlient("TestNumer", "TestEmail", "TestFirma");
         lotBuilder.SetNumerLotu("1");
-        lotBuilder.SetTrasa(new Trasa(new Lotnisko("X", "Y", "Z"), new Lotnisko("A", "B", "C"), 150));
+        lotBuilder.SetTrasa(new Trasa(A, B, 150));
+        lotBuilder.SetSamolot(regionalny);
         lotBuilder.SetDataOdlotu(DateTime.Now);
         lotBuilder.SetDataPowrotu(DateTime.Now.AddHours(8));
         lotBuilder.SetCzestotliwoscLotu(Czestotliwosc.Jednorazowy);
@@ -48,12 +54,17 @@ public class RezerwacjaManagementTests
     public void UsunTest()
     {
         //Arrange
+        Lotnisko A = new Lotnisko("X", "Y", "Z");
+        Lotnisko B = new Lotnisko("A", "B", "C");
+        SamolotRegionalnyFactory srf = new SamolotRegionalnyFactory();
+        Samolot regionalny = srf.CreateSamolot(A);
         KlientIndywidualnyFactory kif = new KlientIndywidualnyFactory();
         KlientFirmaFactory kff = new KlientFirmaFactory();
         Klient TestKlient1 = kif.CreateKlient("TestNumer", "TestEmail", "TestImie", "TestNazwisko");
         Klient TestKlient2 = kff.CreateKlient("TestNumer", "TestEmail", "TestFirma");
         lotBuilder.SetNumerLotu("1");
-        lotBuilder.SetTrasa(new Trasa(new Lotnisko("X", "Y", "Z"), new Lotnisko("A", "B", "C"), 150));
+        lotBuilder.SetTrasa(new Trasa(A, B, 150));
+        lotBuilder.SetSamolot(regionalny);
         lotBuilder.SetDataOdlotu(DateTime.Now);
         lotBuilder.SetDataPowrotu(DateTime.Now.AddHours(8));
         lotBuilder.SetCzestotliwoscLotu(Czestotliwosc.Jednorazowy);

@@ -6,7 +6,7 @@ public abstract class Klient
     public string NumerTelefonu { get;}
     public string Email { get;}
 
-    protected Klient(string numerTelefonu, string email)
+    protected Klient(string numerTelefonu, string email) //tylko klasy dziedziczace moga z niego skorzystac
     {
         Id = "K" + Convert.ToString(KlientManagement.GetInstance().GetList().Count);
         NumerTelefonu = numerTelefonu;

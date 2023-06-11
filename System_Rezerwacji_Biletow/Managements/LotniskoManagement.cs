@@ -12,7 +12,7 @@ public class LotniskoManagement : IManagement<Lotnisko>, IDataProvider
         _lotniska = new List<Lotnisko>();
     }
 
-    public static LotniskoManagement GetInstance()
+    public static LotniskoManagement GetInstance() //SINGLETON
     {
         if (_instance == null)
         {

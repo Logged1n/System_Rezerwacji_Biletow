@@ -2,6 +2,7 @@ namespace System_Rezerwacji_Biletow.Managements;
 using Exceptions;
 using Interfaces;
 using Klient;
+
 public class KlientManagement: IManagement<Klient>, IDataProvider
 {
     private readonly List<Klient> _klienci;
@@ -12,7 +13,7 @@ public class KlientManagement: IManagement<Klient>, IDataProvider
         _klienci = new List<Klient>();
     }
 
-    public static KlientManagement GetInstance()
+    public static KlientManagement GetInstance() //SINGLETON
     {
         if (_instance == null)
         {

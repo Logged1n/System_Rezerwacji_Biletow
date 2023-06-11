@@ -15,7 +15,7 @@ public class LotManagement : ILotManagement, IDataProvider
         _loty = new List<Lot>();
     }
 
-    public static LotManagement GetInstance()
+    public static LotManagement GetInstance() //SINGLETON
     {
         if (_instance == null)
         {

@@ -1,5 +1,3 @@
-using System_Rezerwacji_Biletow.Klient;
-
 namespace System_Rezerwacji_Biletow.Tests;
 using Managements;
 using NUnit.Framework;

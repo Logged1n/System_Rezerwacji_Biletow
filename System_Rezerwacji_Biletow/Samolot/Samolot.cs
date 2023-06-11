@@ -1,6 +1,6 @@
 namespace System_Rezerwacji_Biletow.Samolot;
 using Managements;
-public abstract class Samolot
+public abstract class Samolot //schemat patrz klasa Klient
 {
     public string Id { get; internal set; }
     public int IloscMiejsc { get; }
